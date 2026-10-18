@@ -1,0 +1,51 @@
+@page "/docs/list"
+
+<PageTitle>List — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">List</h1>
+        <p class="docs-subtitle">Lists present multiple items vertically as a single continuous element, with primary and secondary texts, icons, avatars, and actions.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Collection" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Divided Action List</h2>
+        <p class="docs-section-desc">Combine list items with icons and trailing action buttons.</p>
+        <ZakDocsExample Title="Interactive List" Code="@ListCode">
+            <div style="max-width: 440px; background: var(--zak-surface); border: 1px solid var(--zak-border); border-radius: 8px;">
+                <ZakList Divided="true">
+                    <ZakListItem Primary="General Settings" Secondary="Manage profile and notification preferences" Icon="@ZakIcons.Settings">
+                        <ActionContent>
+                            <ZakIconButton Icon="@ZakIcons.ChevronRight" Size="ZakSize.ExtraSmall" AriaLabel="Open" />
+                        </ActionContent>
+                    </ZakListItem>
+                    <ZakListItem Primary="Security & 2FA" Secondary="Configure passkeys and authenticators" Icon="@ZakIcons.Lock">
+                        <ActionContent>
+                            <ZakIconButton Icon="@ZakIcons.ChevronRight" Size="ZakSize.ExtraSmall" AriaLabel="Open" />
+                        </ActionContent>
+                    </ZakListItem>
+                    <ZakListItem Primary="Billing & Invoices" Secondary="Subscription plan and payment cards" Icon="@ZakIcons.CreditCard">
+                        <ActionContent>
+                            <ZakIconButton Icon="@ZakIcons.ChevronRight" Size="ZakSize.ExtraSmall" AriaLabel="Open" />
+                        </ActionContent>
+                    </ZakListItem>
+                </ZakList>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakList" />
+    </div>
+</div>
+
+@code {
+    private const string ListCode = @"<ZakList Divided=""true"">
+    <ZakListItem Primary=""General Settings"" Secondary=""Manage profile"" Icon=""@ZakIcons.Settings"" />
+    <ZakListItem Primary=""Security & 2FA"" Secondary=""Configure passkeys"" Icon=""@ZakIcons.Lock"" />
+</ZakList>";
+}

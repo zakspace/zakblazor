@@ -1,0 +1,54 @@
+@page "/docs/fab"
+@page "/docs/floating-action-button"
+
+<PageTitle>Floating Action Button (FAB) — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Floating Action Button (FAB)</h1>
+        <p class="docs-subtitle">A circular or extended high-emphasis action button that performs the primary action on a screen.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Buttons" Color="ZakColor.Primary" />
+            <ZakBadge Content="High Emphasis" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Circular FABs -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Circular FAB</h2>
+        <p class="docs-section-desc">Default circular form factor with icons and vibrant semantic colors.</p>
+        <ZakDocsExample Title="Circular FABs" Code="@CircularCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="4">
+                <ZakFloatingActionButton Icon="@ZakIcons.Plus" Color="ZakColor.Primary" AriaLabel="Add item" />
+                <ZakFloatingActionButton Icon="@ZakIcons.Edit" Color="ZakColor.Secondary" AriaLabel="Edit item" />
+                <ZakFloatingActionButton Icon="@ZakIcons.Heart" Color="ZakColor.Danger" AriaLabel="Like" />
+                <ZakFloatingActionButton Icon="@ZakIcons.Share" Color="ZakColor.Success" AriaLabel="Share" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Extended FAB -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Extended FAB</h2>
+        <p class="docs-section-desc">Add a label with <code>Text="..."</code> or <code>Extended="true"</code> for clearer intent.</p>
+        <ZakDocsExample Title="Extended FAB" Code="@ExtendedCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="4" Wrap="true">
+                <ZakFloatingActionButton Icon="@ZakIcons.Plus" Text="Create New Issue" Color="ZakColor.Primary" />
+                <ZakFloatingActionButton Icon="@ZakIcons.Download" Text="Export Report" Color="ZakColor.Default" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakFloatingActionButton" />
+    </div>
+</div>
+
+@code {
+    private const string CircularCode = @"<ZakFloatingActionButton Icon=""@ZakIcons.Plus"" Color=""ZakColor.Primary"" AriaLabel=""Add"" />
+<ZakFloatingActionButton Icon=""@ZakIcons.Edit"" Color=""ZakColor.Secondary"" AriaLabel=""Edit"" />
+<ZakFloatingActionButton Icon=""@ZakIcons.Heart"" Color=""ZakColor.Danger"" AriaLabel=""Like"" />";
+
+    private const string ExtendedCode = @"<ZakFloatingActionButton Icon=""@ZakIcons.Plus"" Text=""Create New Issue"" Color=""ZakColor.Primary"" />
+<ZakFloatingActionButton Icon=""@ZakIcons.Download"" Text=""Export Report"" Color=""ZakColor.Default"" />";
+}

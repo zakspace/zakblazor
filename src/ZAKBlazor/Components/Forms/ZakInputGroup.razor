@@ -1,0 +1,89 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div class="zak-form-field">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <ZakLabel For="@ElementId" Required="@Required" Text="@Label" />
+    }
+
+    <div id="@ElementId"
+         class="@CompiledClass"
+         style="@CompiledStyle"
+         @attributes="AdditionalAttributes">
+        @if (!string.IsNullOrEmpty(PrependText) || PrependContent != null)
+        {
+            <span class="zak-input-group-addon">
+                @if (!string.IsNullOrEmpty(PrependText))
+                {
+                    @PrependText
+                }
+                else
+                {
+                    @PrependContent
+                }
+            </span>
+        }
+
+        @ChildContent
+
+        @if (!string.IsNullOrEmpty(AppendText) || AppendContent != null)
+        {
+            <span class="zak-input-group-addon">
+                @if (!string.IsNullOrEmpty(AppendText))
+                {
+                    @AppendText
+                }
+                else
+                {
+                    @AppendContent
+                }
+            </span>
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(ErrorText))
+    {
+        <div class="zak-error-text" role="alert">
+            @ErrorText
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(HelperText))
+    {
+        <div class="zak-helper-text">
+            @HelperText
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Label { get; set; }
+
+    [Parameter]
+    public bool Required { get; set; }
+
+    [Parameter]
+    public string? HelperText { get; set; }
+
+    [Parameter]
+    public string? ErrorText { get; set; }
+
+    [Parameter]
+    public string? PrependText { get; set; }
+
+    [Parameter]
+    public string? AppendText { get; set; }
+
+    [Parameter]
+    public RenderFragment? PrependContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? AppendContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-input-group").Build();
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

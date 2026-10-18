@@ -1,0 +1,113 @@
+@namespace ZAKBlazor
+@typeparam TValue
+@inherits ZAKBlazor.Primitives.ZakInputBase<TValue>
+
+<div class="zak-form-field">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <ZakLabel For="@ElementId" Required="@Required" Text="@Label" />
+    }
+
+    <div class="@CompiledWrapperClass" style="@CompiledStyle">
+        <select id="@ElementId"
+                class="zak-input zak-select"
+                disabled="@Disabled"
+                required="@Required"
+                aria-invalid="@(HasError ? "true" : "false")"
+                @onchange="HandleChangeAsync"
+                @attributes="AdditionalAttributes">
+            @if (!string.IsNullOrEmpty(Placeholder))
+            {
+                <option value="" disabled selected="@(Value == null || EqualityComparer<TValue>.Default.Equals(Value, default))">@Placeholder</option>
+            }
+            @ChildContent
+        </select>
+
+        <span class="zak-select-arrow" aria-hidden="true">
+            <ZakIcon Icon="@ZakIcons.ChevronDown" Size="ZakSize.Small" />
+        </span>
+    </div>
+
+    @if (HasError && !string.IsNullOrEmpty(ValidationErrorMessage))
+    {
+        <span class="zak-error-text" role="alert">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            @ValidationErrorMessage
+        </span>
+    }
+    else if (!string.IsNullOrEmpty(HelperText))
+    {
+        <span class="zak-helper-text">@HelperText</span>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledWrapperClass => CreateClassBuilder("zak-input-wrapper")
+        .AddClass(Variant.ToCssClass())
+        .AddClass(Size.ToCssClass())
+        .AddClass(Color.ToCssClass())
+        .AddClass("zak-input-error", HasError)
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task HandleChangeAsync(ChangeEventArgs e)
+    {
+        if (Disabled) return;
+        var rawValue = e.Value?.ToString();
+
+        if (typeof(TValue) == typeof(string))
+        {
+            await SetCurrentValueAsync((TValue?)(object?)rawValue);
+        }
+        else if (typeof(TValue).IsEnum)
+        {
+            if (Enum.TryParse(typeof(TValue), rawValue, out var parsed))
+            {
+                await SetCurrentValueAsync((TValue)parsed);
+            }
+        }
+        else if (Nullable.GetUnderlyingType(typeof(TValue))?.IsEnum == true)
+        {
+            if (string.IsNullOrEmpty(rawValue))
+            {
+                await SetCurrentValueAsync(default);
+            }
+            else if (Enum.TryParse(Nullable.GetUnderlyingType(typeof(TValue))!, rawValue, out var parsed))
+            {
+                await SetCurrentValueAsync((TValue)parsed);
+            }
+        }
+        else if (typeof(TValue) == typeof(int) || typeof(TValue) == typeof(int?))
+        {
+            if (int.TryParse(rawValue, out var i))
+            {
+                await SetCurrentValueAsync((TValue)(object)i);
+            }
+            else
+            {
+                await SetCurrentValueAsync(default);
+            }
+        }
+        else
+        {
+            try
+            {
+                var converted = (TValue)Convert.ChangeType(rawValue, typeof(TValue))!;
+                await SetCurrentValueAsync(converted);
+            }
+            catch
+            {
+                // Fallback
+            }
+        }
+    }
+}

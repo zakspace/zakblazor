@@ -1,0 +1,570 @@
+/**
+ * ZAKBlazor Navigation: Tabs & Menu
+ */
+
+/* ──────────────────────────────────────────────
+   TABS
+────────────────────────────────────────────── */
+.zak-tabs {
+  display: flex;
+  position: relative;
+  gap: var(--zak-spacing-1);
+  border-bottom: 2px solid var(--zak-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.zak-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.zak-tabs.zak-tabs-vertical {
+  flex-direction: column;
+  border-bottom: none;
+  border-right: 2px solid var(--zak-border);
+  overflow-x: visible;
+  overflow-y: auto;
+}
+
+.zak-tabs.zak-tabs-centered {
+  justify-content: center;
+}
+
+.zak-tabs.zak-tabs-full-width .zak-tab {
+  flex: 1;
+}
+
+/* Tab item */
+.zak-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zak-spacing-2);
+  padding: var(--zak-spacing-3) var(--zak-spacing-4);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--zak-text-secondary);
+  white-space: nowrap;
+  position: relative;
+  border-radius: var(--zak-radius-sm) var(--zak-radius-sm) 0 0;
+  transition: color var(--zak-transition-fast), background-color var(--zak-transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.zak-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background-color: transparent;
+  transition: background-color var(--zak-transition-fast), transform var(--zak-transition-normal);
+  transform: scaleX(0);
+}
+
+.zak-tab:hover {
+  color: var(--zak-text-primary);
+  background-color: var(--zak-surface-hover);
+}
+
+.zak-tab.zak-tab-active {
+  color: var(--zak-primary);
+  font-weight: 600;
+}
+
+.zak-tab.zak-tab-active::after {
+  background-color: var(--zak-primary);
+  transform: scaleX(1);
+}
+
+.zak-tab.zak-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Color variants for active tab indicator */
+.zak-tabs.zak-tabs-primary .zak-tab.zak-tab-active {
+  color: var(--zak-primary);
+}
+
+.zak-tabs.zak-tabs-primary .zak-tab.zak-tab-active::after {
+  background-color: var(--zak-primary);
+}
+
+.zak-tabs.zak-tabs-secondary .zak-tab.zak-tab-active {
+  color: var(--zak-secondary);
+}
+
+.zak-tabs.zak-tabs-secondary .zak-tab.zak-tab-active::after {
+  background-color: var(--zak-secondary);
+}
+
+.zak-tabs.zak-tabs-success .zak-tab.zak-tab-active {
+  color: var(--zak-success);
+}
+
+.zak-tabs.zak-tabs-success .zak-tab.zak-tab-active::after {
+  background-color: var(--zak-success);
+}
+
+/* Pill style tabs */
+.zak-tabs.zak-tabs-pill {
+  border-bottom: none;
+  gap: var(--zak-spacing-2);
+  padding: var(--zak-spacing-1);
+  background-color: var(--zak-surface-hover);
+  border-radius: var(--zak-radius-lg);
+}
+
+.zak-tabs.zak-tabs-pill .zak-tab {
+  border-radius: var(--zak-radius-md);
+}
+
+.zak-tabs.zak-tabs-pill .zak-tab::after {
+  display: none;
+}
+
+.zak-tabs.zak-tabs-pill .zak-tab.zak-tab-active {
+  background-color: var(--zak-primary);
+  color: #fff;
+}
+
+/* Vertical tab indicator */
+.zak-tabs.zak-tabs-vertical .zak-tab {
+  border-radius: var(--zak-radius-sm) 0 0 var(--zak-radius-sm);
+}
+
+.zak-tabs.zak-tabs-vertical .zak-tab::after {
+  bottom: auto;
+  top: 0;
+  left: auto;
+  right: -2px;
+  width: 2px;
+  height: 100%;
+  transform: scaleY(0);
+  border-radius: 0;
+}
+
+.zak-tabs.zak-tabs-vertical .zak-tab.zak-tab-active::after {
+  transform: scaleY(1);
+}
+
+/* ──────────────────────────────────────────────
+   MENU
+────────────────────────────────────────────── */
+.zak-menu-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Invisible backdrop to close on outside click */
+.zak-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+}
+
+.zak-menu {
+  position: absolute;
+  z-index: 999;
+  min-width: 180px;
+  max-width: 280px;
+  padding: var(--zak-spacing-1) 0;
+  background-color: var(--zak-surface);
+  border: 1px solid var(--zak-border);
+  border-radius: var(--zak-radius-md);
+  box-shadow: var(--zak-shadow-4);
+  overflow: hidden;
+  animation: zak-menu-enter var(--zak-transition-fast) ease-out;
+}
+
+@keyframes zak-menu-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Placement */
+.zak-menu-bottom-start {
+  top: calc(100% + 4px);
+  left: 0;
+}
+
+.zak-menu-bottom-end {
+  top: calc(100% + 4px);
+  right: 0;
+}
+
+.zak-menu-top-start {
+  bottom: calc(100% + 4px);
+  left: 0;
+}
+
+.zak-menu-top-end {
+  bottom: calc(100% + 4px);
+  right: 0;
+}
+
+/* Menu item */
+.zak-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--zak-spacing-3);
+  width: 100%;
+  padding: var(--zak-spacing-2) var(--zak-spacing-4);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--zak-text-primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color var(--zak-transition-fast), color var(--zak-transition-fast);
+  white-space: nowrap;
+}
+
+.zak-menu-item:hover {
+  background-color: var(--zak-surface-hover);
+  color: var(--zak-primary);
+}
+
+.zak-menu-item-icon {
+  display: flex;
+  align-items: center;
+  color: var(--zak-text-secondary);
+  flex-shrink: 0;
+}
+
+.zak-menu-item:hover .zak-menu-item-icon {
+  color: var(--zak-primary);
+}
+
+.zak-menu-item-text {
+  flex: 1;
+}
+
+.zak-menu-item-shortcut {
+  font-size: 0.75rem;
+  color: var(--zak-text-secondary);
+  font-family: var(--zak-font-mono, monospace);
+}
+
+.zak-menu-item.zak-menu-item-danger {
+  color: var(--zak-danger);
+}
+
+.zak-menu-item.zak-menu-item-danger:hover {
+  background-color: rgba(239, 68, 68, 0.08);
+}
+
+.zak-menu-item-divider {
+  height: 1px;
+  background-color: var(--zak-border-subtle);
+  margin: var(--zak-spacing-1) 0;
+}
+
+.zak-menu-activator {
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* ──────────────────────────────────────────────
+   NAV MENU - NAVGROUP - NAV LINK
+────────────────────────────────────────────── */
+
+.zak-nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zak-spacing-1, 4px);
+  width: 100%;
+}
+
+.zak-nav-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.zak-nav-group-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zak-spacing-2);
+  padding: var(--zak-spacing-2) var(--zak-spacing-3);
+  border-radius: var(--zak-radius-md);
+  color: var(--zak-text-secondary);
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--zak-transition-fast), background-color var(--zak-transition-fast);
+  box-sizing: border-box;
+}
+
+.zak-nav-group-button:hover {
+  background-color: var(--zak-surface-hover);
+  color: var(--zak-text-primary);
+}
+
+.zak-nav-group.zak-disabled .zak-nav-group-button {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.zak-nav-group-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.zak-nav-group-title {
+  flex: 1;
+}
+
+/* Smooth rotating chevron icon when expanded */
+.zak-nav-group-expand-icon {
+  display: inline-flex;
+  align-items: center;
+  transition: transform var(--zak-transition-fast);
+}
+
+.zak-nav-group-expand-icon.zak-expanded {
+  transform: rotate(180deg);
+}
+
+/* Indentation container for nested items */
+.zak-nav-group-children {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zak-spacing-1, 4px);
+  padding-left: var(--zak-spacing-6, 16px);
+  margin-top: var(--zak-spacing-1, 4px);
+}
+
+.zak-nav-menu .zak-nav-link,
+.zak-nav-menu .zak-nav-group-button {
+  width: 100%;
+}
+
+.zak-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zak-spacing-2);
+  padding: var(--zak-spacing-2) var(--zak-spacing-3);
+  border-radius: var(--zak-radius-md);
+  color: var(--zak-text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color var(--zak-transition-fast), background-color var(--zak-transition-fast);
+  box-sizing: border-box;
+}
+
+.zak-nav-link:hover {
+  background-color: var(--zak-surface-hover);
+  color: var(--zak-text-primary);
+}
+
+.zak-nav-link.active {
+  background-color: var(--zak-primary-light);
+  color: var(--zak-primary);
+  font-weight: 600;
+}
+
+.zak-nav-link.zak-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.zak-nav-link-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.zak-nav-link-content {
+  flex: 1;
+}
+
+.zak-nav-link-badge {
+  margin-left: auto;
+}
+
+/* ──────────────────────────────────────────────
+   BREADCRUMBS
+────────────────────────────────────────────── */
+.zak-breadcrumbs {
+  display: block;
+}
+
+.zak-breadcrumbs-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.zak-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.zak-breadcrumb-separator {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 var(--zak-spacing-2);
+  color: var(--zak-text-muted);
+  user-select: none;
+}
+
+.zak-breadcrumb-link {
+  color: var(--zak-text-secondary);
+  text-decoration: none;
+  transition: color var(--zak-transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zak-spacing-1);
+}
+
+.zak-breadcrumb-link:hover {
+  color: var(--zak-primary);
+  text-decoration: underline;
+}
+
+.zak-breadcrumb-content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zak-spacing-1);
+}
+
+.zak-breadcrumb-current {
+  color: var(--zak-text-primary);
+  font-weight: 600;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Stepper Component
+   ========================================================================== */
+
+.zak-stepper {
+  display: flex;
+  width: 100%;
+}
+
+.zak-stepper.zak-orientation-horizontal {
+  flex-direction: row;
+  align-items: center;
+}
+
+.zak-stepper.zak-orientation-vertical {
+  flex-direction: column;
+}
+
+.zak-step {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.zak-stepper.zak-orientation-horizontal .zak-step {
+  flex: 1;
+}
+
+.zak-stepper.zak-orientation-horizontal .zak-step:last-child {
+  flex: 0 0 auto;
+}
+
+.zak-step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+  border: none;
+  padding: 8px 0;
+}
+
+.zak-step-indicator {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 2px solid var(--zak-border);
+  background: var(--zak-surface);
+  color: var(--zak-text-secondary);
+  transition: all var(--zak-transition-fast);
+  flex-shrink: 0;
+}
+
+.zak-step-active .zak-step-indicator {
+  border-color: var(--zak-primary);
+  background: var(--zak-primary);
+  color: var(--zak-primary-contrast);
+  box-shadow: 0 0 0 4px var(--zak-primary-light);
+}
+
+.zak-step-completed .zak-step-indicator {
+  border-color: var(--zak-success);
+  background: var(--zak-success);
+  color: var(--zak-success-contrast);
+}
+
+.zak-step-label-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.zak-step-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--zak-text-primary);
+  white-space: nowrap;
+}
+
+.zak-step-subtitle {
+  font-size: 0.75rem;
+  color: var(--zak-text-muted);
+}
+
+.zak-step-connector {
+  flex: 1;
+  height: 2px;
+  background-color: var(--zak-border);
+  margin: 0 16px;
+  transition: background-color var(--zak-transition-fast);
+}
+
+.zak-step:last-child .zak-step-connector {
+  display: none;
+}
+
+.zak-step-completed .zak-step-connector {
+  background-color: var(--zak-success);
+}
+
+.zak-step-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

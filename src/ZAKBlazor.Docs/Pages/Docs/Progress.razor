@@ -1,0 +1,63 @@
+@page "/docs/progress"
+
+<PageTitle>Progress — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Progress</h1>
+        <p class="docs-subtitle">Progress indicators inform users about ongoing operations — either determinate with a known completion percentage, or indeterminate while waiting.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Feedback" Color="ZakColor.Primary" />
+            <ZakBadge Content="Loading" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Linear Progress -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Linear Progress Bar</h2>
+        <p class="docs-section-desc">Horizontal bar with determinate value, buffer, and indeterminate states.</p>
+        <ZakDocsExample Title="Linear Progress" Code="@LinearCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                <div>
+                    <ZakText Typo="Typo.caption" GutterBottom="true">Determinate — 68%</ZakText>
+                    <ZakProgressLinear Value="68" Color="ZakColor.Primary" Height="8" />
+                </div>
+                <div>
+                    <ZakText Typo="Typo.caption" GutterBottom="true">Success — 100%</ZakText>
+                    <ZakProgressLinear Value="100" Color="ZakColor.Success" Height="8" />
+                </div>
+                <div>
+                    <ZakText Typo="Typo.caption" GutterBottom="true">Indeterminate</ZakText>
+                    <ZakProgressLinear Indeterminate="true" Color="ZakColor.Warning" Height="8" />
+                </div>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Circular Progress -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Circular Progress</h2>
+        <p class="docs-section-desc">Circular spinner with configurable size and color.</p>
+        <ZakDocsExample Title="Circular Progress" Code="@CircularCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="4">
+                <ZakProgressCircular Indeterminate="true" Color="ZakColor.Primary" Size="ZakSize.Small" />
+                <ZakProgressCircular Indeterminate="true" Color="ZakColor.Success" Size="ZakSize.Medium" />
+                <ZakProgressCircular Indeterminate="true" Color="ZakColor.Warning" Size="ZakSize.Large" />
+                <ZakProgressCircular Value="72" Color="ZakColor.Danger" Size="ZakSize.Large" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakProgressLinear" />
+    </div>
+</div>
+
+@code {
+    private const string LinearCode = @"<ZakProgressLinear Value=""68"" Color=""ZakColor.Primary"" Height=""8"" />
+<ZakProgressLinear Value=""100"" Color=""ZakColor.Success"" Height=""8"" />
+<ZakProgressLinear Indeterminate=""true"" Color=""ZakColor.Warning"" Height=""8"" />";
+
+    private const string CircularCode = @"<ZakProgressCircular Indeterminate=""true"" Color=""ZakColor.Primary"" Size=""ZakSize.Medium"" />
+<ZakProgressCircular Value=""72"" Color=""ZakColor.Danger"" Size=""ZakSize.Large"" />";
+}

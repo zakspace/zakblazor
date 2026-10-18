@@ -1,0 +1,219 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "ZAKBlazor/1.0.0-preview.1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "9.0.20"
+        },
+        "runtime": {
+          "ZAKBlazor.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Authorization/9.0.20": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Metadata": "9.0.20",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.20",
+          "Microsoft.Extensions.Options": "9.0.20"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Authorization.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.2026.41407"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Components/9.0.20": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authorization": "9.0.20"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Components.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.2026.41407"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Components.Forms/9.0.20": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "9.0.20"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Components.Forms.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.2026.41407"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Components.Web/9.0.20": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "9.0.20",
+          "Microsoft.AspNetCore.Components.Forms": "9.0.20",
+          "Microsoft.Extensions.DependencyInjection": "9.0.20",
+          "Microsoft.Extensions.Primitives": "9.0.20",
+          "Microsoft.JSInterop": "9.0.20"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Components.Web.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.2026.41407"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Metadata/9.0.20": {
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Metadata.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.2026.41407"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/9.0.20": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.20"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.2026.41315"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.20": {
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.2026.41315"
+          }
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/9.0.20": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.20"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.2026.41315"
+          }
+        }
+      },
+      "Microsoft.Extensions.Options/9.0.20": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.20",
+          "Microsoft.Extensions.Primitives": "9.0.20"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Options.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.2026.41315"
+          }
+        }
+      },
+      "Microsoft.Extensions.Primitives/9.0.20": {
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.2026.41315"
+          }
+        }
+      },
+      "Microsoft.JSInterop/9.0.20": {
+        "runtime": {
+          "lib/net9.0/Microsoft.JSInterop.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.2026.41407"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ZAKBlazor/1.0.0-preview.1": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.AspNetCore.Authorization/9.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zwdjqHimej1oPKOHpZNaF418srWa7LW/aC6mKe1Vcgyd2K8xMllweQEKpbMYcMyIXNXpP8vOaNPzQu/UUEoyfw==",
+      "path": "microsoft.aspnetcore.authorization/9.0.20",
+      "hashPath": "microsoft.aspnetcore.authorization.9.0.20.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Components/9.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OSWB/ypL+7J1WZC133sj82rqPNdK3gBzvqEu28wqe2nr+Gx0vfhbgs9ODwx1oJISWjK0ZATh+SyFoJVaqnkZ0A==",
+      "path": "microsoft.aspnetcore.components/9.0.20",
+      "hashPath": "microsoft.aspnetcore.components.9.0.20.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Components.Forms/9.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3RtHIutN1+7DmYgux8DxdsE6S1gTQr0lPAn6FmJiCwTGw3oPLwvCJXD9wLL8edCQPQRpG0vICWArZpovytNoLA==",
+      "path": "microsoft.aspnetcore.components.forms/9.0.20",
+      "hashPath": "microsoft.aspnetcore.components.forms.9.0.20.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Components.Web/9.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KtiZVP8FD+1O1PYAXXrjnunmJ9wkV1oWgWU/Jc86AhBPVUVl1eK0JUnGmmIMTPA5WM3vlNE45aGNMRdgTCKDZQ==",
+      "path": "microsoft.aspnetcore.components.web/9.0.20",
+      "hashPath": "microsoft.aspnetcore.components.web.9.0.20.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Metadata/9.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vEB+9KcX8XBSWI6gjgObbB5M0R9WVVTfgYTvHn053iRSm9/WkkeEv+Oa+xlGVmUKK1T7fip7qVnCpAqqxGQHzg==",
+      "path": "microsoft.aspnetcore.metadata/9.0.20",
+      "hashPath": "microsoft.aspnetcore.metadata.9.0.20.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection/9.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SnnIHEHfbYGvd91ZNvYeJcQVSaICdSQWXficKuBkT0Jzfx34XsqZ9aHj0y/7a/eZWY05B3SI0dQA/gKfIVZgWw==",
+      "path": "microsoft.extensions.dependencyinjection/9.0.20",
+      "hashPath": "microsoft.extensions.dependencyinjection.9.0.20.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EsRc4piTdI3Ti5+cZwdpxn+mHwDCqT+b9ecmgYTTttpHFkYDyc4CenRNC9LrU0A+lTYsbQE8EvWC6sNp1Op0YA==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/9.0.20",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.9.0.20.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging.Abstractions/9.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZTbbB2mz0MxOMVQF7/yKhRD9ok6QR5Kq+Ifsk7XfdGC3zJTfMeJZeKR8/DfnlyvrlQnaWEmMkrnM8d1sBs3afA==",
+      "path": "microsoft.extensions.logging.abstractions/9.0.20",
+      "hashPath": "microsoft.extensions.logging.abstractions.9.0.20.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Options/9.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dX5P4j3++0g0iSlV+NhhPuCI/2moNbWvYEb8ZWlO84GEX1fbEg+hygNlHtw7SKHWaTe176ZrmvFsfhIMjB+AUQ==",
+      "path": "microsoft.extensions.options/9.0.20",
+      "hashPath": "microsoft.extensions.options.9.0.20.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Primitives/9.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-F9PkV2d5cHwibxxgklXhXtvVgZlPCJ0rkuY+jpa34o3vdUr0DcGX7XQkZouWuoDSZoYF0gUydM778d0wNpwB+Q==",
+      "path": "microsoft.extensions.primitives/9.0.20",
+      "hashPath": "microsoft.extensions.primitives.9.0.20.nupkg.sha512"
+    },
+    "Microsoft.JSInterop/9.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Sgvudj1a8Gat0VuIC5xfvViaTjCAQX2h7rVbalsp0E1TacIURyuAvCzcBhRJi/iTHImAgCrvXHDKYyfcNpUJ1Q==",
+      "path": "microsoft.jsinterop/9.0.20",
+      "hashPath": "microsoft.jsinterop.9.0.20.nupkg.sha512"
+    }
+  }
+}

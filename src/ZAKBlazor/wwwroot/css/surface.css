@@ -1,0 +1,193 @@
+/**
+ * ZAKBlazor Surfaces: Paper & Card System
+ */
+
+/* Paper */
+.zak-paper {
+  background-color: var(--zak-surface);
+  color: var(--zak-text-primary);
+  transition: box-shadow var(--zak-transition-fast), background-color var(--zak-transition-normal);
+}
+
+.zak-paper-outlined {
+  background-color: var(--zak-surface);
+  border: 1px solid var(--zak-border);
+  box-shadow: none;
+}
+
+/* Card */
+.zak-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--zak-card-bg);
+  color: var(--zak-text-primary);
+  border: 1px solid var(--zak-card-border);
+  border-radius: var(--zak-radius-lg);
+  overflow: hidden;
+  transition: transform var(--zak-transition-fast), box-shadow var(--zak-transition-fast), border-color var(--zak-transition-fast);
+}
+
+.zak-card-outlined {
+  box-shadow: none;
+  border: 1px solid var(--zak-border);
+}
+
+.zak-card-hoverable:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--zak-shadow-4);
+  border-color: rgba(94, 67, 243, 0.35);
+}
+
+.zak-card-clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Card Header */
+.zak-card-header {
+  display: flex;
+  align-items: center;
+  padding: var(--zak-spacing-4) var(--zak-spacing-5);
+  gap: var(--zak-spacing-3);
+}
+
+.zak-card-header-avatar {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.zak-card-header-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.zak-card-header-title {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--zak-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zak-card-header-subtitle {
+  font-size: 0.8125rem;
+  color: var(--zak-text-secondary);
+  line-height: 1.4;
+}
+
+.zak-card-header-action {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Card Media */
+.zak-card-media {
+  width: 100%;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+/* Card Content */
+.zak-card-content {
+  padding: var(--zak-spacing-4) var(--zak-spacing-5);
+  color: var(--zak-text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* Card Actions */
+.zak-card-actions {
+  display: flex;
+  align-items: center;
+  padding: var(--zak-spacing-3) var(--zak-spacing-5);
+  gap: var(--zak-spacing-2);
+  border-top: 1px solid var(--zak-border-subtle);
+}
+
+/* ==========================================================================
+   Accordion Component
+   ========================================================================== */
+
+.zak-accordion {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--zak-radius-lg, 12px);
+  overflow: hidden;
+  border: 1px solid var(--zak-border);
+  background: var(--zak-surface);
+}
+
+.zak-accordion-item {
+  border-bottom: 1px solid var(--zak-border);
+}
+
+.zak-accordion-item:last-child {
+  border-bottom: none;
+}
+
+.zak-accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--zak-text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color var(--zak-transition-fast);
+}
+
+.zak-accordion-header:hover:not(:disabled) {
+  background-color: var(--zak-surface-hover);
+}
+
+.zak-accordion-title-wrap {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.zak-accordion-title {
+  font-weight: 600;
+}
+
+.zak-accordion-subtitle {
+  margin-left: 12px;
+  font-size: 0.8125rem;
+  color: var(--zak-text-secondary);
+  font-weight: 400;
+}
+
+.zak-accordion-chevron {
+  transition: transform var(--zak-transition-fast);
+  color: var(--zak-text-muted);
+  flex-shrink: 0;
+}
+
+.zak-accordion-expanded .zak-accordion-chevron {
+  transform: rotate(180deg);
+}
+
+.zak-accordion-body {
+  padding: 14px 18px 18px;
+  color: var(--zak-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  border-top: 1px solid var(--zak-border-subtle, var(--zak-border));
+}
+
+.zak-accordion-disabled .zak-accordion-header {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

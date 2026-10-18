@@ -1,0 +1,62 @@
+@page "/docs/custom-palette"
+
+<PageTitle>Custom Palette — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Custom Palette</h1>
+        <p class="docs-subtitle">Customize light and dark theme colors to match your brand identity with the strongly-typed ZakTheme configuration.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Theming" Color="ZakColor.Primary" />
+            <ZakBadge Content="Dark Mode" Color="ZakColor.Secondary" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Defining a Custom Theme</h2>
+        <p class="docs-section-desc">Instantiate a <code>ZakTheme</code> object and pass it to <code>&lt;ZakThemeProvider Theme="myTheme"&gt;</code>.</p>
+        <ZakDocsExample Title="Custom Palette Configuration" Code="@ThemeConfigCode">
+            <pre><code>@ThemeConfigCode</code></pre>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Runtime Dark Mode Toggle</h2>
+        <p class="docs-section-desc">Inject <code>IZakThemeService</code> into any component or layout to toggle theme modes or observe changes.</p>
+        <ZakDocsExample Title="Toggle Dark Mode" Code="@ToggleCode">
+            <ZakButton StartIcon="@ZakIcons.Moon" Color="ZakColor.Primary" OnClick="() => ThemeService.ToggleDarkModeAsync()">
+                Toggle Light / Dark Mode
+            </ZakButton>
+        </ZakDocsExample>
+    </div>
+</div>
+
+@code {
+    @inject IZakThemeService ThemeService
+
+    private const string ThemeConfigCode = @"var myTheme = new ZakTheme
+{
+    PaletteLight = new ZakPaletteLight
+    {
+        Primary = ""#6366F1"",
+        Secondary = ""#EC4899"",
+        Success = ""#10B981"",
+        Warning = ""#F59E0B"",
+        Danger = ""#EF4444"",
+        Info = ""#3B82F6""
+    },
+    PaletteDark = new ZakPaletteDark
+    {
+        Primary = ""#818CF8"",
+        Secondary = ""#F472B6"",
+        Surface = ""#1E293B"",
+        Background = ""#0F172A""
+    }
+};";
+
+    private const string ToggleCode = @"@inject IZakThemeService ThemeService
+
+<ZakButton OnClick=""() => ThemeService.ToggleDarkModeAsync()"">
+    Toggle Dark Mode
+</ZakButton>";
+}

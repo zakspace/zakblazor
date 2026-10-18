@@ -1,0 +1,61 @@
+@page "/docs/flex"
+
+<PageTitle>Flex & Spacer — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Flex &amp; Spacer</h1>
+        <p class="docs-subtitle">Universal CSS flexbox primitives for flexible row and column alignment, gaps, wrapping, and automatic spacers.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Layout" Color="ZakColor.Primary" />
+            <ZakBadge Content="Flexbox" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Direction and Justify -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Direction & Alignment</h2>
+        <p class="docs-section-desc">Control flex direction, cross-axis alignment, and main-axis justification.</p>
+        <ZakDocsExample Title="Flex Container" Code="@FlexCode">
+            <ZakFlex Direction="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Justify="ZakJustify.SpaceBetween" Gap="3" Style="padding: 1rem; background: var(--zak-surface); border: 1px solid var(--zak-border); border-radius: 6px;">
+                <div style="font-weight: 600;">Left Brand</div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <ZakButton Size="ZakSize.Small" Variant="ZakVariant.Outlined">Help</ZakButton>
+                    <ZakButton Size="ZakSize.Small" Color="ZakColor.Primary">Sign Up</ZakButton>
+                </div>
+            </ZakFlex>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Using ZakSpacer -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">ZakSpacer</h2>
+        <p class="docs-section-desc">Place <code>ZakSpacer</code> between items to automatically consume remaining space and push adjacent elements apart.</p>
+        <ZakDocsExample Title="Spacer Push" Code="@SpacerCode">
+            <ZakFlex Direction="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Style="padding: 1rem; background: var(--zak-surface); border: 1px solid var(--zak-border); border-radius: 6px;">
+                <ZakText Typo="Typo.body1"><strong>Item 1</strong> (Left)</ZakText>
+                <ZakSpacer />
+                <ZakText Typo="Typo.body1"><strong>Item 2</strong> (Right)</ZakText>
+            </ZakFlex>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakFlex" />
+    </div>
+</div>
+
+@code {
+    private const string FlexCode = @"<ZakFlex Direction=""ZakOrientation.Horizontal"" Align=""ZakAlignment.Center"" Justify=""ZakJustify.SpaceBetween"" Gap=""3"">
+    <div>Left Brand</div>
+    <div>
+        <ZakButton Size=""ZakSize.Small"">Sign Up</ZakButton>
+    </div>
+</ZakFlex>";
+
+    private const string SpacerCode = @"<ZakFlex Direction=""ZakOrientation.Horizontal"" Align=""ZakAlignment.Center"">
+    <span>Item 1 (Left)</span>
+    <ZakSpacer />
+    <span>Item 2 (Right)</span>
+</ZakFlex>";
+}

@@ -1,0 +1,41 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+@inject ZAKBlazor.Services.IZakLayoutService LayoutService
+
+<main id="@ElementId"
+      role="main"
+      class="@CompiledClass"
+      style="@CompiledStyle"
+      @attributes="AdditionalAttributes">
+    @ChildContent
+</main>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnInitialized()
+    {
+        LayoutService.OnLayoutChanged += HandleLayoutChanged;
+    }
+
+    private void HandleLayoutChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-main-content")
+        .AddClass("zak-drawer-open", LayoutService.IsDrawerOpen)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            LayoutService.OnLayoutChanged -= HandleLayoutChanged;
+        }
+        base.Dispose(disposing);
+    }
+}

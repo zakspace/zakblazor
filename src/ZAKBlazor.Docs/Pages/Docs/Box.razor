@@ -1,0 +1,35 @@
+@page "/docs/box"
+
+<PageTitle>Box — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Box</h1>
+        <p class="docs-subtitle">Box serves as a versatile wrapper component with direct utility props for padding, border, shape, and background.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Primitive" Color="ZakColor.Primary" />
+            <ZakBadge Content="Layout" Color="ZakColor.Default" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Utility Props</h2>
+        <p class="docs-section-desc">Easily apply padding, borders, shapes, and theme colors.</p>
+        <ZakDocsExample Title="Box Styling" Code="@BoxCode">
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface-variant);">
+                <ZakText Typo="Typo.subtitle1">Styled Content Box</ZakText>
+                <ZakText Typo="Typo.body2">Includes 16px padding, surface background, and rounded borders.</ZakText>
+            </ZakBox>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakBox" />
+    </div>
+</div>
+
+@code {
+    private const string BoxCode = @"<ZakBox Padding=""4"" Border=""true"" Shape=""ZakShape.Rounded"">
+    <p>Content inside styled Box</p>
+</ZakBox>";
+}

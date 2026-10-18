@@ -1,0 +1,16 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<nav class="@CompiledClass" style="@CompiledStyle" id="@ElementId" @attributes="AdditionalAttributes">
+    @ChildContent
+</nav>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-nav-menu")
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

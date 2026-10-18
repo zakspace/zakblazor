@@ -1,0 +1,71 @@
+@namespace ZAKBlazor.Docs.Components
+@inject IJSRuntime JS
+
+<div class="zak-example-card">
+    <div class="zak-example-toolbar">
+        <span class="zak-example-title">@(Title ?? "Example")</span>
+        <div class="zak-example-actions">
+            @if (!string.IsNullOrEmpty(Code))
+            {
+                <ZakButton Size="ZakSize.Small"
+                           Variant="ZakVariant.Text"
+                           Color="ZakColor.Default"
+                           StartIcon="@ZakIcons.Copy"
+                           OnClick="HandleCopyAsync">
+                    @(_copied ? "Copied!" : "Copy")
+                </ZakButton>
+                <ZakButton Size="ZakSize.Small"
+                           Variant="ZakVariant.Text"
+                           Color="@(_showCode ? ZakColor.Primary : ZakColor.Default)"
+                           StartIcon="@ZakIcons.Code"
+                           OnClick="() => _showCode = !_showCode">
+                    @(_showCode ? "Hide Code" : "View Code")
+                </ZakButton>
+            }
+        </div>
+    </div>
+
+    <div class="zak-example-preview">
+        @ChildContent
+    </div>
+
+    @if (_showCode && !string.IsNullOrEmpty(Code))
+    {
+        <div class="zak-example-code">
+            <pre><code>@Code.Trim()</code></pre>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Code { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool _showCode = false;
+    private bool _copied = false;
+
+    private async Task HandleCopyAsync()
+    {
+        if (string.IsNullOrEmpty(Code)) return;
+
+        try
+        {
+            await JS.InvokeVoidAsync("zakBlazor.copyToClipboard", Code.Trim());
+            _copied = true;
+            StateHasChanged();
+            await Task.Delay(2000);
+            _copied = false;
+            StateHasChanged();
+        }
+        catch
+        {
+            // Fallback
+        }
+    }
+}

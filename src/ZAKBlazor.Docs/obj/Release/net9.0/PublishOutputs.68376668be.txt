@@ -1,0 +1,2 @@
+D:\Source\Experiment\Zak\ZakBlazor\output\segmentation-rules.json
+D:\Source\Experiment\Zak\ZakBlazor\output\web.config

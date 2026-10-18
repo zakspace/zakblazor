@@ -1,0 +1,48 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @onclick="HandleClickAsync"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public int Elevation { get; set; } = 1;
+
+    [Parameter]
+    public ZakShape Shape { get; set; } = ZakShape.Default;
+
+    [Parameter]
+    public bool Outlined { get; set; }
+
+    [Parameter]
+    public bool Hoverable { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-card")
+        .AddClass(Elevation.ToCssClass(), !Outlined)
+        .AddClass("zak-card-outlined", Outlined)
+        .AddClass("zak-card-hoverable", Hoverable)
+        .AddClass("zak-card-clickable", OnClick.HasDelegate)
+        .AddClass(Shape.ToCssClass())
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task HandleClickAsync(MouseEventArgs args)
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(args);
+        }
+    }
+}

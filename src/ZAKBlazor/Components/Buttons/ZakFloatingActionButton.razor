@@ -1,0 +1,115 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<button id="@ElementId"
+        type="button"
+        class="@CompiledClass"
+        style="@CompiledStyle"
+        disabled="@(Disabled || Loading)"
+        aria-label="@ResolvedAriaLabel"
+        aria-busy="@(Loading ? "true" : null)"
+        aria-disabled="@(Disabled ? "true" : null)"
+        @onclick="HandleClickAsync"
+        @attributes="AdditionalAttributes">
+    @if (Loading)
+    {
+        <span class="zak-btn-spinner" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12" />
+            </svg>
+        </span>
+    }
+    else if (!string.IsNullOrEmpty(Icon))
+    {
+        <ZakIcon Icon="@Icon" Size="@ResolveIconSize(Size)" />
+    }
+
+    @if (IsExtended && !string.IsNullOrEmpty(Text))
+    {
+        <span class="zak-fab-text">@Text</span>
+    }
+    else if (ChildContent != null)
+    {
+        @ChildContent
+    }
+</button>
+
+@code {
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public string? Text { get; set; }
+
+    [Parameter]
+    public bool Extended { get; set; }
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Primary;
+
+    [Parameter]
+    public ZakSize Size { get; set; } = ZakSize.Large;
+
+    [Parameter]
+    public ZakFabPlacement Placement { get; set; } = ZakFabPlacement.None;
+
+    [Parameter]
+    public int Elevation { get; set; } = 6;
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public bool Loading { get; set; }
+
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool IsExtended => Extended || !string.IsNullOrEmpty(Text);
+
+    private string? ResolvedAriaLabel => AriaLabel ?? Text ?? "Action";
+
+    private string? CompiledClass => CreateClassBuilder("zak-fab")
+        .AddClass(Color.ToCssClass())
+        .AddClass(Size.ToCssClass())
+        .AddClass(Elevation.ToCssClass())
+        .AddClass("zak-fab-extended", IsExtended)
+        .AddClass("zak-fab-circular", !IsExtended)
+        .AddClass(ResolvePlacementClass())
+        .AddClass("zak-disabled", Disabled)
+        .AddClass("zak-loading", Loading)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private string ResolvePlacementClass() => Placement switch
+    {
+        ZakFabPlacement.BottomEnd => "zak-fab-fixed-bottom-end",
+        ZakFabPlacement.BottomStart => "zak-fab-fixed-bottom-start",
+        ZakFabPlacement.TopEnd => "zak-fab-fixed-top-end",
+        ZakFabPlacement.TopStart => "zak-fab-fixed-top-start",
+        _ => "zak-fab-inline"
+    };
+
+    private async Task HandleClickAsync(MouseEventArgs args)
+    {
+        if (Disabled || Loading) return;
+        await OnClick.InvokeAsync(args);
+    }
+
+    private static ZakSize ResolveIconSize(ZakSize size) => size switch
+    {
+        ZakSize.ExtraSmall => ZakSize.ExtraSmall,
+        ZakSize.Small => ZakSize.Small,
+        ZakSize.Medium => ZakSize.Medium,
+        ZakSize.Large => ZakSize.Large,
+        ZakSize.ExtraLarge => ZakSize.ExtraLarge,
+        _ => ZakSize.Medium
+    };
+}

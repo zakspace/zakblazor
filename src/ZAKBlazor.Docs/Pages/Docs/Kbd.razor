@@ -1,0 +1,45 @@
+@page "/docs/kbd"
+
+<PageTitle>Kbd (Keycap) — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Kbd (Keycap)</h1>
+        <p class="docs-subtitle">ZakKbd displays keyboard shortcuts and hotkeys styled as physical keycaps.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Shortcuts" Color="ZakColor.Default" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Keyboard Shortcuts</h2>
+        <p class="docs-section-desc">Combine keycaps with text descriptions for command palettes and shortcut cheatsheets.</p>
+        <ZakDocsExample Title="Keycaps" Code="@KbdCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                    <ZakText Typo="Typo.body2">Quick Search:</ZakText>
+                    <ZakKbd>Ctrl</ZakKbd>
+                    <span>+</span>
+                    <ZakKbd>K</ZakKbd>
+                </ZakStack>
+
+                <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                    <ZakText Typo="Typo.body2">Save Changes:</ZakText>
+                    <ZakKbd>⌘</ZakKbd>
+                    <span>+</span>
+                    <ZakKbd>S</ZakKbd>
+                </ZakStack>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakKbd" />
+    </div>
+</div>
+
+@code {
+    private const string KbdCode = @"<ZakKbd>Ctrl</ZakKbd> + <ZakKbd>K</ZakKbd>
+<ZakKbd>⌘</ZakKbd> + <ZakKbd>S</ZakKbd>";
+}

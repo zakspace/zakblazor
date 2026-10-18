@@ -1,0 +1,69 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @if (Avatar != null)
+    {
+        <div class="zak-card-header-avatar">
+            @Avatar
+        </div>
+    }
+
+    <div class="zak-card-header-content">
+        @if (TitleContent != null)
+        {
+            @TitleContent
+        }
+        else if (!string.IsNullOrEmpty(Title))
+        {
+            <div class="zak-card-header-title">@Title</div>
+        }
+
+        @if (SubtitleContent != null)
+        {
+            @SubtitleContent
+        }
+        else if (!string.IsNullOrEmpty(Subtitle))
+        {
+            <div class="zak-card-header-subtitle">@Subtitle</div>
+        }
+
+        @ChildContent
+    </div>
+
+    @if (Action != null)
+    {
+        <div class="zak-card-header-action">
+            @Action
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Subtitle { get; set; }
+
+    [Parameter]
+    public RenderFragment? TitleContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? SubtitleContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? Avatar { get; set; }
+
+    [Parameter]
+    public RenderFragment? Action { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-card-header").Build();
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

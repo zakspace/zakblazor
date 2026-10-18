@@ -1,0 +1,69 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+
+    <div class="zak-timeline-connector"></div>
+
+    <div class="zak-timeline-dot zak-timeline-dot-@Color.ToString().ToLowerInvariant()">
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <ZakIcon Icon="@Icon" Size="ZakSize.ExtraSmall" />
+        }
+        @if (DotContent != null)
+        {
+            @DotContent
+        }
+    </div>
+
+    <div class="zak-timeline-content">
+        @if (!string.IsNullOrEmpty(Time))
+        {
+            <span class="zak-timeline-time">@Time</span>
+        }
+        @if (!string.IsNullOrEmpty(Title))
+        {
+            <div class="zak-timeline-title">@Title</div>
+        }
+        @if (!string.IsNullOrEmpty(Subtitle))
+        {
+            <div class="zak-timeline-subtitle">@Subtitle</div>
+        }
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? DotContent { get; set; }
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Subtitle { get; set; }
+
+    [Parameter]
+    public string? Time { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Primary;
+
+    [Parameter]
+    public bool Last { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-timeline-item")
+        .AddClass("zak-timeline-item-last", Last)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

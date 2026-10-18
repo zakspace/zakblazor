@@ -1,0 +1,158 @@
+@namespace ZAKBlazor
+@using Microsoft.AspNetCore.Components.Forms
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <ZakLabel Text="@Label" />
+    }
+
+    <div class="zak-file-dropzone @(_isDragOver ? "zak-dropzone-dragover" : "") @(Disabled ? "zak-disabled" : "")"
+         @ondragover="HandleDragOver"
+         @ondragover:preventDefault
+         @ondragleave="HandleDragLeave"
+         @ondragleave:preventDefault>
+
+        <InputFile id="@($"{ElementId}-file-input")"
+                   class="zak-file-input"
+                   OnChange="HandleFilesSelectedAsync"
+                   multiple="@Multiple"
+                   accept="@Accept"
+                   disabled="@Disabled" />
+
+        <label for="@($"{ElementId}-file-input")" class="zak-file-dropzone-content">
+            <div class="zak-file-dropzone-icon">
+                <ZakIcon Icon="@ZakIcons.Download" Size="ZakSize.Large" Color="ZakColor.Primary" />
+            </div>
+            <div class="zak-file-dropzone-text">
+                <span class="zak-file-dropzone-primary">Click to upload or drag &amp; drop</span>
+                <span class="zak-file-dropzone-secondary">
+                    @(string.IsNullOrEmpty(Accept) ? "Any file type supported" : Accept.Replace(",", ", "))
+                    @(MaxFileSize > 0 ? $" (up to {FormatSize(MaxFileSize)})" : "")
+                </span>
+            </div>
+        </label>
+    </div>
+
+    @if (ShowFileList && _selectedFiles.Any())
+    {
+        <div class="zak-file-list">
+            @foreach (var file in _selectedFiles)
+            {
+                <div class="zak-file-item" @key="file.Name">
+                    <ZakIcon Icon="@ZakIcons.File" Size="ZakSize.Small" Class="zak-file-item-icon" />
+                    <div class="zak-file-item-info">
+                        <span class="zak-file-item-name">@file.Name</span>
+                        <span class="zak-file-item-size">@FormatSize(file.Size)</span>
+                    </div>
+                    @if (!Disabled)
+                    {
+                        <button type="button"
+                                class="zak-file-item-remove"
+                                aria-label="Remove file"
+                                @onclick="() => RemoveFileAsync(file)">
+                            <ZakIcon Icon="@ZakIcons.Close" Size="ZakSize.ExtraSmall" />
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <span class="zak-error-text" role="alert">@ErrorMessage</span>
+    }
+    else if (!string.IsNullOrEmpty(HelperText))
+    {
+        <span class="zak-helper-text">@HelperText</span>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Label { get; set; }
+
+    [Parameter]
+    public string? HelperText { get; set; }
+
+    [Parameter]
+    public string? Accept { get; set; }
+
+    [Parameter]
+    public bool Multiple { get; set; }
+
+    [Parameter]
+    public long MaxFileSize { get; set; } = 10 * 1024 * 1024; // 10MB
+
+    [Parameter]
+    public bool ShowFileList { get; set; } = true;
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public EventCallback<IReadOnlyList<IBrowserFile>> FilesChanged { get; set; }
+
+    private bool _isDragOver;
+    private string? ErrorMessage;
+    private readonly List<IBrowserFile> _selectedFiles = new();
+
+    private void HandleDragOver() => _isDragOver = true;
+    private void HandleDragLeave() => _isDragOver = false;
+
+    private async Task HandleFilesSelectedAsync(InputFileChangeEventArgs e)
+    {
+        _isDragOver = false;
+        ErrorMessage = null;
+
+        var files = Multiple ? e.GetMultipleFiles() : new[] { e.File };
+
+        if (!Multiple)
+        {
+            _selectedFiles.Clear();
+        }
+
+        foreach (var file in files)
+        {
+            if (MaxFileSize > 0 && file.Size > MaxFileSize)
+            {
+                ErrorMessage = $"File {file.Name} exceeds maximum size of {FormatSize(MaxFileSize)}.";
+                continue;
+            }
+            _selectedFiles.Add(file);
+        }
+
+        if (FilesChanged.HasDelegate)
+        {
+            await FilesChanged.InvokeAsync(_selectedFiles.AsReadOnly());
+        }
+    }
+
+    private async Task RemoveFileAsync(IBrowserFile file)
+    {
+        _selectedFiles.Remove(file);
+        if (FilesChanged.HasDelegate)
+        {
+            await FilesChanged.InvokeAsync(_selectedFiles.AsReadOnly());
+        }
+    }
+
+    private string FormatSize(long bytes)
+    {
+        if (bytes < 1024) return $"{bytes} B";
+        if (bytes < 1024 * 1024) return $"{bytes / 1024.0:F1} KB";
+        return $"{bytes / (1024.0 * 1024.0):F1} MB";
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-file-upload")
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

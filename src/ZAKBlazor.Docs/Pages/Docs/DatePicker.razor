@@ -1,0 +1,37 @@
+@page "/docs/date-picker"
+
+<PageTitle>Date Picker — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Date Picker</h1>
+        <p class="docs-subtitle">Date pickers let users select dates from a localized, accessible calendar popover with keyboard support.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Calendar" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Calendar Date Selection</h2>
+        <p class="docs-section-desc">Supports two-way binding with nullable <code>DateTime?</code>, custom formats, and clearable triggers.</p>
+        <ZakDocsExample Title="Date Picker" Code="@DateCode">
+            <div style="max-width: 380px;">
+                <ZakDatePicker Label="Scheduled Launch Date" @bind-Value="_selectedDate" Clearable="true" Format="yyyy-MM-dd" />
+                <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--zak-text-secondary);">
+                    Selected Date: <strong>@(_selectedDate?.ToString("yyyy-MM-dd") ?? "None selected")</strong>
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakDatePicker" />
+    </div>
+</div>
+
+@code {
+    private DateTime? _selectedDate = DateTime.Today.AddDays(7);
+
+    private const string DateCode = @"<ZakDatePicker Label=""Scheduled Launch Date"" @bind-Value=""_selectedDate"" Clearable=""true"" Format=""yyyy-MM-dd"" />";
+}

@@ -1,0 +1,103 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    <button type="button"
+            class="zak-accordion-header"
+            aria-expanded="@(Expanded ? "true" : "false")"
+            disabled="@Disabled"
+            @onclick="ToggleAsync">
+        <div class="zak-accordion-title-wrap">
+            @if (!string.IsNullOrEmpty(Icon))
+            {
+                <ZakIcon Icon="@Icon" Size="ZakSize.Small" Style="margin-right: 8px; color: var(--zak-primary);" />
+            }
+            <span class="zak-accordion-title">@Title</span>
+            @if (!string.IsNullOrEmpty(Subtitle))
+            {
+                <span class="zak-accordion-subtitle">@Subtitle</span>
+            }
+        </div>
+        <ZakIcon Icon="@ZakIcons.ChevronDown" Size="ZakSize.Small" Class="zak-accordion-chevron" />
+    </button>
+
+    @if (Expanded)
+    {
+        <div class="zak-accordion-body" role="region">
+            @ChildContent
+        </div>
+    }
+</div>
+
+@code {
+    [CascadingParameter]
+    public ZakAccordion? ParentAccordion { get; set; }
+
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? Subtitle { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public bool Expanded { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ExpandedChanged { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ParentAccordion?.RegisterItem(this);
+    }
+
+    private async Task ToggleAsync()
+    {
+        if (Disabled) return;
+
+        Expanded = !Expanded;
+        await ExpandedChanged.InvokeAsync(Expanded);
+
+        if (Expanded)
+        {
+            ParentAccordion?.NotifyExpanded(this);
+        }
+    }
+
+    internal void Collapse()
+    {
+        if (Expanded)
+        {
+            Expanded = false;
+            ExpandedChanged.InvokeAsync(false);
+            StateHasChanged();
+        }
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-accordion-item")
+        .AddClass("zak-accordion-expanded", Expanded)
+        .AddClass("zak-accordion-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            ParentAccordion?.UnregisterItem(this);
+        }
+        base.Dispose(disposing);
+    }
+}

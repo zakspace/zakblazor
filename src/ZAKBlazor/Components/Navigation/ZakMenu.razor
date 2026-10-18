@@ -1,0 +1,84 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledWrapperClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    <div class="zak-menu-activator" @onclick="ToggleAsync">
+        @ActivatorContent
+    </div>
+
+    @if (IsOpen)
+    { 
+        <div class="zak-menu-backdrop" @onclick="CloseAsync" role="presentation"></div>
+        <div role="menu"
+             class="@CompiledMenuClass"
+             aria-orientation="vertical">
+            @ChildContent
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public bool? Open { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OpenChanged { get; set; }
+
+    [Parameter]
+    public ZakPlacement Placement { get; set; } = ZakPlacement.BottomStart;
+
+    [Parameter]
+    public RenderFragment? ActivatorContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool _internalOpen;
+    private bool IsOpen => Open ?? _internalOpen;
+
+    private async Task ToggleAsync()
+    {
+        var newState = !IsOpen;
+        if (Open.HasValue)
+        {
+            await OpenChanged.InvokeAsync(newState);
+        }
+        else
+        {
+            _internalOpen = newState;
+        }
+    }
+
+    private async Task CloseAsync()
+    {
+        if (Open.HasValue)
+        {
+            await OpenChanged.InvokeAsync(false);
+        }
+        else
+        {
+            _internalOpen = false;
+        }
+    }
+
+    private string? CompiledWrapperClass => CreateClassBuilder("zak-menu-wrapper").Build();
+
+    private string? CompiledMenuClass => ZakClassBuilder.Create("zak-menu")
+        .AddClass(ResolvePlacementClass())
+        .AddClass("zak-elevation-4")
+        .AddClass("zak-shape-default")
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private string ResolvePlacementClass() => Placement switch
+    {
+        ZakPlacement.BottomEnd => "zak-menu-bottom-end",
+        ZakPlacement.TopStart => "zak-menu-top-start",
+        ZakPlacement.TopEnd => "zak-menu-top-end",
+        _ => "zak-menu-bottom-start"
+    };
+}

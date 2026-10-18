@@ -1,0 +1,302 @@
+@page "/settings"
+@namespace ZAKBlazor.Samples.Pages
+@inject IZakSnackbarService SnackbarService
+@inject IZakDialogService DialogService
+@inject IZakThemeService ThemeService
+
+<PageTitle>Settings — ZAK Enterprise</PageTitle>
+
+<ZakContainer MaxWidth="ZakBreakpoint.Xl" Style="padding: var(--zak-spacing-6) 0;">
+    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="6">
+        <!-- Header Toolbar -->
+        <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true" Wrap="true">
+            <div>
+                <ZakText Typo="Typo.h4" GutterBottom="true">Platform Settings</ZakText>
+                <ZakText Typo="Typo.body2">Configure organization identity, custom brand themes, security policies, and integrations.</ZakText>
+            </div>
+            <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3">
+                <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Default" OnClick="ResetToDefaultsAsync">
+                    Reset Defaults
+                </ZakButton>
+                <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Primary" StartIcon="@ZakIcons.Check" OnClick="SaveSettings">
+                    Save Changes
+                </ZakButton>
+            </ZakStack>
+        </ZakStack>
+
+        <!-- Settings Tabs -->
+        <ZakCard Elevation="ZakElevation.Elevation1">
+            <ZakCardContent>
+                <ZakTabs @bind-ActiveIndex="_activeTab">
+                    <ZakTab Label="General" Icon="@ZakIcons.Settings" />
+                    <ZakTab Label="Theme & Branding" Icon="@ZakIcons.Sparkles" />
+                    <ZakTab Label="Security & Auth" Icon="@ZakIcons.Lock" />
+                    <ZakTab Label="Notifications" Icon="@ZakIcons.Bell" />
+                </ZakTabs>
+            </ZakCardContent>
+        </ZakCard>
+
+        @if (_activeTab == 0)
+        {
+            <!-- General Settings -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--zak-spacing-6);">
+                <ZakCard Elevation="ZakElevation.Elevation2">
+                    <ZakCardHeader Title="Organization Profile" Subtitle="Basic info displayed across workspace invoices & portals" />
+                    <ZakCardContent>
+                        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                            <ZakTextField Label="Organization Name" @bind-Value="_orgName" Placeholder="Acme Global Inc." Required="true" />
+                            <ZakTextField Label="Support Email" @bind-Value="_supportEmail" Placeholder="support@acme.com" Required="true" />
+                            <ZakTextField Label="Workspace Domain" @bind-Value="_workspaceDomain" Placeholder="acme.zakblazor.com" HelperText="Custom domains can be configured in DNS settings." />
+                            <ZakSelect T="string" Label="Primary Timezone" @bind-Value="_timezone">
+                                <ZakOption T="string" Value="@("UTC")" Text="UTC (Coordinated Universal Time)" />
+                                <ZakOption T="string" Value="@("EST")" Text="America/New_York (EST / UTC-5)" />
+                                <ZakOption T="string" Value="@("PST")" Text="America/Los_Angeles (PST / UTC-8)" />
+                                <ZakOption T="string" Value="@("IST")" Text="Asia/Kolkata (IST / UTC+5:30)" />
+                                <ZakOption T="string" Value="@("GMT")" Text="Europe/London (GMT / UTC+0)" />
+                            </ZakSelect>
+                        </ZakStack>
+                    </ZakCardContent>
+                </ZakCard>
+
+                <ZakCard Elevation="ZakElevation.Elevation2">
+                    <ZakCardHeader Title="Brand Assets" Subtitle="Upload your company logo and portal avatars" />
+                    <ZakCardContent>
+                        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                            <ZakFileUpload Accept="image/png, image/jpeg, image/svg+xml"
+                                           MaxFileSize="5242880"
+                                           DropZoneText="Drop brand logo here or click to browse"
+                                           HelperText="PNG, JPG, or SVG up to 5MB (400x400 recommended)"
+                                           OnChange="OnFileUploaded" />
+
+                            <ZakDivider />
+
+                            <div>
+                                <ZakText Typo="Typo.subtitle2" GutterBottom="true">Maintenance Mode</ZakText>
+                                <ZakSwitch @bind-Value="_maintenanceMode"
+                                           Label="Enable Scheduled Maintenance"
+                                           Color="ZakColor.Warning" />
+                                <ZakText Typo="Typo.caption" Color="ZakColor.Default">
+                                    When active, non-admin users will see a maintenance notice banner.
+                                </ZakText>
+                            </div>
+                        </ZakStack>
+                    </ZakCardContent>
+                </ZakCard>
+            </div>
+        }
+        else if (_activeTab == 1)
+        {
+            <!-- Theme & Branding -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--zak-spacing-6);">
+                <ZakCard Elevation="ZakElevation.Elevation2">
+                    <ZakCardHeader Title="Color Palette" Subtitle="Customize the primary and accent colors for your tenant" />
+                    <ZakCardContent>
+                        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="5">
+                            <div>
+                                <ZakText Typo="Typo.subtitle2" GutterBottom="true">Primary Brand Color</ZakText>
+                                <ZakColorPicker @bind-Value="_primaryColor" ShowAlpha="false" ShowHex="true" />
+                            </div>
+
+                            <div>
+                                <ZakText Typo="Typo.subtitle2" GutterBottom="true">Secondary Teal Accent</ZakText>
+                                <ZakColorPicker @bind-Value="_secondaryColor" ShowAlpha="false" ShowHex="true" />
+                            </div>
+                        </ZakStack>
+                    </ZakCardContent>
+                </ZakCard>
+
+                <ZakCard Elevation="ZakElevation.Elevation2">
+                    <ZakCardHeader Title="Design System Tokens" Subtitle="Control surface rounding, font scales, and theme mode" />
+                    <ZakCardContent>
+                        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                            <ZakSwitch @bind-Value="_darkMode"
+                                       Label="Dark Mode Enabled by Default"
+                                       Color="ZakColor.Primary" />
+
+                            <ZakSelect T="string" Label="Border Radius" @bind-Value="_borderRadius">
+                                <ZakOption T="string" Value="@("4px")" Text="Compact (4px)" />
+                                <ZakOption T="string" Value="@("8px")" Text="Standard Modern (8px)" />
+                                <ZakOption T="string" Value="@("12px")" Text="Smooth Rounded (12px)" />
+                                <ZakOption T="string" Value="@("16px")" Text="Pill / High Radius (16px)" />
+                            </ZakSelect>
+
+                            <ZakSelect T="string" Label="Typography Scale" @bind-Value="_fontFamily">
+                                <ZakOption T="string" Value="@("Inter")" Text="Inter & System UI" />
+                                <ZakOption T="string" Value="@("Roboto")" Text="Roboto & Clean Sans" />
+                                <ZakOption T="string" Value="@("Outfit")" Text="Outfit / Modern Geometric" />
+                                <ZakOption T="string" Value="@("Fira Code")" Text="Fira Code (Developer Mono)" />
+                            </ZakSelect>
+
+                            <div style="padding: 16px; border-radius: 8px; background-color: var(--zak-surface-hover); border: 1px dashed var(--zak-border-color);">
+                                <ZakText Typo="Typo.caption" Color="ZakColor.Default">Live Preview Card</ZakText>
+                                <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px;">
+                                    <ZakChip Text="Active Badge" Color="ZakColor.Primary" Variant="ZakVariant.Filled" Size="ZakSize.Small" />
+                                    <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Secondary" Size="ZakSize.Small">Action</ZakButton>
+                                </div>
+                            </div>
+                        </ZakStack>
+                    </ZakCardContent>
+                </ZakCard>
+            </div>
+        }
+        else if (_activeTab == 2)
+        {
+            <!-- Security & Auth -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--zak-spacing-6);">
+                <ZakCard Elevation="ZakElevation.Elevation2">
+                    <ZakCardHeader Title="Authentication Policies" Subtitle="Enforce strict authentication rules for all organization members" />
+                    <ZakCardContent>
+                        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                            <ZakSwitch @bind-Value="_require2FA"
+                                       Label="Enforce Multi-Factor Authentication (MFA / 2FA)"
+                                       Color="ZakColor.Success" />
+
+                            <ZakSwitch @bind-Value="_passkeyAuth"
+                                       Label="Allow WebAuthn / Passkeys Login"
+                                       Color="ZakColor.Primary" />
+
+                            <ZakSelect T="string" Label="Idle Session Expiration" @bind-Value="_sessionTimeout">
+                                <ZakOption T="string" Value="@("15m")" Text="15 Minutes" />
+                                <ZakOption T="string" Value="@("1h")" Text="1 Hour" />
+                                <ZakOption T="string" Value="@("8h")" Text="8 Hours (Standard Working Day)" />
+                                <ZakOption T="string" Value="@("24h")" Text="24 Hours" />
+                            </ZakSelect>
+
+                            <ZakTextField Label="Allowed IP Whitelist (CIDR blocks)" @bind-Value="_ipWhitelist" Placeholder="192.168.1.0/24, 10.0.0.0/16" HelperText="Leave blank to allow global access." />
+                        </ZakStack>
+                    </ZakCardContent>
+                </ZakCard>
+
+                <ZakCard Elevation="ZakElevation.Elevation2">
+                    <ZakCardHeader Title="Enterprise SSO" Subtitle="Federated Single Sign-On via SAML 2.0 or OIDC" />
+                    <ZakCardContent>
+                        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                            <ZakAutocomplete T="string"
+                                             Label="Identity Provider (IdP)"
+                                             SearchFunc="@SearchIdpAsync"
+                                             @bind-Value="_selectedIdp"
+                                             Placeholder="Search providers e.g. Okta, Azure AD..." />
+
+                            <ZakTextField Label="SAML Metadata XML URL" @bind-Value="_samlUrl" Placeholder="https://login.microsoftonline.com/.../federationmetadata.xml" />
+                            <ZakTextField Label="Entity ID / Audience URI" @bind-Value="_entityId" Placeholder="https://zakblazor.com/sso/sp/metadata" />
+                        </ZakStack>
+                    </ZakCardContent>
+                </ZakCard>
+            </div>
+        }
+        else if (_activeTab == 3)
+        {
+            <!-- Notifications -->
+            <ZakCard Elevation="ZakElevation.Elevation2">
+                <ZakCardHeader Title="Alert & Notification Preferences" Subtitle="Control event channels, webhook endpoints, and frequency" />
+                <ZakCardContent>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                        <ZakTextField Label="Slack Incoming Webhook URL" @bind-Value="_slackWebhook" Placeholder="https://hooks.slack.com/services/..." HelperText="Real-time alerts will be posted to this channel." />
+
+                        <ZakDivider />
+
+                        <ZakText Typo="Typo.subtitle2">Event Subscriptions</ZakText>
+                        
+                        <ZakSwitch @bind-Value="_notifyNewCustomer"
+                                   Label="New Organization Signup & Subscription Upgrade"
+                                   Color="ZakColor.Primary" />
+
+                        <ZakSwitch @bind-Value="_notifySystemErrors"
+                                   Label="Critical System Exceptions & Outages"
+                                   Color="ZakColor.Danger" />
+
+                        <ZakSwitch @bind-Value="_notifyWeeklyReport"
+                                   Label="Weekly Executive Summary Email Digest"
+                                   Color="ZakColor.Info" />
+                    </ZakStack>
+                </ZakCardContent>
+            </ZakCard>
+        }
+    </ZakStack>
+</ZakContainer>
+
+@code {
+    private int _activeTab = 0;
+
+    // General
+    private string _orgName = "ZakBlazor Enterprise Technologies";
+    private string _supportEmail = "admin@zakblazor.dev";
+    private string _workspaceDomain = "enterprise.zakblazor.dev";
+    private string _timezone = "UTC";
+    private bool _maintenanceMode = false;
+
+    // Theme & Branding
+    private string _primaryColor = "#5E43F3";
+    private string _secondaryColor = "#00D2B4";
+    private bool _darkMode = true;
+    private string _borderRadius = "8px";
+    private string _fontFamily = "Inter";
+
+    // Security
+    private bool _require2FA = true;
+    private bool _passkeyAuth = true;
+    private string _sessionTimeout = "8h";
+    private string _ipWhitelist = "";
+    private string _selectedIdp = "Microsoft Entra ID (Azure AD)";
+    private string _samlUrl = "https://login.microsoftonline.com/common/federationmetadata/2007-06/federationmetadata.xml";
+    private string _entityId = "urn:zakblazor:sp:prod";
+
+    // Notifications
+    private string _slackWebhook = "https://hooks.slack.com/services/T00/B00/XXXX";
+    private bool _notifyNewCustomer = true;
+    private bool _notifySystemErrors = true;
+    private bool _notifyWeeklyReport = true;
+
+    private readonly List<string> _idpProviders = new()
+    {
+        "Microsoft Entra ID (Azure AD)",
+        "Okta Workforce Identity",
+        "Google Workspace SAML",
+        "PingFederate",
+        "Auth0 by Okta",
+        "Keycloak OSS"
+    };
+
+    private Task<IEnumerable<string>> SearchIdpAsync(string query)
+    {
+        if (string.IsNullOrWhiteSpace(query))
+            return Task.FromResult<IEnumerable<string>>(_idpProviders);
+
+        return Task.FromResult<IEnumerable<string>>(
+            _idpProviders.Where(x => x.Contains(query, StringComparison.OrdinalIgnoreCase)));
+    }
+
+    private void OnFileUploaded(IReadOnlyList<Microsoft.AspNetCore.Components.Forms.IBrowserFile> files)
+    {
+        if (files.Count > 0)
+        {
+            SnackbarService.Success($"Uploaded {files[0].Name} ({files[0].Size / 1024} KB) successfully!");
+        }
+    }
+
+    private void SaveSettings()
+    {
+        SnackbarService.Success("Settings saved successfully!");
+    }
+
+    private async Task ResetToDefaultsAsync()
+    {
+        var confirmed = await DialogService.ConfirmAsync(
+            message: "Are you sure you want to revert all workspace settings to system defaults?",
+            title: "Revert Settings",
+            confirmText: "Reset Defaults",
+            confirmColor: ZakColor.Warning
+        );
+
+        if (confirmed)
+        {
+            _orgName = "ZakBlazor Enterprise Technologies";
+            _primaryColor = "#5E43F3";
+            _secondaryColor = "#00D2B4";
+            _borderRadius = "8px";
+            _sessionTimeout = "8h";
+            _maintenanceMode = false;
+            SnackbarService.Info("Settings reverted to default values.");
+        }
+    }
+}

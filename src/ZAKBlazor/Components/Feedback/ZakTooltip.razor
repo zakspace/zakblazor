@@ -1,0 +1,104 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledWrapperClass"
+     style="@CompiledStyle"
+     tabindex="0"
+     @onmouseenter="HandleMouseEnter"
+     @onmouseleave="HandleMouseLeave"
+     @onfocus="HandleMouseEnter"
+     @onblur="HandleMouseLeave"
+     @attributes="AdditionalAttributes">
+
+    @ChildContent
+
+    @if (!string.IsNullOrEmpty(Text) && !Disabled && _isVisible)
+    {
+        <div class="@CompiledTooltipClass"
+             role="tooltip"
+             aria-hidden="@(!_isVisible)">
+            <span class="zak-tooltip-content">@Text</span>
+            @if (Arrow)
+            {
+                <span class="zak-tooltip-arrow" aria-hidden="true"></span>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Text { get; set; }
+
+    [Parameter]
+    public ZakPlacement Placement { get; set; } = ZakPlacement.Top;
+
+    [Parameter]
+    public bool Arrow { get; set; } = true;
+
+    [Parameter]
+    public int Delay { get; set; } = 150;
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool _isVisible;
+    private CancellationTokenSource? _delayCts;
+
+    private async Task HandleMouseEnter()
+    {
+        if (Disabled || string.IsNullOrEmpty(Text)) return;
+
+        _delayCts?.Cancel();
+        _delayCts = new CancellationTokenSource();
+
+        try
+        {
+            if (Delay > 0)
+            {
+                await Task.Delay(Delay, _delayCts.Token);
+            }
+            _isVisible = true;
+            StateHasChanged();
+        }
+        catch (TaskCanceledException) { }
+    }
+
+    private void HandleMouseLeave()
+    {
+        _delayCts?.Cancel();
+        _isVisible = false;
+        StateHasChanged();
+    }
+
+    private string? CompiledWrapperClass => CreateClassBuilder("zak-tooltip-wrapper").Build();
+
+    private string? CompiledTooltipClass => ZakClassBuilder.Create("zak-tooltip")
+        .AddClass(ResolvePlacementClass(Placement))
+        .AddClass("zak-tooltip-visible", _isVisible)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private string ResolvePlacementClass(ZakPlacement placement) => placement switch
+    {
+        ZakPlacement.Bottom or ZakPlacement.BottomStart or ZakPlacement.BottomEnd => "zak-tooltip-bottom",
+        ZakPlacement.Left or ZakPlacement.LeftStart or ZakPlacement.LeftEnd => "zak-tooltip-left",
+        ZakPlacement.Right or ZakPlacement.RightStart or ZakPlacement.RightEnd => "zak-tooltip-right",
+        _ => "zak-tooltip-top"
+    };
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _delayCts?.Cancel();
+            _delayCts?.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+}

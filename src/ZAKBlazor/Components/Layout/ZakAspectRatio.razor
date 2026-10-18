@@ -1,0 +1,44 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    <div class="zak-aspect-ratio-content">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Ratio { get; set; } = "16/9";
+
+    [Parameter]
+    public ZakShape Shape { get; set; } = ZakShape.Default;
+
+    [Parameter]
+    public string? Width { get; set; }
+
+    [Parameter]
+    public string? MaxWidth { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-aspect-ratio")
+        .AddClass(Shape.ToCssClass())
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder()
+        .AddStyle("aspect-ratio", FormatRatio(Ratio))
+        .AddStyle("width", Width, !string.IsNullOrEmpty(Width))
+        .AddStyle("max-width", MaxWidth, !string.IsNullOrEmpty(MaxWidth))
+        .Build();
+
+    private static string FormatRatio(string ratio)
+    {
+        if (string.IsNullOrWhiteSpace(ratio)) return "16 / 9";
+        return ratio.Contains(':') ? ratio.Replace(':', '/') : ratio;
+    }
+}

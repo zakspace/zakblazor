@@ -1,0 +1,56 @@
+@page "/docs/stepper"
+
+<PageTitle>Stepper — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Stepper</h1>
+        <p class="docs-subtitle">Steppers guide users through numbered sequential milestones of a multi-step process or onboarding flow.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Navigation" Color="ZakColor.Primary" />
+            <ZakBadge Content="Multi-step" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Horizontal Stepper</h2>
+        <p class="docs-section-desc">Track progress through multiple phases.</p>
+        <ZakDocsExample Title="Order Checkout Stepper" Code="@StepperCode">
+            <div style="max-width: 600px;">
+                <ZakStepper ActiveStep="_currentStep" Color="ZakColor.Primary">
+                    <ZakStep Title="Shipping" Description="Address & delivery" />
+                    <ZakStep Title="Payment" Description="Card or wire transfer" />
+                    <ZakStep Title="Review" Description="Verify order items" />
+                </ZakStepper>
+
+                <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem;">
+                    <ZakButton Disabled="@(_currentStep == 0)"
+                               Variant="ZakVariant.Outlined"
+                               OnClick="() => _currentStep--">
+                        Previous
+                    </ZakButton>
+                    <ZakButton Disabled="@(_currentStep >= 2)"
+                               Variant="ZakVariant.Filled"
+                               Color="ZakColor.Primary"
+                               OnClick="() => _currentStep++">
+                        Next Step
+                    </ZakButton>
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakStepper" />
+    </div>
+</div>
+
+@code {
+    private int _currentStep = 1;
+
+    private const string StepperCode = @"<ZakStepper ActiveStep=""_currentStep"" Color=""ZakColor.Primary"">
+    <ZakStep Title=""Shipping"" Description=""Address & delivery"" />
+    <ZakStep Title=""Payment"" Description=""Card or wire"" />
+    <ZakStep Title=""Review"" Description=""Verify order"" />
+</ZakStepper>";
+}

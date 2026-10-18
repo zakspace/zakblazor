@@ -1,0 +1,103 @@
+@page "/docs/loading-button"
+
+<PageTitle>Loading Button — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Loading Button</h1>
+        <p class="docs-subtitle">Buttons with integrated spinner states and automatic asynchronous task execution handling.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Buttons" Color="ZakColor.Primary" />
+            <ZakBadge Content="Async Task" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Automatic Async Task Handling -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Automatic Task Handling</h2>
+        <p class="docs-section-desc">Pass a task delegate to <code>OnAsyncClick</code>. The button automatically switches into a loading state and disables itself until completion.</p>
+        <ZakDocsExample Title="Async Click Execution" Code="@AsyncCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3" Wrap="true">
+                <ZakLoadingButton Color="ZakColor.Primary"
+                                  LoadingText="Saving data..."
+                                  OnAsyncClick="@SimulateSaveAsync">
+                    Click to Save (2s async)
+                </ZakLoadingButton>
+
+                <ZakLoadingButton Color="ZakColor.Success"
+                                  Variant="ZakVariant.Outlined"
+                                  LoadingPosition="ZakLoadingPosition.Start"
+                                  LoadingText="Submitting..."
+                                  OnAsyncClick="@SimulateSaveAsync">
+                    Submit Order
+                </ZakLoadingButton>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Manual State & Positions -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Controlled Loading States</h2>
+        <p class="docs-section-desc">Toggle the <code>Loading</code> boolean parameter explicitly, with <code>LoadingPosition</code> at Start, Center, or End.</p>
+        <ZakDocsExample Title="Position Variants" Code="@PositionCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                <ZakSwitch @bind-Value="_manualLoading" Label="Toggle Loading State" Color="ZakColor.Primary" />
+
+                <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3" Wrap="true">
+                    <ZakLoadingButton Loading="@_manualLoading"
+                                      LoadingPosition="ZakLoadingPosition.Start"
+                                      LoadingText="Loading..."
+                                      Color="ZakColor.Primary">
+                        Start Spinner
+                    </ZakLoadingButton>
+
+                    <ZakLoadingButton Loading="@_manualLoading"
+                                      LoadingPosition="ZakLoadingPosition.Center"
+                                      Color="ZakColor.Secondary">
+                        Center Spinner
+                    </ZakLoadingButton>
+
+                    <ZakLoadingButton Loading="@_manualLoading"
+                                      LoadingPosition="ZakLoadingPosition.End"
+                                      LoadingText="Processing..."
+                                      Color="ZakColor.Warning">
+                        End Spinner
+                    </ZakLoadingButton>
+                </ZakStack>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakLoadingButton" />
+    </div>
+</div>
+
+@code {
+    private bool _manualLoading = true;
+
+    private async Task SimulateSaveAsync()
+    {
+        await Task.Delay(2000);
+    }
+
+    private const string AsyncCode = @"<ZakLoadingButton Color=""ZakColor.Primary""
+                  LoadingText=""Saving data...""
+                  OnAsyncClick=""@SimulateSaveAsync"">
+    Click to Save
+</ZakLoadingButton>
+
+@code {
+    private async Task SimulateSaveAsync()
+    {
+        await Task.Delay(2000);
+    }
+}";
+
+    private const string PositionCode = @"<ZakLoadingButton Loading=""@isLoading"" LoadingPosition=""ZakLoadingPosition.Start"" LoadingText=""Loading..."">
+    Start Spinner
+</ZakLoadingButton>
+<ZakLoadingButton Loading=""@isLoading"" LoadingPosition=""ZakLoadingPosition.End"" LoadingText=""Processing..."">
+    End Spinner
+</ZakLoadingButton>";
+}

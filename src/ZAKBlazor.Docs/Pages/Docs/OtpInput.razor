@@ -1,0 +1,37 @@
+@page "/docs/otp-input"
+
+<PageTitle>OTP / PIN Input — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">OTP / PIN Input</h1>
+        <p class="docs-subtitle">Dedicated multi-slot numeric input designed for two-factor authentication (2FA) and verification PIN codes.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Security" Color="ZakColor.Primary" />
+            <ZakBadge Content="Accessible" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">One-Time Password Inputs</h2>
+        <p class="docs-section-desc">Supports configurable code length, masked entries, and auto-advancement.</p>
+        <ZakDocsExample Title="6-Digit Verification Code" Code="@OtpCode">
+            <div style="max-width: 440px;">
+                <ZakOtpInput Length="6" @bind-Value="_otpCode" Size="ZakSize.Large" Shape="ZakShape.Rounded" />
+                <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--zak-text-secondary);">
+                    Entered Code: <strong style="font-family: monospace; letter-spacing: 2px;">@(_otpCode ?? "")</strong>
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakOtpInput" />
+    </div>
+</div>
+
+@code {
+    private string _otpCode = "";
+
+    private const string OtpCode = @"<ZakOtpInput Length=""6"" @bind-Value=""_otpCode"" Size=""ZakSize.Large"" />";
+}

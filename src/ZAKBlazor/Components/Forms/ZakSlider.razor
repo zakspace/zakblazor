@@ -1,0 +1,84 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakInputBase<double>
+
+<div class="zak-form-field">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <ZakLabel For="@ElementId" Required="@Required" Text="@Label" />
+    }
+
+    <div class="zak-slider-container">
+        <input type="range"
+               id="@ElementId"
+               class="@CompiledSliderClass"
+               style="@CompiledStyle"
+               min="@Min"
+               max="@Max"
+               step="@Step"
+               value="@Value"
+               disabled="@Disabled"
+               @oninput="HandleInputAsync"
+               @onchange="HandleChangeAsync"
+               @attributes="AdditionalAttributes" />
+
+        @if (ShowValue)
+        {
+            <span class="zak-slider-value">
+                @Value@ValueSuffix
+            </span>
+        }
+    </div>
+
+    @if (HasError && !string.IsNullOrEmpty(ValidationErrorMessage))
+    {
+        <div class="zak-error-text" role="alert">
+            @ValidationErrorMessage
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(HelperText))
+    {
+        <div class="zak-helper-text">
+            @HelperText
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public double Min { get; set; } = 0;
+
+    [Parameter]
+    public double Max { get; set; } = 100;
+
+    [Parameter]
+    public double Step { get; set; } = 1;
+
+    [Parameter]
+    public bool ShowValue { get; set; } = true;
+
+    [Parameter]
+    public string? ValueSuffix { get; set; }
+
+    private string? CompiledSliderClass => CreateClassBuilder("zak-slider")
+        .AddClass(Color.ToCssClass())
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task HandleInputAsync(ChangeEventArgs e)
+    {
+        if (double.TryParse(e.Value?.ToString(), out var val))
+        {
+            await SetCurrentValueAsync(val);
+        }
+    }
+
+    private async Task HandleChangeAsync(ChangeEventArgs e)
+    {
+        if (double.TryParse(e.Value?.ToString(), out var val))
+        {
+            await SetCurrentValueAsync(val);
+        }
+    }
+}

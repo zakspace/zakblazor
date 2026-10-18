@@ -1,0 +1,126 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+@if (_visible)
+{
+    <div id="@ElementId"
+         role="alert"
+         class="@CompiledClass"
+         style="@CompiledStyle"
+         @attributes="AdditionalAttributes">
+        @if (!string.IsNullOrEmpty(ResolvedIcon))
+        {
+            <div class="zak-alert-icon">
+                <ZakIcon Icon="@ResolvedIcon" Size="ZakSize.Medium" />
+            </div>
+        }
+
+        <div class="zak-alert-content">
+            @if (!string.IsNullOrEmpty(Title))
+            {
+                <div class="zak-alert-title">@Title</div>
+            }
+            @if (ChildContent != null)
+            {
+                <div class="zak-alert-message">
+                    @ChildContent
+                </div>
+            }
+        </div>
+
+        @if (Action != null)
+        {
+            <div class="zak-alert-action">
+                @Action
+            </div>
+        }
+
+        @if (Closeable)
+        {
+            <button type="button"
+                    class="zak-alert-close"
+                    aria-label="Dismiss alert"
+                    @onclick="HandleCloseAsync">
+                <ZakIcon Icon="@ZakIcons.Close" Size="ZakSize.Small" />
+            </button>
+        }
+    </div>
+}
+
+@code {
+    private bool _visible = true;
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Info;
+
+    [Parameter]
+    public ZakVariant Variant { get; set; } = ZakVariant.Soft;
+
+    [Parameter]
+    public ZakShape Shape { get; set; } = ZakShape.Rounded;
+
+    [Parameter]
+    public int Elevation { get; set; } = 0;
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public bool ShowIcon { get; set; } = true;
+
+    [Parameter]
+    public bool Closeable { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    [Parameter]
+    public RenderFragment? Action { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? ResolvedIcon
+    {
+        get
+        {
+            if (!ShowIcon) return null;
+            if (!string.IsNullOrEmpty(Icon)) return Icon;
+
+            return Color switch
+            {
+                ZakColor.Success => ZakIcons.CheckCircle,
+                ZakColor.Warning => ZakIcons.AlertTriangle,
+                ZakColor.Danger => ZakIcons.AlertCircle,
+                ZakColor.Primary => ZakIcons.Info,
+                ZakColor.Secondary => ZakIcons.Sparkles,
+                _ => ZakIcons.Info
+            };
+        }
+    }
+
+    private async Task HandleCloseAsync()
+    {
+        _visible = false;
+        if (OnClose.HasDelegate)
+        {
+            await OnClose.InvokeAsync();
+        }
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-alert")
+        .AddClass(Color.ToCssClass())
+        .AddClass(Variant.ToCssClass())
+        .AddClass(Shape.ToCssClass())
+        .AddClass(Color.ToCssClass("zak-alert"))
+        .AddClass(Variant.ToCssClass("zak-alert"))
+        .AddClass(Shape.ToCssClass("zak-alert"))
+        .AddClass(Elevation.ToCssClass())
+        .AddClass("zak-alert-has-title", !string.IsNullOrEmpty(Title))
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

@@ -1,0 +1,53 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+@inject ZAKBlazor.Services.IZakLayoutService LayoutService
+@inject ZAKBlazor.Services.IZakThemeService ThemeService
+
+<CascadingValue Value="this" IsFixed="true">
+    <div id="@ElementId"
+         class="@CompiledClass"
+         style="@CompiledStyle"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    public bool IsDrawerOpen => LayoutService.IsDrawerOpen;
+
+    protected override void OnInitialized()
+    {
+        LayoutService.OnLayoutChanged += HandleLayoutChanged;
+        ThemeService.OnThemeChanged += HandleThemeChanged;
+    }
+
+    private void HandleLayoutChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleThemeChanged(bool isDark)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-layout")
+        .AddClass("zak-theme-dark", ThemeService.IsDarkMode)
+        .AddClass("zak-theme-light", !ThemeService.IsDarkMode)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            LayoutService.OnLayoutChanged -= HandleLayoutChanged;
+            ThemeService.OnThemeChanged -= HandleThemeChanged;
+        }
+        base.Dispose(disposing);
+    }
+}

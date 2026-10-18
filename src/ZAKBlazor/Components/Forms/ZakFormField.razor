@@ -1,0 +1,79 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @if (!string.IsNullOrEmpty(Label) || LabelContent != null)
+    {
+        <ZakLabel For="@For" Required="@Required">
+            @if (!string.IsNullOrEmpty(Label))
+            {
+                @Label
+            }
+            else
+            {
+                @LabelContent
+            }
+        </ZakLabel>
+    }
+
+    <CascadingValue Value="Variant" IsFixed="false">
+        @ChildContent
+    </CascadingValue>
+
+    @if (!string.IsNullOrEmpty(ErrorText))
+    {
+        <span class="zak-error-text" role="alert">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            @ErrorText
+        </span>
+    }
+    else if (!string.IsNullOrEmpty(HelperText))
+    {
+        <span class="zak-helper-text">@HelperText</span>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? For { get; set; }
+
+    [Parameter]
+    public string? Label { get; set; }
+
+    [Parameter]
+    public bool Required { get; set; }
+
+    [Parameter]
+    public string? HelperText { get; set; }
+
+    [Parameter]
+    public string? ErrorText { get; set; }
+
+    /// <summary>
+    /// Visual style variant of the form field: Outlined, Filled, Underline, or Ghost.
+    /// Cascaded to child inputs automatically.
+    /// </summary>
+    [Parameter]
+    public ZakFormFieldVariant Variant { get; set; } = ZakFormFieldVariant.Outlined;
+
+    [Parameter]
+    public RenderFragment? LabelContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-form-field")
+        .AddClass(Variant.ToCssClass())
+        .AddClass($"zak-variant-{Variant.ToString().ToLowerInvariant()}")
+        .AddClass("zak-form-field-error", !string.IsNullOrEmpty(ErrorText))
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

@@ -1,0 +1,46 @@
+@namespace ZAKBlazor
+@typeparam TItem
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+@code {
+    [CascadingParameter]
+    public object? ParentTable { get; set; }
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Field { get; set; }
+
+    [Parameter]
+    public bool Sortable { get; set; }
+
+    [Parameter]
+    public string? Width { get; set; }
+
+    [Parameter]
+    public ZakAlignment Align { get; set; } = ZakAlignment.Start;
+
+    [Parameter]
+    public RenderFragment<TItem>? Template { get; set; }
+
+    [Parameter]
+    public Func<TItem, object?>? Property { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (ParentTable is IZakColumnHost<TItem> host)
+        {
+            host.RegisterColumn(this);
+        }
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && ParentTable is IZakColumnHost<TItem> host)
+        {
+            host.UnregisterColumn(this);
+        }
+        base.Dispose(disposing);
+    }
+}

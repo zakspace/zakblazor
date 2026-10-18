@@ -1,0 +1,36 @@
+@page "/docs/aspect-ratio"
+
+<PageTitle>Aspect Ratio — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Aspect Ratio</h1>
+        <p class="docs-subtitle">Maintains a consistent width-to-height ratio for responsive media embeds, video players, and image galleries.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Layout" Color="ZakColor.Primary" />
+            <ZakBadge Content="Media" Color="ZakColor.Info" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">16:9 Video Ratio</h2>
+        <p class="docs-section-desc">Preserve video aspect ratio regardless of viewport width.</p>
+        <ZakDocsExample Title="16:9 Aspect Ratio" Code="@RatioCode">
+            <div style="max-width: 480px;">
+                <ZakAspectRatio Ratio="16/9" Style="background: var(--zak-surface-variant); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <ZakText Typo="Typo.subtitle1">16:9 Responsive Ratio</ZakText>
+                </ZakAspectRatio>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakAspectRatio" />
+    </div>
+</div>
+
+@code {
+    private const string RatioCode = @"<ZakAspectRatio Ratio=""16/9"">
+    <img src=""/path/to/media.jpg"" alt=""Responsive Media"" />
+</ZakAspectRatio>";
+}

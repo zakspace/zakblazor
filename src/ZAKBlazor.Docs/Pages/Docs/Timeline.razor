@@ -1,0 +1,40 @@
+@page "/docs/timeline"
+
+<PageTitle>Timeline — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Timeline</h1>
+        <p class="docs-subtitle">Timelines present chronological sequences of activities, version releases, or workflow step histories.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Chronological" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Activity Trail</h2>
+        <p class="docs-section-desc">Timeline items connect with automatic vertical line connectors.</p>
+        <ZakDocsExample Title="Release Timeline" Code="@TimelineCode">
+            <div style="max-width: 480px;">
+                <ZakTimeline>
+                    <ZakTimelineItem Title="Release v1.2.0 Deployed" Subtitle="Production cluster updated" Time="10:30 AM" Color="ZakColor.Success" Icon="@ZakIcons.Check" />
+                    <ZakTimelineItem Title="Automated Tests Passed" Subtitle="142 integration tests succeeded" Time="09:15 AM" Color="ZakColor.Primary" Icon="@ZakIcons.CheckCircle" />
+                    <ZakTimelineItem Title="Code Review Approved" Subtitle="Approved by 2 principal engineers" Time="Yesterday" Color="ZakColor.Info" Icon="@ZakIcons.FileText" />
+                    <ZakTimelineItem Title="Pull Request Opened" Subtitle="Feature: dynamic theme token emission" Time="2 days ago" Color="ZakColor.Default" Icon="@ZakIcons.Code" />
+                </ZakTimeline>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakTimeline" />
+    </div>
+</div>
+
+@code {
+    private const string TimelineCode = @"<ZakTimeline>
+    <ZakTimelineItem Title=""Release Deployed"" Subtitle=""Production updated"" Time=""10:30 AM"" Color=""ZakColor.Success"" />
+    <ZakTimelineItem Title=""Tests Passed"" Subtitle=""142 tests passed"" Time=""09:15 AM"" Color=""ZakColor.Primary"" />
+</ZakTimeline>";
+}

@@ -1,0 +1,122 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<li id="@ElementId"
+    class="@CompiledClass"
+    style="@CompiledStyle"
+    @attributes="AdditionalAttributes">
+    @if (Parent != null && !Parent.IsFirst(this))
+    {
+        <span class="zak-breadcrumb-separator" aria-hidden="true">
+            @if (!string.IsNullOrEmpty(Parent.Separator))
+            {
+                @Parent.Separator
+            }
+            else if (!string.IsNullOrEmpty(Parent.SeparatorIcon))
+            {
+                <ZakIcon Icon="@Parent.SeparatorIcon" Size="ZakSize.ExtraSmall" />
+            }
+            else
+            {
+                <text>/</text>
+            }
+        </span>
+    }
+
+    @if (Current || string.IsNullOrEmpty(Href) || Disabled)
+    {
+        <span class="@ResolveContentClass()" aria-current="@(Current ? "page" : null)">
+            @if (!string.IsNullOrEmpty(Icon))
+            {
+                <ZakIcon Icon="@Icon" Size="ZakSize.ExtraSmall" />
+            }
+            @if (!string.IsNullOrEmpty(Text))
+            {
+                @Text
+            }
+            else
+            {
+                @ChildContent
+            }
+        </span>
+    }
+    else
+    {
+        <a href="@Href"
+           class="zak-breadcrumb-link"
+           @onclick="HandleClickAsync">
+            @if (!string.IsNullOrEmpty(Icon))
+            {
+                <ZakIcon Icon="@Icon" Size="ZakSize.ExtraSmall" />
+            }
+            @if (!string.IsNullOrEmpty(Text))
+            {
+                @Text
+            }
+            else
+            {
+                @ChildContent
+            }
+        </a>
+    }
+</li>
+
+@code {
+    [CascadingParameter]
+    public ZakBreadcrumbs? Parent { get; set; }
+
+    [Parameter]
+    public string? Href { get; set; }
+
+    [Parameter]
+    public string? Text { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public bool Current { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Parent?.Register(this);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            Parent?.Unregister(this);
+        }
+        base.Dispose(disposing);
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-breadcrumb-item")
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private string? ResolveContentClass() => ZakClassBuilder.Create("zak-breadcrumb-content")
+        .AddClass("zak-breadcrumb-current", Current)
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private async Task HandleClickAsync(MouseEventArgs args)
+    {
+        if (Disabled) return;
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(args);
+        }
+    }
+}

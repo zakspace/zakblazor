@@ -1,0 +1,53 @@
+@page "/docs/tree"
+
+<PageTitle>Tree — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Tree</h1>
+        <p class="docs-subtitle">Hierarchical tree view component for file system explorers, nested category browsers, and organizational structures.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Hierarchical" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Nested File Explorer</h2>
+        <p class="docs-section-desc">Click folder items to expand or collapse sub-trees.</p>
+        <ZakDocsExample Title="Tree View" Code="@TreeCode">
+            <div style="max-width: 380px; background: var(--zak-surface); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--zak-border);">
+                <ZakTree>
+                    <ZakTreeNode Text="src" Icon="@ZakIcons.FolderOpen" DefaultExpanded="true">
+                        <ZakTreeNode Text="Components" Icon="@ZakIcons.FolderOpen" DefaultExpanded="true">
+                            <ZakTreeNode Text="ZakButton.razor" Icon="@ZakIcons.Code" />
+                            <ZakTreeNode Text="ZakCard.razor" Icon="@ZakIcons.Code" />
+                            <ZakTreeNode Text="ZakDialog.razor" Icon="@ZakIcons.Code" />
+                        </ZakTreeNode>
+                        <ZakTreeNode Text="Services" Icon="@ZakIcons.FolderOpen">
+                            <ZakTreeNode Text="ThemeService.cs" Icon="@ZakIcons.FileText" />
+                            <ZakTreeNode Text="LayoutService.cs" Icon="@ZakIcons.FileText" />
+                        </ZakTreeNode>
+                    </ZakTreeNode>
+                    <ZakTreeNode Text="wwwroot" Icon="@ZakIcons.FolderOpen">
+                        <ZakTreeNode Text="index.html" Icon="@ZakIcons.File" />
+                        <ZakTreeNode Text="app.css" Icon="@ZakIcons.FileText" />
+                    </ZakTreeNode>
+                </ZakTree>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakTree" />
+    </div>
+</div>
+
+@code {
+    private const string TreeCode = @"<ZakTree>
+    <ZakTreeNode Text=""src"" Icon=""@ZakIcons.FolderOpen"" InitiallyExpanded=""true"">
+        <ZakTreeNode Text=""ZakButton.razor"" Icon=""@ZakIcons.Code"" />
+        <ZakTreeNode Text=""ZakCard.razor"" Icon=""@ZakIcons.Code"" />
+    </ZakTreeNode>
+</ZakTree>";
+}

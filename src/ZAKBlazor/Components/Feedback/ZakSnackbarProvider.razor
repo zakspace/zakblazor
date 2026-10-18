@@ -1,0 +1,72 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+@inject ZAKBlazor.Services.IZakSnackbarService SnackbarService
+
+@foreach (var group in _messages.GroupBy(m => m.Options.Placement))
+{
+    var placementClass = ResolvePlacementClass(group.Key);
+    <div class="zak-snackbar-container @placementClass" role="region" aria-label="Notifications">
+        @foreach (var message in group)
+        {
+            <ZakSnackbar @key="message.Id"
+                         Message="@message"
+                         OnDismiss="HandleDismiss" />
+        }
+    </div>
+}
+
+@code {
+    private readonly List<ZAKBlazor.Services.ZakSnackbarMessage> _messages = new();
+
+    protected override void OnInitialized()
+    {
+        SnackbarService.OnMessageAdded += HandleMessageAdded;
+        SnackbarService.OnMessageRemoved += HandleMessageRemoved;
+        SnackbarService.OnCleared += HandleCleared;
+    }
+
+    private void HandleMessageAdded(ZAKBlazor.Services.ZakSnackbarMessage message)
+    {
+        _messages.Add(message);
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleMessageRemoved(ZAKBlazor.Services.ZakSnackbarMessage message)
+    {
+        _messages.Remove(message);
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleCleared()
+    {
+        _messages.Clear();
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleDismiss(ZAKBlazor.Services.ZakSnackbarMessage message)
+    {
+        SnackbarService.Remove(message);
+    }
+
+    private string ResolvePlacementClass(ZakPlacement placement) => placement switch
+    {
+        ZakPlacement.Top => "zak-snackbar-top-center",
+        ZakPlacement.TopStart => "zak-snackbar-top-left",
+        ZakPlacement.TopEnd => "zak-snackbar-top-right",
+        ZakPlacement.Bottom => "zak-snackbar-bottom-center",
+        ZakPlacement.BottomStart => "zak-snackbar-bottom-left",
+        ZakPlacement.BottomEnd => "zak-snackbar-bottom-right",
+        _ => "zak-snackbar-bottom-right"
+    };
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            SnackbarService.OnMessageAdded -= HandleMessageAdded;
+            SnackbarService.OnMessageRemoved -= HandleMessageRemoved;
+            SnackbarService.OnCleared -= HandleCleared;
+        }
+        base.Dispose(disposing);
+    }
+}

@@ -1,0 +1,58 @@
+@namespace ZAKBlazor
+@typeparam TValue
+@inherits ZAKBlazor.Primitives.ZakInputBase<TValue>
+
+<div class="zak-form-field">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <ZakLabel Required="@Required" Text="@Label" />
+    }
+
+    <div id="@ElementId"
+         role="radiogroup"
+         class="@CompiledGroupClass"
+         style="@CompiledStyle"
+         aria-invalid="@(HasError ? "true" : "false")"
+         @attributes="AdditionalAttributes">
+        <CascadingValue Value="this" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
+    </div>
+
+    @if (HasError && !string.IsNullOrEmpty(ValidationErrorMessage))
+    {
+        <div class="zak-error-text" role="alert">
+            @ValidationErrorMessage
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(HelperText))
+    {
+        <div class="zak-helper-text">
+            @HelperText
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public ZakOrientation Orientation { get; set; } = ZakOrientation.Vertical;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    internal async Task SelectValueAsync(TValue? value)
+    {
+        await SetCurrentValueAsync(value);
+    }
+
+    internal bool IsSelected(TValue? value) =>
+        EqualityComparer<TValue>.Default.Equals(Value, value);
+
+    private string? CompiledGroupClass => CreateClassBuilder("zak-radio-group")
+        .AddClass(Orientation == ZakOrientation.Vertical ? "zak-radio-group-vertical" : "zak-radio-group-horizontal")
+        .AddClass(Color.ToCssClass())
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

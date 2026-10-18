@@ -1,0 +1,38 @@
+@page "/docs/checkbox"
+
+<PageTitle>Checkbox — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Checkbox</h1>
+        <p class="docs-subtitle">Checkboxes allow users to select one or multiple items from a list, or toggle an individual binary option.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Two-Way Binding" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Checkbox Options</h2>
+        <p class="docs-section-desc">Supports checked, unchecked, indeterminate, and disabled states with semantic colors.</p>
+        <ZakDocsExample Title="Checkboxes" Code="@CheckboxCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                <ZakCheckbox @bind-Value="_termsAccepted" Label="I accept the terms and conditions" Color="ZakColor.Primary" />
+                <ZakCheckbox @bind-Value="_subscribeNewsletter" Label="Subscribe to security updates" Color="ZakColor.Success" />
+                <ZakCheckbox Value="true" Disabled="true" Label="Disabled checked option" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakCheckbox" />
+    </div>
+</div>
+
+@code {
+    private bool _termsAccepted = true;
+    private bool _subscribeNewsletter = false;
+
+    private const string CheckboxCode = @"<ZakCheckbox @bind-Value=""_termsAccepted"" Label=""I accept the terms and conditions"" Color=""ZakColor.Primary"" />
+<ZakCheckbox @bind-Value=""_subscribeNewsletter"" Label=""Subscribe to updates"" Color=""ZakColor.Success"" />";
+}

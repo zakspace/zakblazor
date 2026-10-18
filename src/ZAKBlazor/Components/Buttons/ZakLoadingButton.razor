@@ -1,0 +1,180 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<button id="@ElementId"
+        type="@Type"
+        class="@CompiledClass"
+        style="@CompiledStyle"
+        disabled="@(Disabled || IsLoading)"
+        aria-busy="@(IsLoading ? "true" : null)"
+        aria-disabled="@(Disabled ? "true" : null)"
+        @onclick="HandleClickAsync"
+        @attributes="AdditionalAttributes">
+    @if (IsLoading)
+    {
+        @if (LoadingPosition == ZakLoadingPosition.Start)
+        {
+            <span class="zak-btn-spinner" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12" />
+                </svg>
+            </span>
+            <span class="zak-btn-label">
+                @if (!string.IsNullOrEmpty(LoadingText))
+                {
+                    @LoadingText
+                }
+                else
+                {
+                    @ChildContent
+                }
+            </span>
+        }
+        else if (LoadingPosition == ZakLoadingPosition.End)
+        {
+            <span class="zak-btn-label">
+                @if (!string.IsNullOrEmpty(LoadingText))
+                {
+                    @LoadingText
+                }
+                else
+                {
+                    @ChildContent
+                }
+            </span>
+            <span class="zak-btn-spinner" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12" />
+                </svg>
+            </span>
+        }
+        else
+        {
+            <span class="zak-btn-spinner" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12" />
+                </svg>
+            </span>
+            @if (!string.IsNullOrEmpty(LoadingText))
+            {
+                <span class="zak-btn-label">@LoadingText</span>
+            }
+        }
+    }
+    else
+    {
+        @if (!string.IsNullOrEmpty(StartIcon))
+        {
+            <span class="zak-btn-icon-start" aria-hidden="true">
+                <ZakIcon Icon="@StartIcon" Size="@ResolveIconSize(Size)" />
+            </span>
+        }
+        @if (ChildContent != null)
+        {
+            <span class="zak-btn-label">@ChildContent</span>
+        }
+        @if (!string.IsNullOrEmpty(EndIcon))
+        {
+            <span class="zak-btn-icon-end" aria-hidden="true">
+                <ZakIcon Icon="@EndIcon" Size="@ResolveIconSize(Size)" />
+            </span>
+        }
+    }
+</button>
+
+@code {
+    private bool _internalLoading;
+
+    [Parameter]
+    public bool Loading { get; set; }
+
+    [Parameter]
+    public string? LoadingText { get; set; }
+
+    [Parameter]
+    public ZakLoadingPosition LoadingPosition { get; set; } = ZakLoadingPosition.Center;
+
+    [Parameter]
+    public ZakVariant Variant { get; set; } = ZakVariant.Filled;
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Primary;
+
+    [Parameter]
+    public ZakSize Size { get; set; } = ZakSize.Medium;
+
+    [Parameter]
+    public ZakShape Shape { get; set; } = ZakShape.Default;
+
+    [Parameter]
+    public string? StartIcon { get; set; }
+
+    [Parameter]
+    public string? EndIcon { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public bool FullWidth { get; set; }
+
+    [Parameter]
+    public string Type { get; set; } = "button";
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter]
+    public Func<Task>? OnAsyncClick { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool IsLoading => Loading || _internalLoading;
+
+    private string? CompiledClass => CreateClassBuilder("zak-btn zak-loading-btn")
+        .AddClass(Variant.ToCssClass())
+        .AddClass(Color.ToCssClass())
+        .AddClass(Size.ToCssClass())
+        .AddClass(Shape.ToCssClass())
+        .AddClass("zak-btn-full-width", FullWidth)
+        .AddClass("zak-btn-loading", IsLoading)
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task HandleClickAsync(MouseEventArgs args)
+    {
+        if (Disabled || IsLoading) return;
+
+        if (OnAsyncClick != null)
+        {
+            _internalLoading = true;
+            StateHasChanged();
+            try
+            {
+                await OnAsyncClick();
+            }
+            finally
+            {
+                _internalLoading = false;
+                StateHasChanged();
+            }
+        }
+        else if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(args);
+        }
+    }
+
+    private static ZakSize ResolveIconSize(ZakSize size) => size switch
+    {
+        ZakSize.ExtraSmall => ZakSize.ExtraSmall,
+        ZakSize.Small => ZakSize.Small,
+        ZakSize.Medium => ZakSize.Small,
+        ZakSize.Large => ZakSize.Medium,
+        ZakSize.ExtraLarge => ZakSize.Large,
+        _ => ZakSize.Small
+    };
+}

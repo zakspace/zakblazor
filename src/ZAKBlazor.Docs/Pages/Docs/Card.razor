@@ -1,0 +1,50 @@
+@page "/docs/card"
+
+<PageTitle>Card — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Card</h1>
+        <p class="docs-subtitle">Cards contain content and actions about a single subject, featuring structured header, media, body, and action regions.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Surface" Color="ZakColor.Primary" />
+            <ZakBadge Content="Composable" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Basic Card -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Standard Card</h2>
+        <p class="docs-section-desc">Compose cards with <code>ZakCardHeader</code>, <code>ZakCardContent</code>, and <code>ZakCardActions</code>.</p>
+        <ZakDocsExample Title="Standard Card" Code="@CardCode">
+            <ZakCard MaxWidth="380px" Elevation="1" Shape="ZakShape.Rounded">
+                <ZakCardHeader Title="Enterprise Analytics" Subtitle="Updated 5m ago" />
+                <ZakCardContent>
+                    <ZakText Typo="Typo.body2">
+                        View real-time conversion rates, throughput, and error budgets across all production clusters.
+                    </ZakText>
+                </ZakCardContent>
+                <ZakCardActions>
+                    <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Primary" Size="ZakSize.Small">View Report</ZakButton>
+                    <ZakButton Variant="ZakVariant.Text" Color="ZakColor.Default" Size="ZakSize.Small">Export</ZakButton>
+                </ZakCardActions>
+            </ZakCard>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakCard" />
+    </div>
+</div>
+
+@code {
+    private const string CardCode = @"<ZakCard MaxWidth=""380px"" Elevation=""1"">
+    <ZakCardHeader Title=""Enterprise Analytics"" Subtitle=""Updated 5m ago"" />
+    <ZakCardContent>
+        <ZakText Typo=""Typo.body2"">View real-time metrics and charts.</ZakText>
+    </ZakCardContent>
+    <ZakCardActions>
+        <ZakButton Variant=""ZakVariant.Filled"" Color=""ZakColor.Primary"">View Report</ZakButton>
+    </ZakCardActions>
+</ZakCard>";
+}

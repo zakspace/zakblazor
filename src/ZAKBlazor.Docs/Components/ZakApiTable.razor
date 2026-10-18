@@ -1,0 +1,140 @@
+@namespace ZAKBlazor.Docs.Components
+@using System.Reflection
+@using Microsoft.AspNetCore.Components
+
+<div class="zak-table-container zak-api-card">
+    <div class="zak-api-header">
+        <h3 class="zak-api-title">
+            API Reference: @(ComponentName ?? ComponentType?.Name ?? "Component Parameters")
+        </h3>
+    </div>
+
+    @if (_displayedParameters.Count == 0)
+    {
+        <div style="padding: 1rem; border-radius: 8px; background: rgba(255, 255, 255, 0.03); color: var(--zak-text-secondary); font-size: 0.875rem;">
+            No custom parameters required for this component.
+        </div>
+    }
+    else
+    {
+        <table class="zak-api-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var param in _displayedParameters)
+                {
+                    <tr>
+                        <td style="font-weight: 600; color: var(--zak-text-primary); font-family: 'Fira Code', monospace; font-size: 0.875rem;">@param.Name</td>
+                        <td><span class="zak-type-badge" style="font-family: 'Fira Code', monospace;">@param.Type</span></td>
+                        <td><span class="zak-default-badge" style="font-family: 'Fira Code', monospace;">@(param.DefaultValue ?? "-")</span></td>
+                        <td style="color: var(--zak-text-secondary); font-size: 0.875rem;">@param.Description</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? ComponentName { get; set; }
+
+    [Parameter]
+    public Type? ComponentType { get; set; }
+
+    [Parameter]
+    public List<ZakParamDoc> Parameters { get; set; } = new();
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private List<ZakParamDoc> _displayedParameters = new();
+
+    protected override void OnParametersSet()
+    {
+        if (Parameters != null && Parameters.Count > 0)
+        {
+            _displayedParameters = Parameters;
+            return;
+        }
+
+        Type? targetType = ComponentType;
+        if (targetType == null && !string.IsNullOrWhiteSpace(ComponentName))
+        {
+            targetType = typeof(ZakButton).Assembly.GetType($"ZAKBlazor.{ComponentName}")
+                ?? typeof(ZakButton).Assembly.GetTypes().FirstOrDefault(t => t.Name.Equals(ComponentName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (targetType != null)
+        {
+            var props = targetType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.GetCustomAttribute<ParameterAttribute>() != null)
+                .OrderBy(p => p.Name);
+
+            _displayedParameters = props.Select(p => new ZakParamDoc(
+                p.Name,
+                FormatTypeName(p.PropertyType),
+                GetDefaultValue(p),
+                GetDescription(p)
+            )).ToList();
+        }
+        else
+        {
+            _displayedParameters = new();
+        }
+    }
+
+    private static string FormatTypeName(Type type)
+    {
+        var underlying = Nullable.GetUnderlyingType(type);
+        if (underlying != null)
+        {
+            return $"{FormatTypeName(underlying)}?";
+        }
+        if (type == typeof(string)) return "string";
+        if (type == typeof(bool)) return "bool";
+        if (type == typeof(int)) return "int";
+        if (type == typeof(double)) return "double";
+        if (type == typeof(decimal)) return "decimal";
+        if (type == typeof(RenderFragment)) return "RenderFragment";
+        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(RenderFragment<>))
+            return $"RenderFragment<{type.GetGenericArguments()[0].Name}>";
+        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(EventCallback<>))
+            return $"EventCallback<{type.GetGenericArguments()[0].Name}>";
+        if (type == typeof(EventCallback)) return "EventCallback";
+        return type.Name;
+    }
+
+    private static string? GetDefaultValue(PropertyInfo prop)
+    {
+        if (prop.PropertyType == typeof(bool)) return "false";
+        if (prop.PropertyType.IsEnum) return Enum.GetNames(prop.PropertyType).FirstOrDefault() ?? "-";
+        return "-";
+    }
+
+    private static string GetDescription(PropertyInfo prop)
+    {
+        return prop.Name switch
+        {
+            "ChildContent" => "Primary content to be rendered inside the component.",
+            "Color" => "Theme color applied to the component.",
+            "Variant" => "Visual variant styling (e.g. Filled, Outlined, Text, Soft).",
+            "Size" => "Size preset of the component (Small, Medium, Large, etc.).",
+            "Shape" => "Border radius shape styling (Rounded, Square, Pill, etc.).",
+            "Disabled" => "If true, the component is disabled and non-interactive.",
+            "Elevation" => "Shadow depth elevation token.",
+            "Class" => "Custom CSS class string to append.",
+            "Style" => "Custom inline CSS styles to apply.",
+            "OnClick" => "Callback event invoked when component is clicked.",
+            "ValueChanged" => "Callback event invoked when value changes.",
+            "Value" => "Current value bound to the component.",
+            _ => $"Configures the {prop.Name} parameter."
+        };
+    }
+}

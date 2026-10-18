@@ -1,0 +1,67 @@
+@page "/docs/button-group"
+
+<PageTitle>Button Group — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Button Group</h1>
+        <p class="docs-subtitle">Button groups bundle a series of buttons together on a single line with cohesive borders and corners.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Buttons" Color="ZakColor.Primary" />
+            <ZakBadge Content="Group" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Horizontal Variant -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Horizontal Group</h2>
+        <p class="docs-section-desc">Wrap multiple <code>ZakButton</code> elements inside a <code>ZakButtonGroup</code>. Controls inherit size and color.</p>
+        <ZakDocsExample Title="Horizontal Button Group" Code="@HorizontalCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                <ZakButtonGroup Variant="ZakVariant.Filled" Color="ZakColor.Primary">
+                    <ZakButton>Years</ZakButton>
+                    <ZakButton>Months</ZakButton>
+                    <ZakButton>Days</ZakButton>
+                </ZakButtonGroup>
+
+                <ZakButtonGroup Variant="ZakVariant.Outlined" Color="ZakColor.Default">
+                    <ZakButton StartIcon="@ZakIcons.ArrowLeft">Prev</ZakButton>
+                    <ZakButton>Today</ZakButton>
+                    <ZakButton EndIcon="@ZakIcons.ArrowRight">Next</ZakButton>
+                </ZakButtonGroup>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Vertical Variant -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Vertical Group</h2>
+        <p class="docs-section-desc">Set <code>Orientation="ZakOrientation.Vertical"</code> for sidebars and stacked tool sets.</p>
+        <ZakDocsExample Title="Vertical Button Group" Code="@VerticalCode">
+            <ZakButtonGroup Orientation="ZakOrientation.Vertical" Variant="ZakVariant.Outlined" Color="ZakColor.Primary">
+                <ZakButton StartIcon="@ZakIcons.Edit">Edit Item</ZakButton>
+                <ZakButton StartIcon="@ZakIcons.Copy">Duplicate</ZakButton>
+                <ZakButton StartIcon="@ZakIcons.Share">Share Link</ZakButton>
+                <ZakButton StartIcon="@ZakIcons.Trash" Color="ZakColor.Danger">Delete</ZakButton>
+            </ZakButtonGroup>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakButtonGroup" />
+    </div>
+</div>
+
+@code {
+    private const string HorizontalCode = @"<ZakButtonGroup Variant=""ZakVariant.Filled"" Color=""ZakColor.Primary"">
+    <ZakButton>Years</ZakButton>
+    <ZakButton>Months</ZakButton>
+    <ZakButton>Days</ZakButton>
+</ZakButtonGroup>";
+
+    private const string VerticalCode = @"<ZakButtonGroup Orientation=""ZakOrientation.Vertical"" Variant=""ZakVariant.Outlined"">
+    <ZakButton StartIcon=""@ZakIcons.Edit"">Edit Item</ZakButton>
+    <ZakButton StartIcon=""@ZakIcons.Copy"">Duplicate</ZakButton>
+    <ZakButton StartIcon=""@ZakIcons.Trash"" Color=""ZakColor.Danger"">Delete</ZakButton>
+</ZakButtonGroup>";
+}

@@ -1,0 +1,35 @@
+@namespace ZAKBlazor.Samples.Layout
+
+<nav style="display: flex; flex-direction: column; gap: var(--zak-spacing-2);">
+    <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--zak-text-muted); padding: 0 12px 6px;">Dashboard</div>
+    
+    <NavLink class="zak-btn zak-variant-text zak-color-default zak-btn-full-width"
+             style="justify-content: flex-start; text-decoration: none;"
+             href="" Match="NavLinkMatch.All">
+        <ZakIcon Icon="@ZakIcons.LayoutDashboard" Size="ZakSize.Small" Style="margin-right: 8px;" />
+        Overview
+    </NavLink>
+
+    <NavLink class="zak-btn zak-variant-text zak-color-default zak-btn-full-width"
+             style="justify-content: flex-start; text-decoration: none;"
+             href="analytics">
+        <ZakIcon Icon="@ZakIcons.Sparkles" Size="ZakSize.Small" Style="margin-right: 8px;" />
+        Analytics
+    </NavLink>
+
+    <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--zak-text-muted); padding: 16px 12px 6px;">Management</div>
+
+    <NavLink class="zak-btn zak-variant-text zak-color-default zak-btn-full-width"
+             style="justify-content: flex-start; text-decoration: none;"
+             href="customers">
+        <ZakIcon Icon="@ZakIcons.Users" Size="ZakSize.Small" Style="margin-right: 8px;" />
+        Customers
+    </NavLink>
+
+    <NavLink class="zak-btn zak-variant-text zak-color-default zak-btn-full-width"
+             style="justify-content: flex-start; text-decoration: none;"
+             href="settings">
+        <ZakIcon Icon="@ZakIcons.Settings" Size="ZakSize.Small" Style="margin-right: 8px;" />
+        Settings
+    </NavLink>
+</nav>

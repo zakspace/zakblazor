@@ -1,0 +1,23 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<kbd id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</kbd>
+
+@code {
+    [Parameter]
+    public ZakSize Size { get; set; } = ZakSize.Medium;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-kbd")
+        .AddClass(Size.ToCssClass("zak-kbd"))
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

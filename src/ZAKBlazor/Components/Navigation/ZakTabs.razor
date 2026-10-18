@@ -1,0 +1,80 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<CascadingValue Value="this" IsFixed="true">
+    <div id="@ElementId"
+         role="tablist"
+         aria-orientation="@(Orientation == ZakOrientation.Vertical ? "vertical" : "horizontal")"
+         class="@CompiledClass"
+         style="@CompiledStyle"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public int ActiveIndex { get; set; }
+
+    [Parameter]
+    public EventCallback<int> ActiveIndexChanged { get; set; }
+
+    [Parameter]
+    public ZakOrientation Orientation { get; set; } = ZakOrientation.Horizontal;
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Primary;
+
+    [Parameter]
+    public bool Pill { get; set; }
+
+    [Parameter]
+    public bool Centered { get; set; }
+
+    [Parameter]
+    public bool FullWidth { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private readonly List<ZakTab> _tabs = new();
+
+    internal void RegisterTab(ZakTab tab)
+    {
+        if (!_tabs.Contains(tab))
+        {
+            _tabs.Add(tab);
+            StateHasChanged();
+        }
+    }
+
+    internal void UnregisterTab(ZakTab tab)
+    {
+        if (_tabs.Remove(tab))
+        {
+            StateHasChanged();
+        }
+    }
+
+    internal int GetTabIndex(ZakTab tab) => _tabs.IndexOf(tab);
+
+    internal async Task SelectTabAsync(int index)
+    {
+        if (ActiveIndex != index)
+        {
+            ActiveIndex = index;
+            await ActiveIndexChanged.InvokeAsync(index);
+            StateHasChanged();
+        }
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-tabs")
+        .AddClass(Orientation == ZakOrientation.Vertical ? "zak-tabs-vertical" : "zak-tabs-horizontal")
+        .AddClass(Color.ToCssClass("zak-tabs-"))
+        .AddClass("zak-tabs-pill", Pill)
+        .AddClass("zak-tabs-centered", Centered)
+        .AddClass("zak-tabs-full-width", FullWidth)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

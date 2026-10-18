@@ -1,0 +1,36 @@
+@page "/docs/section"
+
+<PageTitle>Section — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Section</h1>
+        <p class="docs-subtitle">Section provides semantic HTML5 &lt;section&gt; grouping with customizable vertical rhythm and background styling.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Layout" Color="ZakColor.Primary" />
+            <ZakBadge Content="Semantic HTML5" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Page Section</h2>
+        <p class="docs-section-desc">Create distinct landing page blocks with controlled spacing.</p>
+        <ZakDocsExample Title="Section Component" Code="@SectionCode">
+            <ZakSection Style="background: var(--zak-surface); padding: 2rem; border-radius: 8px;">
+                <ZakText Typo="Typo.h5">Feature Highlights</ZakText>
+                <ZakText Typo="Typo.body2">Sections cleanly separate thematic areas on the page.</ZakText>
+            </ZakSection>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakSection" />
+    </div>
+</div>
+
+@code {
+    private const string SectionCode = @"<ZakSection>
+    <ZakText Typo=""Typo.h5"">Section Title</ZakText>
+    <p>Section body content</p>
+</ZakSection>";
+}

@@ -1,0 +1,123 @@
+@page "/analytics"
+@namespace ZAKBlazor.Samples.Pages
+
+<PageTitle>Analytics — ZAK Enterprise</PageTitle>
+
+<ZakContainer MaxWidth="ZakBreakpoint.Xl" Style="padding: var(--zak-spacing-6) 0;">
+    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="6">
+        <!-- Header with Date Filter -->
+        <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true" Wrap="true">
+            <div>
+                <ZakText Typo="Typo.h4" GutterBottom="true">Real-Time Performance Analytics</ZakText>
+                <ZakText Typo="Typo.body2">Monitor traffic, API request latency, and infrastructure throughput.</ZakText>
+            </div>
+            <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Align="ZakAlignment.Center">
+                <ZakDatePicker @bind-Value="_startDate" Format="MMM dd, yyyy" Size="ZakSize.Small" />
+                <ZakText Typo="Typo.body2">to</ZakText>
+                <ZakDatePicker @bind-Value="_endDate" Format="MMM dd, yyyy" Size="ZakSize.Small" />
+                <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Primary" Size="ZakSize.Small" StartIcon="@ZakIcons.Download">
+                    Export
+                </ZakButton>
+            </ZakStack>
+        </ZakStack>
+
+        <!-- KPI Metric Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--zak-spacing-4);">
+            <ZakCard Elevation="ZakElevation.Elevation2">
+                <ZakCardContent>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                        <ZakText Typo="Typo.caption">TOTAL API REQUESTS</ZakText>
+                        <ZakText Typo="Typo.h3" Color="ZakColor.Primary">48.2M</ZakText>
+                        <ZakChip Text="+18.4% vs last week" Color="ZakColor.Success" Variant="ZakVariant.Soft" Size="ZakSize.Small" />
+                    </ZakStack>
+                </ZakCardContent>
+            </ZakCard>
+
+            <ZakCard Elevation="ZakElevation.Elevation2">
+                <ZakCardContent>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                        <ZakText Typo="Typo.caption">AVERAGE LATENCY</ZakText>
+                        <ZakText Typo="Typo.h3" Color="ZakColor.Secondary">24ms</ZakText>
+                        <ZakChip Text="-4.2ms faster" Color="ZakColor.Success" Variant="ZakVariant.Soft" Size="ZakSize.Small" />
+                    </ZakStack>
+                </ZakCardContent>
+            </ZakCard>
+
+            <ZakCard Elevation="ZakElevation.Elevation2">
+                <ZakCardContent>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                        <ZakText Typo="Typo.caption">SUCCESS RATE (P99)</ZakText>
+                        <ZakText Typo="Typo.h3" Color="ZakColor.Success">99.98%</ZakText>
+                        <ZakChip Text="SLA target met" Color="ZakColor.Success" Variant="ZakVariant.Soft" Size="ZakSize.Small" />
+                    </ZakStack>
+                </ZakCardContent>
+            </ZakCard>
+
+            <ZakCard Elevation="ZakElevation.Elevation2">
+                <ZakCardContent>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                        <ZakText Typo="Typo.caption">ERROR BUDGET REMAINING</ZakText>
+                        <ZakText Typo="Typo.h3" Color="ZakColor.Warning">94.2%</ZakText>
+                        <ZakChip Text="Healthy margin" Color="ZakColor.Warning" Variant="ZakVariant.Soft" Size="ZakSize.Small" />
+                    </ZakStack>
+                </ZakCardContent>
+            </ZakCard>
+        </div>
+
+        <!-- Latency Progress Breakdown & System Timeline -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: var(--zak-spacing-6);">
+            <!-- Breakdown Card -->
+            <ZakCard Elevation="ZakElevation.Elevation2">
+                <ZakCardHeader Title="Service Latency Distribution" Subtitle="Microservices breakdown by endpoint" />
+                <ZakCardContent>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                        <div>
+                            <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween">
+                                <ZakText Typo="Typo.body2">Auth Service (OAuth2 / JWT)</ZakText>
+                                <ZakText Typo="Typo.caption">12ms (92%)</ZakText>
+                            </ZakStack>
+                            <ZakProgressLinear Value="92" Color="ZakColor.Success" Height="6" />
+                        </div>
+                        <div>
+                            <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween">
+                                <ZakText Typo="Typo.body2">Billing &amp; Stripe Gateway</ZakText>
+                                <ZakText Typo="Typo.caption">45ms (75%)</ZakText>
+                            </ZakStack>
+                            <ZakProgressLinear Value="75" Color="ZakColor.Primary" Height="6" />
+                        </div>
+                        <div>
+                            <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween">
+                                <ZakText Typo="Typo.body2">AI Processing Pipeline</ZakText>
+                                <ZakText Typo="Typo.caption">120ms (48%)</ZakText>
+                            </ZakStack>
+                            <ZakProgressLinear Value="48" Color="ZakColor.Warning" Height="6" />
+                        </div>
+                    </ZakStack>
+                </ZakCardContent>
+            </ZakCard>
+
+            <!-- Deployment Timeline -->
+            <ZakCard Elevation="ZakElevation.Elevation2">
+                <ZakCardHeader Title="Deployment &amp; Incident Log" Subtitle="Automated cluster events in last 24h" />
+                <ZakCardContent>
+                    <ZakTimeline>
+                        <ZakTimelineItem Color="ZakColor.Success" Title="v2.4.0 Deployed to Production" Timestamp="14:32 UTC">
+                            Zero-downtime rolling update completed across 12 Kubernetes nodes.
+                        </ZakTimelineItem>
+                        <ZakTimelineItem Color="ZakColor.Info" Title="Database Index Optimization" Timestamp="11:15 UTC">
+                            PostgreSQL vacuum and indexing completed with +15% query speedup.
+                        </ZakTimelineItem>
+                        <ZakTimelineItem Color="ZakColor.Warning" Title="Elevated Memory Warning" Timestamp="08:40 UTC">
+                            Pod autoscaler dynamically provisioned 2 additional replicas.
+                        </ZakTimelineItem>
+                    </ZakTimeline>
+                </ZakCardContent>
+            </ZakCard>
+        </div>
+    </ZakStack>
+</ZakContainer>
+
+@code {
+    private DateTime? _startDate = DateTime.Today.AddDays(-7);
+    private DateTime? _endDate = DateTime.Today;
+}

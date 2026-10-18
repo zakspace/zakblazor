@@ -1,0 +1,85 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakInputBase<string>
+
+<div class="zak-form-field">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <ZakLabel For="@ElementId" Required="@Required" Text="@Label" />
+    }
+
+    <div class="@CompiledWrapperClass" style="@CompiledStyle">
+        <span class="zak-input-adornment zak-input-adornment-start" aria-hidden="true">
+            <ZakIcon Icon="@ZakIcons.Search" Size="ZakSize.Small" />
+        </span>
+
+        <input id="@ElementId"
+               type="search"
+               class="zak-input"
+               value="@Value"
+               placeholder="@(Placeholder ?? "Search...")"
+               disabled="@Disabled"
+               readonly="@ReadOnly"
+               aria-label="@(Label ?? "Search")"
+               @oninput="HandleInputAsync"
+               @onchange="HandleChangeAsync"
+               @attributes="AdditionalAttributes" />
+
+        @if (!string.IsNullOrEmpty(Value) && !Disabled)
+        {
+            <button type="button"
+                    class="zak-input-action zak-input-adornment-end"
+                    aria-label="Clear search"
+                    @onclick="HandleClearAsync">
+                <ZakIcon Icon="@ZakIcons.Close" Size="ZakSize.ExtraSmall" />
+            </button>
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(HelperText))
+    {
+        <span class="zak-helper-text">@HelperText</span>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<string?> OnSearch { get; set; }
+
+    private string? CompiledWrapperClass => CreateClassBuilder("zak-input-wrapper")
+        .AddClass(Variant.ToCssClass())
+        .AddClass(Size.ToCssClass())
+        .AddClass(Color.ToCssClass())
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task HandleInputAsync(ChangeEventArgs e)
+    {
+        var text = e.Value?.ToString();
+        await SetCurrentValueAsync(text);
+        if (OnSearch.HasDelegate)
+        {
+            await OnSearch.InvokeAsync(text);
+        }
+    }
+
+    private async Task HandleChangeAsync(ChangeEventArgs e)
+    {
+        var text = e.Value?.ToString();
+        await SetCurrentValueAsync(text);
+        if (OnSearch.HasDelegate)
+        {
+            await OnSearch.InvokeAsync(text);
+        }
+    }
+
+    private async Task HandleClearAsync()
+    {
+        await SetCurrentValueAsync(string.Empty);
+        if (OnSearch.HasDelegate)
+        {
+            await OnSearch.InvokeAsync(string.Empty);
+        }
+    }
+}

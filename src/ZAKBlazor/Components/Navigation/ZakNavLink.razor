@@ -1,0 +1,69 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<NavLink href="@Href"
+         Match="@Match"
+         target="@Target"
+         class="@CompiledClass"
+         style="@CompiledStyle"
+         id="@ElementId"
+         @onclick="HandleClickAsync"
+         @attributes="AdditionalAttributes">
+    @if (!string.IsNullOrEmpty(Icon))
+    {
+        <span class="zak-nav-link-icon" aria-hidden="true">
+            <ZakIcon Icon="@Icon" Size="ZakSize.Small" />
+        </span>
+    }
+    <span class="zak-nav-link-content">
+        @ChildContent
+    </span>
+    @if (!string.IsNullOrEmpty(Badge))
+    {
+        <ZakBadge Content="@Badge" Color="@BadgeColor" Class="zak-nav-link-badge" />
+    }
+</NavLink>
+
+@code {
+    [Parameter]
+    public string Href { get; set; } = string.Empty;
+
+    [Parameter]
+    public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public string? Badge { get; set; }
+
+    [Parameter]
+    public ZakColor BadgeColor { get; set; } = ZakColor.Primary;
+
+    [Parameter]
+    public string? Target { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-nav-link")
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task HandleClickAsync(MouseEventArgs args)
+    {
+        if (Disabled) return;
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(args);
+        }
+    }
+}

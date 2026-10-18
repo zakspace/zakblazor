@@ -1,0 +1,461 @@
+/**
+ * ZAKBlazor Button & Icon Button System
+ */
+
+/* Base Button */
+.zak-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-family: inherit;
+  font-size: var(--zak-typo-button-size);
+  font-weight: var(--zak-typo-button-weight);
+  letter-spacing: 0.015em;
+  border: 1px solid transparent;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: all var(--zak-transition-fast);
+  border-radius: var(--zak-radius-md);
+  box-sizing: border-box;
+}
+
+.zak-btn:focus-visible {
+  box-shadow: 0 0 0 3px var(--zak-focus-ring);
+}
+
+.zak-btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* Full Width */
+.zak-btn-full-width {
+  width: 100%;
+}
+
+/* Disabled State */
+.zak-btn:disabled,
+.zak-btn.zak-disabled,
+.zak-icon-btn:disabled,
+.zak-icon-btn.zak-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+/* Sizing */
+.zak-btn.zak-size-xs {
+  height: 28px;
+  padding: 0 var(--zak-spacing-2);
+  font-size: 0.75rem;
+  gap: var(--zak-spacing-1);
+}
+
+.zak-btn.zak-size-sm {
+  height: 34px;
+  padding: 0 var(--zak-spacing-3);
+  font-size: 0.8125rem;
+  gap: var(--zak-spacing-2);
+}
+
+.zak-btn.zak-size-md {
+  height: 40px;
+  padding: 0 var(--zak-spacing-4);
+  font-size: 0.875rem;
+  gap: var(--zak-spacing-2);
+}
+
+.zak-btn.zak-size-lg {
+  height: 46px;
+  padding: 0 var(--zak-spacing-5);
+  font-size: 1rem;
+  gap: var(--zak-spacing-3);
+}
+
+.zak-btn.zak-size-xl {
+  height: 52px;
+  padding: 0 var(--zak-spacing-6);
+  font-size: 1.125rem;
+  gap: var(--zak-spacing-3);
+}
+
+/* Icon Buttons */
+.zak-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid transparent;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--zak-transition-fast);
+  border-radius: var(--zak-radius-circle);
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.zak-icon-btn:focus-visible {
+  box-shadow: 0 0 0 3px var(--zak-focus-ring);
+}
+
+.zak-icon-btn:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.zak-icon-btn.zak-size-xs { width: 28px; height: 28px; }
+.zak-icon-btn.zak-size-sm { width: 34px; height: 34px; }
+.zak-icon-btn.zak-size-md { width: 40px; height: 40px; }
+.zak-icon-btn.zak-size-lg { width: 46px; height: 46px; }
+.zak-icon-btn.zak-size-xl { width: 52px; height: 52px; }
+
+/* Variants & Colors */
+
+/* 1. Filled */
+.zak-variant-filled.zak-color-primary {
+  background-color: var(--zak-primary);
+  color: var(--zak-primary-contrast);
+}
+.zak-variant-filled.zak-color-primary:hover:not(:disabled) {
+  background-color: var(--zak-primary-darken);
+  box-shadow: var(--zak-shadow-2);
+}
+
+.zak-variant-filled.zak-color-secondary {
+  background-color: var(--zak-secondary);
+  color: var(--zak-secondary-contrast);
+}
+.zak-variant-filled.zak-color-secondary:hover:not(:disabled) {
+  background-color: var(--zak-secondary-darken);
+  box-shadow: var(--zak-shadow-2);
+}
+
+.zak-variant-filled.zak-color-success {
+  background-color: var(--zak-success);
+  color: var(--zak-success-contrast);
+}
+.zak-variant-filled.zak-color-success:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.zak-variant-filled.zak-color-warning {
+  background-color: var(--zak-warning);
+  color: var(--zak-warning-contrast);
+}
+.zak-variant-filled.zak-color-warning:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.zak-variant-filled.zak-color-danger {
+  background-color: var(--zak-danger);
+  color: var(--zak-danger-contrast);
+}
+.zak-variant-filled.zak-color-danger:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.zak-variant-filled.zak-color-info {
+  background-color: var(--zak-info);
+  color: var(--zak-info-contrast);
+}
+.zak-variant-filled.zak-color-info:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.zak-variant-filled.zak-color-dark {
+  background-color: var(--zak-dark);
+  color: #FFFFFF;
+}
+
+.zak-variant-filled.zak-color-default {
+  background-color: var(--zak-surface-variant);
+  color: var(--zak-text-primary);
+  border-color: var(--zak-border);
+}
+.zak-variant-filled.zak-color-default:hover:not(:disabled) {
+  background-color: var(--zak-border);
+}
+
+/* 2. Outlined */
+.zak-variant-outlined {
+  background-color: transparent;
+}
+.zak-variant-outlined.zak-color-primary {
+  border-color: var(--zak-primary);
+  color: var(--zak-primary);
+}
+.zak-variant-outlined.zak-color-primary:hover:not(:disabled) {
+  background-color: rgba(94, 67, 243, 0.08);
+}
+
+.zak-variant-outlined.zak-color-secondary {
+  border-color: var(--zak-secondary);
+  color: var(--zak-secondary);
+}
+.zak-variant-outlined.zak-color-secondary:hover:not(:disabled) {
+  background-color: rgba(0, 210, 180, 0.1);
+}
+
+.zak-variant-outlined.zak-color-danger {
+  border-color: var(--zak-danger);
+  color: var(--zak-danger);
+}
+.zak-variant-outlined.zak-color-danger:hover:not(:disabled) {
+  background-color: rgba(239, 68, 68, 0.08);
+}
+
+.zak-variant-outlined.zak-color-default {
+  border-color: var(--zak-border);
+  color: var(--zak-text-primary);
+}
+.zak-variant-outlined.zak-color-default:hover:not(:disabled) {
+  background-color: var(--zak-surface-variant);
+  border-color: var(--zak-text-secondary);
+}
+
+/* 3. Text */
+.zak-variant-text {
+  background-color: transparent;
+  border-color: transparent;
+}
+.zak-variant-text.zak-color-primary {
+  color: var(--zak-primary);
+}
+.zak-variant-text.zak-color-primary:hover:not(:disabled) {
+  background-color: rgba(94, 67, 243, 0.08);
+}
+
+.zak-variant-text.zak-color-secondary {
+  color: var(--zak-secondary);
+}
+.zak-variant-text.zak-color-secondary:hover:not(:disabled) {
+  background-color: rgba(0, 210, 180, 0.1);
+}
+
+.zak-variant-text.zak-color-default {
+  color: var(--zak-text-primary);
+}
+.zak-variant-text.zak-color-default:hover:not(:disabled) {
+  background-color: var(--zak-surface-variant);
+}
+
+/* 4. Soft */
+.zak-variant-soft.zak-color-primary {
+  background-color: rgba(94, 67, 243, 0.12);
+  color: var(--zak-primary);
+}
+.zak-variant-soft.zak-color-primary:hover:not(:disabled) {
+  background-color: rgba(94, 67, 243, 0.2);
+}
+
+.zak-variant-soft.zak-color-secondary {
+  background-color: rgba(0, 210, 180, 0.14);
+  color: var(--zak-secondary-darken);
+}
+.zak-variant-soft.zak-color-secondary:hover:not(:disabled) {
+  background-color: rgba(0, 210, 180, 0.24);
+}
+
+.zak-variant-soft.zak-color-success {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: var(--zak-success);
+}
+.zak-variant-soft.zak-color-warning {
+  background-color: rgba(245, 158, 11, 0.14);
+  color: var(--zak-warning);
+}
+.zak-variant-soft.zak-color-danger {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: var(--zak-danger);
+}
+.zak-variant-soft.zak-color-info {
+  background-color: rgba(14, 165, 233, 0.12);
+  color: var(--zak-info);
+}
+
+/* Spinner */
+.zak-btn-spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: zak-spin 0.8s linear infinite;
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.zak-btn-spinner svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes zak-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ──────────────────────────────────────────────
+   BUTTON TOOLBAR
+────────────────────────────────────────────── */
+.zak-btn-toolbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.zak-toolbar-wrap {
+  flex-wrap: wrap;
+}
+
+.zak-toolbar-nowrap {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+/* ──────────────────────────────────────────────
+   LOADING BUTTON
+────────────────────────────────────────────── */
+.zak-loading-btn {
+  position: relative;
+  transition: all var(--zak-transition-fast);
+}
+
+.zak-loading-btn.zak-btn-loading {
+  cursor: wait;
+}
+
+/* ──────────────────────────────────────────────
+   FLOATING ACTION BUTTON (FAB)
+────────────────────────────────────────────── */
+.zak-fab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zak-spacing-2);
+  font-family: inherit;
+  font-weight: 600;
+  border: 1px solid transparent;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: var(--zak-shadow-6);
+  transition: transform var(--zak-transition-fast), box-shadow var(--zak-transition-fast), background-color var(--zak-transition-fast);
+  box-sizing: border-box;
+  z-index: var(--zak-z-appbar);
+}
+
+.zak-fab:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--zak-shadow-8);
+}
+
+.zak-fab:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+  box-shadow: var(--zak-shadow-4);
+}
+
+.zak-fab:focus-visible {
+  box-shadow: 0 0 0 3px var(--zak-focus-ring), var(--zak-shadow-6);
+}
+
+/* Circular FAB */
+.zak-fab-circular {
+  border-radius: var(--zak-radius-circle);
+  padding: 0;
+}
+
+.zak-fab-circular.zak-size-xs { width: 32px; height: 32px; }
+.zak-fab-circular.zak-size-sm { width: 40px; height: 40px; }
+.zak-fab-circular.zak-size-md { width: 48px; height: 48px; }
+.zak-fab-circular.zak-size-lg { width: 56px; height: 56px; }
+.zak-fab-circular.zak-size-xl { width: 64px; height: 64px; }
+
+/* Extended FAB */
+.zak-fab-extended {
+  border-radius: var(--zak-radius-pill);
+}
+
+.zak-fab-extended.zak-size-xs { height: 32px; padding: 0 var(--zak-spacing-3); font-size: 0.75rem; }
+.zak-fab-extended.zak-size-sm { height: 40px; padding: 0 var(--zak-spacing-4); font-size: 0.8125rem; }
+.zak-fab-extended.zak-size-md { height: 48px; padding: 0 var(--zak-spacing-5); font-size: 0.875rem; }
+.zak-fab-extended.zak-size-lg { height: 56px; padding: 0 var(--zak-spacing-6); font-size: 1rem; }
+.zak-fab-extended.zak-size-xl { height: 64px; padding: 0 var(--zak-spacing-8); font-size: 1.125rem; }
+
+/* FAB Placements */
+.zak-fab-fixed-bottom-end {
+  position: fixed;
+  bottom: var(--zak-spacing-6);
+  right: var(--zak-spacing-6);
+}
+
+.zak-fab-fixed-bottom-start {
+  position: fixed;
+  bottom: var(--zak-spacing-6);
+  left: var(--zak-spacing-6);
+}
+
+.zak-fab-fixed-top-end {
+  position: fixed;
+  top: calc(var(--zak-appbar-height) + var(--zak-spacing-6));
+  right: var(--zak-spacing-6);
+}
+
+.zak-fab-fixed-top-start {
+  position: fixed;
+  top: calc(var(--zak-appbar-height) + var(--zak-spacing-6));
+  left: var(--zak-spacing-6);
+}
+
+.zak-fab-inline {
+  position: relative;
+}
+
+/* FAB Colors */
+.zak-fab.zak-color-primary {
+  background-color: var(--zak-primary);
+  color: #FFFFFF;
+}
+.zak-fab.zak-color-primary:hover:not(:disabled) {
+  background-color: var(--zak-primary-darken);
+}
+
+.zak-fab.zak-color-secondary {
+  background-color: var(--zak-secondary);
+  color: #FFFFFF;
+}
+.zak-fab.zak-color-secondary:hover:not(:disabled) {
+  background-color: var(--zak-secondary-darken);
+}
+
+.zak-fab.zak-color-success {
+  background-color: var(--zak-success);
+  color: #FFFFFF;
+}
+
+.zak-fab.zak-color-warning {
+  background-color: var(--zak-warning);
+  color: #FFFFFF;
+}
+
+.zak-fab.zak-color-danger {
+  background-color: var(--zak-danger);
+  color: #FFFFFF;
+}
+
+.zak-fab.zak-color-info {
+  background-color: var(--zak-info);
+  color: #FFFFFF;
+}
+
+.zak-fab.zak-color-default {
+  background-color: var(--zak-surface);
+  color: var(--zak-text-primary);
+  border-color: var(--zak-border);
+}
+

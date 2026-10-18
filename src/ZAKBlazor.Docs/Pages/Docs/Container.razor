@@ -1,0 +1,35 @@
+@page "/docs/container"
+
+<PageTitle>Container — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Container</h1>
+        <p class="docs-subtitle">Containers center your content horizontally and limit maximum page width according to responsive breakpoints.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Layout" Color="ZakColor.Primary" />
+            <ZakBadge Content="Responsive" Color="ZakColor.Info" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Breakpoints</h2>
+        <p class="docs-section-desc">Supports standard responsive breakpoints: Sm (640px), Md (768px), Lg (1024px), Xl (1280px), and 2Xl (1536px).</p>
+        <ZakDocsExample Title="Fixed Breakpoint Container" Code="@ContainerCode">
+            <ZakContainer MaxWidth="ZakBreakpoint.Md" Style="background: var(--zak-surface-variant); padding: 1.5rem; border-radius: 8px;">
+                <ZakText Typo="Typo.h6">Contained Content (Max Width: Md)</ZakText>
+                <ZakText Typo="Typo.body2">Automatically padded on mobile screens and centered with margin auto on wide displays.</ZakText>
+            </ZakContainer>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakContainer" />
+    </div>
+</div>
+
+@code {
+    private const string ContainerCode = @"<ZakContainer MaxWidth=""ZakBreakpoint.Md"">
+    <div>Centered content bounded to 768px</div>
+</ZakContainer>";
+}

@@ -1,0 +1,98 @@
+@page "/templates"
+
+<PageTitle>Application Templates — ZAKBlazor Documentation</PageTitle>
+
+<ZakContainer MaxWidth="ZakBreakpoint.Lg" Class="zak-docs-page">
+    <div class="zak-docs-header">
+        <ZakText Typo="Typo.h2" GutterBottom="true">Application Templates</ZakText>
+        <ZakText Typo="Typo.subtitle1">Production-ready dashboard layouts and enterprise views built with ZAKBlazor components.</ZakText>
+    </div>
+
+    <!-- Template 1: SaaS Analytics & Revenue Overview -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakBox Padding="6" Elevation="2" Shape="ZakShape.Rounded" Border="true" Style="background: var(--zak-surface);">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="5">
+                <!-- Header Toolbar -->
+                <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true">
+                    <div>
+                        <ZakText Typo="Typo.h5">SaaS Executive Dashboard</ZakText>
+                        <ZakText Typo="Typo.body2">Real-time revenue metrics, active subscriptions, and churn analysis.</ZakText>
+                    </div>
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="2">
+                        <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Default" StartIcon="@ZakIcons.Download">Export PDF</ZakButton>
+                        <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Primary" StartIcon="@ZakIcons.Plus">New Campaign</ZakButton>
+                    </ZakStack>
+                </ZakStack>
+
+                <!-- Metric Cards Grid -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--zak-spacing-4);">
+                    <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface-variant);">
+                        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="1">
+                            <ZakText Typo="Typo.caption" Color="ZakColor.Default">MONTHLY RECURRING REVENUE</ZakText>
+                            <ZakText Typo="Typo.h4" Color="ZakColor.Primary">$128,450</ZakText>
+                            <ZakText Typo="Typo.caption" Color="ZakColor.Success">↑ +14.2% from last month</ZakText>
+                        </ZakStack>
+                    </ZakBox>
+
+                    <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface-variant);">
+                        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="1">
+                            <ZakText Typo="Typo.caption" Color="ZakColor.Default">ACTIVE SUBSCRIBERS</ZakText>
+                            <ZakText Typo="Typo.h4" Color="ZakColor.Secondary">3,420</ZakText>
+                            <ZakText Typo="Typo.caption" Color="ZakColor.Success">↑ +8.5% new signups</ZakText>
+                        </ZakStack>
+                    </ZakBox>
+
+                    <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface-variant);">
+                        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="1">
+                            <ZakText Typo="Typo.caption" Color="ZakColor.Default">NET RETENTION RATE</ZakText>
+                            <ZakText Typo="Typo.h4" Color="ZakColor.Success">104.8%</ZakText>
+                            <ZakText Typo="Typo.caption" Color="ZakColor.Default">Industry target: >100%</ZakText>
+                        </ZakStack>
+                    </ZakBox>
+
+                    <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface-variant);">
+                        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="1">
+                            <ZakText Typo="Typo.caption" Color="ZakColor.Default">AVG. REVENUE PER USER</ZakText>
+                            <ZakText Typo="Typo.h4" Color="ZakColor.Default">$37.50</ZakText>
+                            <ZakText Typo="Typo.caption" Color="ZakColor.Default">Stable across cohorts</ZakText>
+                        </ZakStack>
+                    </ZakBox>
+                </div>
+
+                <ZakDivider />
+
+                <!-- Actionable List Section -->
+                <div>
+                    <ZakText Typo="Typo.h6" GutterBottom="true">Recent Account Activities</ZakText>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" FullWidth="true">
+                        <ZakBox Padding="3" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                            <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true">
+                                <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Align="ZakAlignment.Center">
+                                    <ZakIconButton Icon="@ZakIcons.CheckCircle" Color="ZakColor.Success" Variant="ZakVariant.Soft" AriaLabel="Upgraded" />
+                                    <div>
+                                        <ZakText Typo="Typo.subtitle2">Enterprise Plan Upgrade</ZakText>
+                                        <ZakText Typo="Typo.caption">Acme Corp upgraded from Pro to Enterprise tier (35 seats)</ZakText>
+                                    </div>
+                                </ZakStack>
+                                <ZakButton Variant="ZakVariant.Text" Color="ZakColor.Primary" Size="ZakSize.Small">Review</ZakButton>
+                            </ZakStack>
+                        </ZakBox>
+
+                        <ZakBox Padding="3" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                            <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true">
+                                <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Align="ZakAlignment.Center">
+                                    <ZakIconButton Icon="@ZakIcons.User" Color="ZakColor.Primary" Variant="ZakVariant.Soft" AriaLabel="Team member" />
+                                    <div>
+                                        <ZakText Typo="Typo.subtitle2">New Organization Admin Added</ZakText>
+                                        <ZakText Typo="Typo.caption">Sarah Connor was assigned the billing admin role</ZakText>
+                                    </div>
+                                </ZakStack>
+                                <ZakButton Variant="ZakVariant.Text" Color="ZakColor.Primary" Size="ZakSize.Small">Permissions</ZakButton>
+                            </ZakStack>
+                        </ZakBox>
+                    </ZakStack>
+                </div>
+            </ZakStack>
+        </ZakBox>
+    </div>
+</ZakContainer>

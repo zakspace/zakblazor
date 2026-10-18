@@ -1,0 +1,183 @@
+@page "/docs/data-display"
+
+<PageTitle>Data Display — ZAKBlazor Documentation</PageTitle>
+
+<ZakContainer MaxWidth="ZakBreakpoint.Lg">
+    <div class="zak-section-header">
+        <ZakText Typo="Typo.h1">Data Display</ZakText>
+        <ZakText Typo="Typo.body1">Badges, chips, avatars, stat cards, lists, and timeline components for presenting data.</ZakText>
+    </div>
+
+    <!-- Avatar -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Avatar</ZakText>
+        <ZakText Typo="Typo.body1">User picture with initials, status, and interactive capabilities.</ZakText>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--zak-spacing-4); margin-top: var(--zak-spacing-6);">
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakAvatar Text="ZB" Color="ZakColor.Primary" Size="ZakSize.Medium" />
+                    <ZakText Typo="Typo.caption" Style="text-align: center;">Initials</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakAvatar Icon="@ZakIcons.User" Color="ZakColor.Default" Size="ZakSize.Medium" />
+                    <ZakText Typo="Typo.caption" Style="text-align: center;">Icon</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakAvatar Group="@true" Size="ZakSize.Medium">
+                        <ZakAvatar Text="J" Color="ZakColor.Primary" Size="ZakSize.Small" />
+                        <ZakAvatar Text="D" Color="ZakColor.Secondary" Size="ZakSize.Small" />
+                        <ZakAvatar Text="M" Color="ZakColor.Success" Size="ZakSize.Small" />
+                    </ZakAvatar>
+                    <ZakText Typo="Typo.caption" Style="text-align: center;">Group</ZakText>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    </div>
+
+    <!-- Badge -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Badge</ZakText>
+        <ZakText Typo="Typo.body1">Small label for status, count, or category identification.</ZakText>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--zak-spacing-4); margin-top: var(--zak-spacing-6);">
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakBadge Content="New" Color="ZakColor.Secondary" Variant="ZakVariant.Filled" />
+                    <ZakText Typo="Typo.caption">Filled variant</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakBadge Content="5" Color="ZakColor.Primary" Variant="ZakVariant.Outlined" />
+                    <ZakText Typo="Typo.caption">Outlined</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakBadge Content="Alert" Color="ZakColor.Danger" />
+                    <ZakText Typo="Typo.caption">Default</ZakText>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    </div>
+
+    <!-- Chip -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Chip</ZakText>
+        <ZakText Typo="Typo.body1">Compact element for input, filtering, or category selection.</ZakText>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--zak-spacing-4); margin-top: var(--zak-spacing-6);">
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakChip Label="Important" Color="ZakColor.Primary" />
+                    <ZakText Typo="Typo.caption">Primary</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakChip Label="Selected" Color="ZakColor.Success" Variant="ZakVariant.Soft" />
+                    <ZakText Typo="Typo.caption">Soft</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakChip Label="X" Color="ZakColor.Default" Variant="ZakVariant.Outlined" />
+                    <ZakText Typo="Typo.caption">Outlined</ZakText>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    </div>
+
+    <!-- Stat Card -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Stat Card</ZakText>
+        <ZakText Typo="Typo.body1">Card component for displaying key statistics and metrics.</ZakText>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--zak-spacing-4); margin-top: var(--zak-spacing-6);">
+            <ZakBox Padding="6" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakText Typo="Typo.caption" Color="ZakColor.Default">Total Users</ZakText>
+                    <ZakText Typo="Typo.h4" Color="ZakColor.Primary">1,247</ZakText>
+                    <ZakText Typo="Typo.caption" Color="ZakColor.Success">↑ 12.5% this month</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="6" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakText Typo="Typo.caption" Color="ZakColor.Default">Revenue</ZakText>
+                    <ZakText Typo="Typo.h4" Color="ZakColor.Secondary">$45,230</ZakText>
+                    <ZakText Typo="Typo.caption" Color="ZakColor.Default">Monthly</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="6" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakText Typo="Typo.caption" Color="ZakColor.Default">Active Sessions</ZakText>
+                    <ZakText Typo="Typo.h4" Color="ZakColor.Warning">89</ZakText>
+                    <ZakText Typo="Typo.caption" Color="ZakColor.Default">Current</ZakText>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    </div>
+
+    <!-- List -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">List</ZakText>
+        <ZakText Typo="Typo.body1">Semantic list component for organized content display.</ZakText>
+
+        <ZakList>
+            <ZakListItem Href="/item1" Avatar="@ZakIcons.User">Item 1</ZakListItem>
+            <ZakListItem Href="/item2" Avatar="@ZakIcons.User">Item 2</ZakListItem>
+            <ZakListItem Href="/item3" Avatar="@ZakIcons.User" Disabled="true">Item 3 (disabled)</ZakListItem>
+            <ZakListItem Href="/item4" Avatar="@ZakIcons.User" Selected="true">Item 4 (selected)</ZakListItem>
+        </ZakList>
+    </div>
+
+    <!-- Timeline -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Timeline</ZakText>
+        <ZakText Typo="Typo.body1">Activity timeline for chronological events.</ZakText>
+
+        <ZakTimeline>
+            <ZakTimelineItem Date="Jan 15, 2024" Icon="@ZakIcons.CheckCircle" Color="ZakColor.Success">
+                <div>Project launched</div>
+            </ZakTimelineItem>
+
+            <ZakTimelineItem Date="Feb 20, 2024" Icon="@ZakIcons.User" Color="ZakColor.Primary">
+                <div>New team member joined</div>
+            </ZakTimelineItem>
+
+            <ZakTimelineItem Date="Mar 5, 2024" Icon="@ZakIcons.Info" Color="ZakColor.Default">
+                <div>Status updated</div>
+            </ZakTimelineItem>
+        </ZakTimeline>
+    </div>
+
+    <!-- Empty State -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Empty State</ZakText>
+        <ZakText Typo="Typo.body1">Display when no data is available with illustration and action button.</ZakText>
+
+        <ZakEmptyState Icon="@ZakIcons.Search" Title="No results found" Description="Try adjusting your search criteria or filters." ActionText="Add new search" ActionHref="#" />
+    </div>
+
+    <!-- KBD -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Kbd</ZakText>
+        <ZakText Typo="Typo.body1">Key display for keyboard shortcuts.</ZakText>
+
+        <ZakKbd>Ctrl + S</ZakKbd>
+        <ZakKbd>Cmd + P</ZakKbd>
+    </div>
+</ZakContainer>

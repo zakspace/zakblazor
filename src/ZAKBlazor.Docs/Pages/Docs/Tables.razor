@@ -1,0 +1,94 @@
+@page "/docs/tables"
+
+<PageTitle>Tables — ZAKBlazor Documentation</PageTitle>
+
+<ZakContainer MaxWidth="ZakBreakpoint.Lg">
+    <div class="zak-section-header">
+        <ZakText Typo="Typo.h1">Tables & Grids</ZakText>
+        <ZakText Typo="Typo.body1">Data grid and data table components with sorting, filtering, and selection.</ZakText>
+    </div>
+
+    <!-- ZakTable -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">ZakTable</ZakText>
+        <ZakText Typo="Typo.body1">Basic table component for displaying tabular data.</ZakText>
+
+        <ZakTable>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Admin</td>
+                    <td><ZakBadge Content="Active" Color="ZakColor.Success" /></td>
+                    <td>
+                        <ZakButton Size="ZakSize.Small">Edit</ZakButton>
+                        <ZakButton Size="ZakSize.Small" Variant="ZakVariant.Outlined">Delete</ZakButton>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>User</td>
+                    <td><ZakBadge Content="Pending" Color="ZakColor.Warning" /></td>
+                    <td>
+                        <ZakButton Size="ZakSize.Small">Details</ZakButton>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bob Johnson</td>
+                    <td>Guest</td>
+                    <td><ZakBadge Content="Inactive" Color="ZakColor.Default" /></td>
+                    <td>
+                        <ZakButton Size="ZakSize.Small" Disabled="true">View</ZakButton>
+                    </td>
+                </tr>
+            </tbody>
+        </ZakTable>
+    </div>
+
+    <!-- ZakPagination -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">ZakPagination</ZakText>
+        <ZakText Typo="Typo.body1">Pagination control for navigating through pages of data.</ZakText>
+
+        <ZakPagination TotalItems="100" PageSize="10" CurrentPage="3" ShowInfo="true" />
+    </div>
+
+    <!-- Example Data -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Example Data</ZakText>
+        <ZakText Typo="Typo.body1">Sample table data demonstrating sorting and filtering capabilities.</ZakText>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--zak-spacing-4); margin-top: var(--zak-spacing-6);">
+            <ZakBox Padding="6" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakText Typo="Typo.caption">Customer Records</ZakText>
+                    <ZakText Typo="Typo.h4">1,247</ZakText>
+                    <ZakText Typo="Typo.caption">Active this month</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="6" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakText Typo="Typo.caption">Pending Orders</ZakText>
+                    <ZakText Typo="Typo.h4">89</ZakText>
+                    <ZakText Typo="Typo.caption">Awaiting approval</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="6" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakText Typo="Typo.caption">Total Revenue</ZakText>
+                    <ZakText Typo="Typo.h4">$45,230</ZakText>
+                    <ZakText Typo="Typo.caption">Monthly total</ZakText>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    </div>
+</ZakContainer>

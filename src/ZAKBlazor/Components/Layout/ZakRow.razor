@@ -1,0 +1,35 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public int Gutter { get; set; } = 4;
+
+    [Parameter]
+    public bool NoGutters { get; set; }
+
+    [Parameter]
+    public ZakAlignment Align { get; set; } = ZakAlignment.Start;
+
+    [Parameter]
+    public ZakJustify Justify { get; set; } = ZakJustify.Start;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-row")
+        .AddClass($"zak-row-gutter-{Gutter}", !NoGutters)
+        .AddClass("zak-row-no-gutters", NoGutters)
+        .AddClass(Align.ToCssClass())
+        .AddClass(Justify.ToCssClass())
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

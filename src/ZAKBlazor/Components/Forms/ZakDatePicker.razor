@@ -1,0 +1,191 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakInputBase<DateTime?>
+
+<div class="zak-form-field zak-datepicker-container">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <ZakLabel For="@ElementId" Required="@Required" Text="@Label" />
+    }
+
+    <div class="@CompiledWrapperClass" style="@CompiledStyle" @onclick="TogglePopover">
+        <span class="zak-input-adornment zak-input-adornment-start" aria-hidden="true">
+            <ZakIcon Icon="@ZakIcons.Layers" Size="@ResolveIconSize(Size)" />
+        </span>
+
+        <input id="@ElementId"
+               type="text"
+               class="zak-input"
+               value="@FormattedValue"
+               placeholder="@(Placeholder ?? Format)"
+               readonly
+               disabled="@Disabled"
+               aria-invalid="@(HasError ? "true" : "false")"
+               aria-haspopup="dialog"
+               aria-expanded="@(_isOpen ? "true" : "false")"
+               @attributes="AdditionalAttributes" />
+
+        @if (Clearable && Value.HasValue && !Disabled && !ReadOnly)
+        {
+            <button type="button"
+                    class="zak-input-action"
+                    aria-label="Clear date"
+                    @onclick:stopPropagation
+                    @onclick="HandleClearAsync">
+                <ZakIcon Icon="@ZakIcons.Close" Size="ZakSize.ExtraSmall" />
+            </button>
+        }
+
+        <span class="zak-input-adornment zak-input-adornment-end" aria-hidden="true">
+            <ZakIcon Icon="@ZakIcons.ChevronDown" Size="ZakSize.ExtraSmall" />
+        </span>
+    </div>
+
+    @if (_isOpen && !Disabled && !ReadOnly)
+    {
+        <div class="zak-datepicker-backdrop" @onclick="ClosePopover"></div>
+        <div class="zak-datepicker-popover" role="dialog" aria-modal="true" @onclick:stopPropagation>
+            <!-- Calendar Navigation Header -->
+            <div class="zak-datepicker-header">
+                <button type="button" class="zak-datepicker-nav-btn" aria-label="Previous month" @onclick="PreviousMonth">
+                    <ZakIcon Icon="@ZakIcons.ChevronLeft" Size="ZakSize.Small" />
+                </button>
+                <div class="zak-datepicker-month-year">
+                    @_viewDate.ToString("MMMM yyyy")
+                </div>
+                <button type="button" class="zak-datepicker-nav-btn" aria-label="Next month" @onclick="NextMonth">
+                    <ZakIcon Icon="@ZakIcons.ChevronRight" Size="ZakSize.Small" />
+                </button>
+            </div>
+
+            <!-- Day Headers -->
+            <div class="zak-datepicker-weekdays">
+                <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+            </div>
+
+            <!-- Days Grid -->
+            <div class="zak-datepicker-grid">
+                @foreach (var day in GetCalendarDays())
+                {
+                    var isCurrentMonth = day.Month == _viewDate.Month;
+                    var isSelected = Value.HasValue && day.Date == Value.Value.Date;
+                    var isToday = day.Date == DateTime.Today;
+                    var isDisabled = (MinDate.HasValue && day.Date < MinDate.Value.Date) || 
+                                     (MaxDate.HasValue && day.Date > MaxDate.Value.Date);
+
+                    <button type="button"
+                            class="zak-datepicker-day @(isCurrentMonth ? "" : "zak-day-other-month") @(isSelected ? "zak-day-selected" : "") @(isToday ? "zak-day-today" : "")"
+                            disabled="@isDisabled"
+                            @onclick="() => SelectDateAsync(day)">
+                        @day.Day
+                    </button>
+                }
+            </div>
+
+            <!-- Footer Action -->
+            <div class="zak-datepicker-footer">
+                <button type="button" class="zak-datepicker-today-btn" @onclick="SelectTodayAsync">Today</button>
+                @if (Clearable)
+                {
+                    <button type="button" class="zak-datepicker-clear-btn" @onclick="HandleClearAsync">Clear</button>
+                }
+            </div>
+        </div>
+    }
+
+    @if (HasError && !string.IsNullOrEmpty(ValidationErrorMessage))
+    {
+        <span class="zak-error-text" role="alert">@ValidationErrorMessage</span>
+    }
+    else if (!string.IsNullOrEmpty(HelperText))
+    {
+        <span class="zak-helper-text">@HelperText</span>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string Format { get; set; } = "yyyy-MM-dd";
+
+    [Parameter]
+    public DateTime? MinDate { get; set; }
+
+    [Parameter]
+    public DateTime? MaxDate { get; set; }
+
+    [Parameter]
+    public bool Clearable { get; set; } = true;
+
+    private bool _isOpen;
+    private DateTime _viewDate = DateTime.Today;
+
+    private string FormattedValue => Value.HasValue ? Value.Value.ToString(Format) : string.Empty;
+
+    protected override void OnParametersSet()
+    {
+        if (Value.HasValue)
+        {
+            _viewDate = Value.Value;
+        }
+    }
+
+    private void TogglePopover()
+    {
+        if (Disabled || ReadOnly) return;
+        _isOpen = !_isOpen;
+        if (_isOpen)
+        {
+            _viewDate = Value ?? DateTime.Today;
+        }
+    }
+
+    private void ClosePopover() => _isOpen = false;
+
+    private void PreviousMonth() => _viewDate = _viewDate.AddMonths(-1);
+    private void NextMonth() => _viewDate = _viewDate.AddMonths(1);
+
+    private async Task SelectDateAsync(DateTime date)
+    {
+        await SetCurrentValueAsync(date);
+        _isOpen = false;
+    }
+
+    private async Task SelectTodayAsync()
+    {
+        await SetCurrentValueAsync(DateTime.Today);
+        _isOpen = false;
+    }
+
+    private async Task HandleClearAsync()
+    {
+        await SetCurrentValueAsync(null);
+        _isOpen = false;
+    }
+
+    private IEnumerable<DateTime> GetCalendarDays()
+    {
+        var firstDayOfMonth = new DateTime(_viewDate.Year, _viewDate.Month, 1);
+        var offset = (int)firstDayOfMonth.DayOfWeek;
+        var startDay = firstDayOfMonth.AddDays(-offset);
+
+        for (int i = 0; i < 42; i++)
+        {
+            yield return startDay.AddDays(i);
+        }
+    }
+
+    private string? CompiledWrapperClass => CreateClassBuilder("zak-input-wrapper")
+        .AddClass(Size.ToCssClass())
+        .AddClass("zak-input-error", HasError)
+        .AddClass("zak-input-disabled", Disabled)
+        .AddClass("zak-input-focused", _isOpen)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private ZakSize ResolveIconSize(ZakSize size) => size switch
+    {
+        ZakSize.Large => ZakSize.Medium,
+        ZakSize.Small => ZakSize.ExtraSmall,
+        _ => ZakSize.Small
+    };
+}

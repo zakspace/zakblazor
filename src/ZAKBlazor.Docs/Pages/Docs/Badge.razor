@@ -1,0 +1,59 @@
+@page "/docs/badge"
+
+<PageTitle>Badge — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Badge</h1>
+        <p class="docs-subtitle">Badges generate a small status badge or numeral at the corner of its child element, or display as a standalone tag.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Notifications" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Standalone Badges -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Standalone Badges</h2>
+        <p class="docs-section-desc">Display status tags and semantic states.</p>
+        <ZakDocsExample Title="Semantic Badges" Code="@BadgeCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3" Wrap="true">
+                <ZakBadge Content="Completed" Color="ZakColor.Success" />
+                <ZakBadge Content="In Progress" Color="ZakColor.Primary" />
+                <ZakBadge Content="Review Required" Color="ZakColor.Warning" />
+                <ZakBadge Content="Failed" Color="ZakColor.Danger" />
+                <ZakBadge Content="Draft" Color="ZakColor.Default" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Notification Overlays -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Overlay Over Buttons &amp; Avatars</h2>
+        <p class="docs-section-desc">Wrap child components to display count pills or status dots.</p>
+        <ZakDocsExample Title="Overlay Badges" Code="@OverlayCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="4">
+                <ZakBadge Content="5" Color="ZakColor.Danger">
+                    <ZakButton StartIcon="@ZakIcons.Bell" Variant="ZakVariant.Outlined">Notifications</ZakButton>
+                </ZakBadge>
+                <ZakBadge Dot="true" Color="ZakColor.Success">
+                    <ZakAvatar Text="JD" Color="ZakColor.Primary" />
+                </ZakBadge>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakBadge" />
+    </div>
+</div>
+
+@code {
+    private const string BadgeCode = @"<ZakBadge Content=""Completed"" Color=""ZakColor.Success"" />
+<ZakBadge Content=""In Progress"" Color=""ZakColor.Primary"" />
+<ZakBadge Content=""Failed"" Color=""ZakColor.Danger"" />";
+
+    private const string OverlayCode = @"<ZakBadge Content=""5"" Color=""ZakColor.Danger"">
+    <ZakButton StartIcon=""@ZakIcons.Bell"">Notifications</ZakButton>
+</ZakBadge>";
+}

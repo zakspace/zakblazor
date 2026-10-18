@@ -1,0 +1,45 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<section id="@ElementId"
+         class="@CompiledClass"
+         style="@CompiledStyle"
+         @attributes="AdditionalAttributes">
+    @if (Container)
+    {
+        <ZakContainer MaxWidth="@ContainerMaxWidth" Gutters="@Gutter">
+            @ChildContent
+        </ZakContainer>
+    }
+    else
+    {
+        @ChildContent
+    }
+</section>
+
+@code {
+    [Parameter]
+    public bool Container { get; set; } = false;
+
+    [Parameter]
+    public ZakBreakpoint ContainerMaxWidth { get; set; } = ZakBreakpoint.Lg;
+
+    [Parameter]
+    public int Padding { get; set; } = 6;
+
+    [Parameter]
+    public bool Gutter { get; set; } = true;
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Default;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-section")
+        .AddClass($"zak-section-p-{Padding}")
+        .AddClass(Color != ZakColor.Default ? Color.ToCssClass("zak-section-") : null)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

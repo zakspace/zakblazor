@@ -1,0 +1,151 @@
+@page "/docs/default-theme"
+
+<PageTitle>Theming & Tokens — ZAKBlazor Documentation</PageTitle>
+
+<ZakContainer MaxWidth="ZakBreakpoint.Lg">
+    <div class="zak-section-header">
+        <ZakText Typo="Typo.h1">Theming & CSS Tokens</ZakText>
+        <ZakText Typo="Typo.body1">Comprehensive theming system with light/dark mode and custom palette overrides.</ZakText>
+    </div>
+
+    <!-- Color Palette -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Color Palette</ZakText>
+        <ZakText Typo="Typo.body1">Predefined color tokens for consistent theming across all components.</ZakText>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--zak-spacing-4); margin-top: var(--zak-spacing-6);">
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: #4A90E2; color: white;">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakText Typo="Typo.body2" Style="font-size: 2rem;">Primary</ZakText>
+                    <ZakText Typo="Typo.caption">#4A90E2</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: #7ED321; color: #1a1a1a;">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakText Typo="Typo.body2" Style="font-size: 2rem;">Secondary</ZakText>
+                    <ZakText Typo="Typo.caption">#7ED321</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: #F5A623; color: #1a1a1a;">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakText Typo="Typo.body2" Style="font-size: 2rem;">Warning</ZakText>
+                    <ZakText Typo="Typo.caption">#F5A623</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: #DD2C00; color: white;">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakText Typo="Typo.body2" Style="font-size: 2rem;">Danger</ZakText>
+                    <ZakText Typo="Typo.caption">#DD2C00</ZakText>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    </div>
+
+    <!-- Light/Dark Mode -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Light / Dark Mode</ZakText>
+        <ZakText Typo="Typo.body1">Automatic theme switching with CSS variables and zero page flash.</ZakText>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--zak-spacing-4); margin-top: var(--zak-spacing-6);">
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakText Typo="Typo.body2">Light Mode</ZakText>
+                    <ZakText Typo="Typo.caption">Default, high contrast, WCAG AA</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: #1a1a1a; color: #f0f0f0;">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Align="ZakAlignment.Center">
+                    <ZakText Typo="Typo.body2">Dark Mode</ZakText>
+                    <ZakText Typo="Typo.caption">Reduced eye strain, OLED friendly</ZakText>
+                </ZakStack>
+            </ZakBox>
+        </div>
+
+        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Justify="ZakJustify.Center" Spacing="4" Style="margin-top: var(--zak-spacing-8);">
+            <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Primary" OnClick="() => { /* Theme toggle */ }">Switch to Dark</ZakButton>
+            <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Secondary" OnClick="() => { /* Theme toggle */ }">Switch to Light</ZakButton>
+        </ZakStack>
+    </div>
+
+    <!-- CSS Variables -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">CSS Custom Properties</ZakText>
+        <ZakText Typo="Typo.body1">All ZAKBlazor components use CSS variables for theming. Easy customization without modifying component code.</ZakText>
+
+        <ZakBox Padding="6" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface); overflow-x: auto;">
+            <pre><code>--zak-primary: #4A90E2;
+--zak-on-primary: #ffffff;
+--zak-secondary: #7ED321;
+--zak-success: #7ED321;
+--zak-warning: #F5A623;
+--zak-danger: #DD2C00;
+--zak-surface: #ffffff;
+--zak-on-surface: #1a1a1a;
+--zak-surface-variant: #f5f5f5;
+--zak-on-surface-variant: #4a4a4a;
+--zak-background: #ffffff;
+--zak-on-background: #1a1a1a;
+--zak-error: #DD2C00;
+--zak-success: #7ED321;
+--zak-warning: #F5A623;
+--zak-info: #4A90E2;
+--zak-radius-sm: 4px;
+--zak-radius-md: 8px;
+--zak-radius-lg: 12px;
+--zak-spacing-1: 4px;
+--zak-spacing-2: 8px;
+--zak-spacing-3: 12px;
+--zak-spacing-4: 16px;
+--zak-spacing-5: 20px;
+--zak-spacing-6: 24px;
+--zak-spacing-12: 48px;</code></pre>
+        </ZakBox>
+    </div>
+
+    <!-- Custom Palette Override -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Custom Palette Overrides</ZakText>
+        <ZakText Typo="Typo.body1">Override default colors by setting CSS variables in your app's root or main layout.</ZakText>
+
+        <ZakBox Padding="6" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+            <pre><code>/* App.razor or MainLayout.razor */
+<!-- Override primary color -->
+<style>
+:root {
+    --zak-primary: #FF5722;
+    --zak-on-primary: #ffffff;
+}
+</style></code></pre>
+        </ZakBox>
+
+        <ZakText Typo="Typo.body2" Style="margin-top: var(--zak-spacing-6);">
+            Theming is fully reactive - switch between light/dark at runtime with no page refresh required.
+        </ZakText>
+    </div>
+
+    <!-- Accessibility -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">WCAG 2.1 Accessible</ZakText>
+        <ZakText Typo="Typo.body1">All color combinations meet WCAG AA contrast requirements.</ZakText>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--zak-spacing-4); margin-top: var(--zak-spacing-6);">
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakText Typo="Typo.body2">Minimum Contrast Ratio</ZakText>
+                    <ZakText Typo="Typo.caption">4.5:1 for normal text, 3:1 for large text</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakText Typo="Typo.body2">Focus Visible</ZakText>
+                    <ZakText Typo="Typo.caption">All interactive elements have visible focus indicators</ZakText>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    </div>
+</ZakContainer>

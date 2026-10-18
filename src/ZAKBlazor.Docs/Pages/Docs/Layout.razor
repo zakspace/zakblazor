@@ -1,0 +1,592 @@
+@page "/docs/layout"
+@inject IZakLayoutService LayoutService
+
+<PageTitle>Layout &amp; App Shell — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Layout</h1>
+        <p class="docs-subtitle">
+            The application layout coordinates the foundational structure of your Blazor application. 
+            It combines the top application bar, navigation drawer, and main content area into a unified, responsive app shell.
+        </p>
+        <div class="docs-badges">
+            <ZakBadge Content="App Shell" Color="ZakColor.Primary" />
+            <ZakBadge Content="Responsive" Color="ZakColor.Success" />
+            <ZakBadge Content="Theme-Aware" Color="ZakColor.Info" />
+            <ZakBadge Content="WCAG AA" Color="ZakColor.Secondary" />
+        </div>
+    </div>
+
+    <!-- Overview & Architecture -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Overview</h2>
+        <p class="docs-section-desc">
+            ZAKBlazor provides four tightly integrated layout primitives that work inside your root <code>MainLayout.razor</code>. 
+            Together with provider components, they establish theme propagation, dialog/snackbar overlays, and responsive drawer toggling.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin-top: 1.25rem;">
+            <ZakCard Elevation="1" Shape="ZakShape.Rounded">
+                <ZakCardContent>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                            <ZakIcon Icon="@ZakIcons.LayoutDashboard" Color="ZakColor.Primary" />
+                            <ZakText Typo="Typo.subtitle1" Style="font-weight: 700;">ZakLayout</ZakText>
+                        </ZakStack>
+                        <ZakText Typo="Typo.body2">
+                            The root wrapper component for your application shell. Coordinates layout subscriptions and injects light/dark mode CSS classes.
+                        </ZakText>
+                    </ZakStack>
+                </ZakCardContent>
+            </ZakCard>
+
+            <ZakCard Elevation="1" Shape="ZakShape.Rounded">
+                <ZakCardContent>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                            <ZakIcon Icon="@ZakIcons.Layers" Color="ZakColor.Secondary" />
+                            <ZakText Typo="Typo.subtitle1" Style="font-weight: 700;">ZakAppBar</ZakText>
+                        </ZakStack>
+                        <ZakText Typo="Typo.body2">
+                            Top header bar supporting fixed positioning, custom elevations, dense heights, branding, search, and navigation controls.
+                        </ZakText>
+                    </ZakStack>
+                </ZakCardContent>
+            </ZakCard>
+
+            <ZakCard Elevation="1" Shape="ZakShape.Rounded">
+                <ZakCardContent>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                            <ZakIcon Icon="@ZakIcons.Menu" Color="ZakColor.Success" />
+                            <ZakText Typo="Typo.subtitle1" Style="font-weight: 700;">ZakDrawer</ZakText>
+                        </ZakStack>
+                        <ZakText Typo="Typo.body2">
+                            Collapsible sidebar navigation drawer. Supports clipped/unclipped modes, custom widths, and backdrop dismissal on mobile.
+                        </ZakText>
+                    </ZakStack>
+                </ZakCardContent>
+            </ZakCard>
+
+            <ZakCard Elevation="1" Shape="ZakShape.Rounded">
+                <ZakCardContent>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                            <ZakIcon Icon="@ZakIcons.FileText" Color="ZakColor.Info" />
+                            <ZakText Typo="Typo.subtitle1" Style="font-weight: 700;">ZakMainContent</ZakText>
+                        </ZakStack>
+                        <ZakText Typo="Typo.body2">
+                            The designated container hosting your active routed page (<code>@@Body</code>). Automatically adjusts its margins when the drawer toggles.
+                        </ZakText>
+                    </ZakStack>
+                </ZakCardContent>
+            </ZakCard>
+        </div>
+    </div>
+
+    <!-- Basic Setup Section -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Standard Application Setup</h2>
+        <p class="docs-section-desc">
+            To set up a standard enterprise layout, place the providers and layout components inside your <code>MainLayout.razor</code>.
+        </p>
+
+        <ZakDocsExample Title="Standard MainLayout.razor" Code="@StandardLayoutCode">
+            <ZakAlert Color="ZakColor.Info" Variant="ZakVariant.Soft">
+                <strong>Layout Hierarchy:</strong> Providers should reside at the top of <code>MainLayout.razor</code>, followed by <code>&lt;ZakLayout&gt;</code> containing <code>&lt;ZakAppBar&gt;</code>, <code>&lt;ZakDrawer&gt;</code>, and <code>&lt;ZakMainContent&gt;</code>.
+            </ZakAlert>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Interactive Wireframe Simulator -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Interactive Layout Simulator</h2>
+        <p class="docs-section-desc">
+            Experiment with layout options below to preview how the app bar, drawer clipping, and main content interact in real time.
+        </p>
+
+        <ZakDocsExample Title="Layout Playground" Code="@GetSimulatorCode()">
+            <!-- Configuration Toolbar -->
+            <div style="background: var(--zak-surface-variant); padding: 1rem 1.25rem; border-radius: 8px; border: 1px solid var(--zak-border); margin-bottom: 1.5rem;">
+                <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="4" Wrap="true">
+                    <ZakButton Variant="ZakVariant.Filled"
+                               Color="@(_simDrawerOpen ? ZakColor.Primary : ZakColor.Default)"
+                               StartIcon="@ZakIcons.Menu"
+                               OnClick="ToggleSimDrawer">
+                        @(_simDrawerOpen ? "Close Drawer" : "Open Drawer")
+                    </ZakButton>
+
+                    <ZakButton Variant="ZakVariant.Outlined"
+                               Color="@(_simClipMode ? ZakColor.Secondary : ZakColor.Default)"
+                               OnClick="() => _simClipMode = !_simClipMode">
+                        ClipMode: @(_simClipMode ? "Clipped (Under AppBar)" : "Full Height (Left)")
+                    </ZakButton>
+
+                    <ZakButton Variant="ZakVariant.Outlined"
+                               Color="@(_simDense ? ZakColor.Warning : ZakColor.Default)"
+                               OnClick="() => _simDense = !_simDense">
+                        Dense: @(_simDense ? "Yes (48px)" : "No (64px)")
+                    </ZakButton>
+
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                        <ZakText Typo="Typo.caption" Style="font-weight: 600;">Color:</ZakText>
+                        <ZakButton Size="ZakSize.Small" Variant="@(_simColor == ZakColor.Default ? ZakVariant.Filled : ZakVariant.Text)" Color="ZakColor.Default" OnClick="() => _simColor = ZakColor.Default">Default</ZakButton>
+                        <ZakButton Size="ZakSize.Small" Variant="@(_simColor == ZakColor.Primary ? ZakVariant.Filled : ZakVariant.Text)" Color="ZakColor.Primary" OnClick="() => _simColor = ZakColor.Primary">Primary</ZakButton>
+                        <ZakButton Size="ZakSize.Small" Variant="@(_simColor == ZakColor.Secondary ? ZakVariant.Filled : ZakVariant.Text)" Color="ZakColor.Secondary" OnClick="() => _simColor = ZakColor.Secondary">Secondary</ZakButton>
+                    </ZakStack>
+
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                        <ZakText Typo="Typo.caption" Style="font-weight: 600;">Elevation:</ZakText>
+                        <ZakButton Size="ZakSize.Small" Variant="@(_simElevation == 0 ? ZakVariant.Filled : ZakVariant.Text)" OnClick="() => _simElevation = 0">0</ZakButton>
+                        <ZakButton Size="ZakSize.Small" Variant="@(_simElevation == 1 ? ZakVariant.Filled : ZakVariant.Text)" OnClick="() => _simElevation = 1">1</ZakButton>
+                        <ZakButton Size="ZakSize.Small" Variant="@(_simElevation == 3 ? ZakVariant.Filled : ZakVariant.Text)" OnClick="() => _simElevation = 3">3</ZakButton>
+                    </ZakStack>
+                </ZakStack>
+            </div>
+
+            <!-- Wireframe Container -->
+            <div style="border: 2px dashed var(--zak-border); border-radius: 12px; overflow: hidden; background: var(--zak-surface); box-shadow: 0 8px 24px rgba(0,0,0,0.06); height: 380px; position: relative; display: flex; flex-direction: column;">
+                
+                @if (!_simClipMode)
+                {
+                    <!-- Non-Clipped Layout: Drawer is full height on the left, AppBar starts next to it -->
+                    <div style="display: flex; height: 100%; width: 100%;">
+                        <!-- Simulated Drawer -->
+                        <div style="width: @(_simDrawerOpen ? "220px" : "0px"); transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); background: var(--zak-surface-variant); border-right: 1px solid var(--zak-border); overflow: hidden; flex-shrink: 0; display: flex; flex-direction: column;">
+                            <div style="padding: 1rem; border-bottom: 1px solid var(--zak-border); font-weight: 700; font-size: 0.875rem; white-space: nowrap; display: flex; align-items: center; gap: 8px;">
+                                <ZakIcon Icon="@ZakIcons.LayoutDashboard" Size="ZakSize.Small" Color="ZakColor.Primary" />
+                                <span>App Brand</span>
+                            </div>
+                            <div style="padding: 0.75rem; display: flex; flex-direction: column; gap: 6px;">
+                                <div style="padding: 6px 12px; background: rgba(134, 66, 217, 0.15); color: var(--zak-primary); border-radius: 6px; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">Dashboard</div>
+                                <div style="padding: 6px 12px; color: var(--zak-text-secondary); border-radius: 6px; font-size: 0.8rem; white-space: nowrap;">Analytics</div>
+                                <div style="padding: 6px 12px; color: var(--zak-text-secondary); border-radius: 6px; font-size: 0.8rem; white-space: nowrap;">Orders</div>
+                                <div style="padding: 6px 12px; color: var(--zak-text-secondary); border-radius: 6px; font-size: 0.8rem; white-space: nowrap;">Settings</div>
+                            </div>
+                        </div>
+
+                        <!-- Right Area: AppBar + Main Content -->
+                        <div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+                            <div style="height: @(_simDense ? "48px" : "60px"); @GetAppBarInlineStyle() display: flex; align-items: center; justify-content: space-between; padding: 0 1.25rem; border-bottom: 1px solid var(--zak-border); flex-shrink: 0; transition: all 0.2s ease;">
+                                <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                                    <ZakIconButton Icon="@ZakIcons.Menu" Variant="ZakVariant.Text" Color="@GetAppBarIconColor()" Size="ZakSize.Small" OnClick="ToggleSimDrawer" />
+                                    <span style="font-weight: 600; font-size: 0.9rem;">Workspace Header</span>
+                                </ZakStack>
+                                <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                                    <ZakIconButton Icon="@ZakIcons.Search" Variant="ZakVariant.Text" Color="@GetAppBarIconColor()" Size="ZakSize.Small" />
+                                    <ZakIconButton Icon="@ZakIcons.Bell" Variant="ZakVariant.Text" Color="@GetAppBarIconColor()" Size="ZakSize.Small" />
+                                    <ZakAvatar Size="ZakSize.Small" Text="JD" Color="ZakColor.Primary" />
+                                </ZakStack>
+                            </div>
+
+                            <div style="flex: 1; padding: 1.5rem; overflow-y: auto; background: var(--zak-background);">
+                                <ZakText Typo="Typo.h5" GutterBottom="true">Non-Clipped Layout Active</ZakText>
+                                <ZakText Typo="Typo.body2" Color="ZakColor.Default">
+                                    The navigation drawer spans the entire height of the viewport. The App Bar begins to the right of the drawer.
+                                </ZakText>
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+                                    <div style="padding: 1rem; background: var(--zak-surface); border-radius: 8px; border: 1px solid var(--zak-border);">
+                                        <div style="font-size: 0.75rem; color: var(--zak-text-secondary);">Total Users</div>
+                                        <div style="font-size: 1.25rem; font-weight: 700;">12,480</div>
+                                    </div>
+                                    <div style="padding: 1rem; background: var(--zak-surface); border-radius: 8px; border: 1px solid var(--zak-border);">
+                                        <div style="font-size: 0.75rem; color: var(--zak-text-secondary);">Monthly Revenue</div>
+                                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--zak-success);">$48,250</div>
+                                    </div>
+                                    <div style="padding: 1rem; background: var(--zak-surface); border-radius: 8px; border: 1px solid var(--zak-border);">
+                                        <div style="font-size: 0.75rem; color: var(--zak-text-secondary);">Uptime</div>
+                                        <div style="font-size: 1.25rem; font-weight: 700;">99.98%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <!-- Clipped Layout: AppBar is 100% width on top, Drawer is under AppBar -->
+                    <div style="height: @(_simDense ? "48px" : "60px"); @GetAppBarInlineStyle() display: flex; align-items: center; justify-content: space-between; padding: 0 1.25rem; border-bottom: 1px solid var(--zak-border); flex-shrink: 0; z-index: 2; transition: all 0.2s ease;">
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                            <ZakIconButton Icon="@ZakIcons.Menu" Variant="ZakVariant.Text" Color="@GetAppBarIconColor()" Size="ZakSize.Small" OnClick="ToggleSimDrawer" />
+                            <ZakIcon Icon="@ZakIcons.LayoutDashboard" Size="ZakSize.Small" Color="@GetAppBarIconColor()" />
+                            <span style="font-weight: 700; font-size: 0.95rem;">ZAKBlazor Enterprise</span>
+                        </ZakStack>
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                            <ZakIconButton Icon="@ZakIcons.Search" Variant="ZakVariant.Text" Color="@GetAppBarIconColor()" Size="ZakSize.Small" />
+                            <ZakIconButton Icon="@ZakIcons.Bell" Variant="ZakVariant.Text" Color="@GetAppBarIconColor()" Size="ZakSize.Small" />
+                            <ZakAvatar Size="ZakSize.Small" Text="AK" Color="ZakColor.Secondary" />
+                        </ZakStack>
+                    </div>
+
+                    <div style="display: flex; flex: 1; overflow: hidden; position: relative;">
+                        <!-- Clipped Drawer -->
+                        <div style="width: @(_simDrawerOpen ? "220px" : "0px"); transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); background: var(--zak-surface-variant); border-right: 1px solid var(--zak-border); overflow: hidden; flex-shrink: 0; display: flex; flex-direction: column;">
+                            <div style="padding: 0.75rem; display: flex; flex-direction: column; gap: 6px;">
+                                <div style="padding: 6px 12px; background: rgba(134, 66, 217, 0.15); color: var(--zak-primary); border-radius: 6px; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">Overview</div>
+                                <div style="padding: 6px 12px; color: var(--zak-text-secondary); border-radius: 6px; font-size: 0.8rem; white-space: nowrap;">Projects</div>
+                                <div style="padding: 6px 12px; color: var(--zak-text-secondary); border-radius: 6px; font-size: 0.8rem; white-space: nowrap;">Team</div>
+                                <div style="padding: 6px 12px; color: var(--zak-text-secondary); border-radius: 6px; font-size: 0.8rem; white-space: nowrap;">Preferences</div>
+                            </div>
+                        </div>
+
+                        <!-- Main Content -->
+                        <div style="flex: 1; padding: 1.5rem; overflow-y: auto; background: var(--zak-background);">
+                            <ZakText Typo="Typo.h5" GutterBottom="true">Clipped Layout Active</ZakText>
+                            <ZakText Typo="Typo.body2" Color="ZakColor.Default">
+                                The App Bar spans across the entire top edge of the window. The navigation drawer is clipped neatly beneath it.
+                            </ZakText>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+                                <div style="padding: 1rem; background: var(--zak-surface); border-radius: 8px; border: 1px solid var(--zak-border);">
+                                    <div style="font-size: 0.75rem; color: var(--zak-text-secondary);">Active Sessions</div>
+                                    <div style="font-size: 1.25rem; font-weight: 700;">842</div>
+                                </div>
+                                <div style="padding: 1rem; background: var(--zak-surface); border-radius: 8px; border: 1px solid var(--zak-border);">
+                                    <div style="font-size: 0.75rem; color: var(--zak-text-secondary);">Conversion Rate</div>
+                                    <div style="font-size: 1.25rem; font-weight: 700; color: var(--zak-primary);">4.2%</div>
+                                </div>
+                                <div style="padding: 1rem; background: var(--zak-surface); border-radius: 8px; border: 1px solid var(--zak-border);">
+                                    <div style="font-size: 0.75rem; color: var(--zak-text-secondary);">Server Response</div>
+                                    <div style="font-size: 1.25rem; font-weight: 700;">14ms</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Drawer Clipping Modes -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Drawer Clipping: Clipped vs Non-Clipped</h2>
+        <p class="docs-section-desc">
+            The <code>ClipMode</code> property on <code>ZakDrawer</code> controls whether the drawer renders below the app bar or extends all the way to the top of the browser window.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+            <!-- Clipped Card -->
+            <ZakCard Elevation="1">
+                <ZakCardHeader Title="Clipped Drawer (ClipMode='true')" Subtitle="App Bar spans 100% across the top" />
+                <ZakCardContent>
+                    <div style="border: 1px solid var(--zak-border); border-radius: 8px; overflow: hidden; height: 140px; display: flex; flex-direction: column; margin-bottom: 1rem; background: var(--zak-surface);">
+                        <div style="background: var(--zak-primary); color: white; padding: 6px 12px; font-size: 0.75rem; font-weight: 700;">
+                            ZakAppBar (Full Width)
+                        </div>
+                        <div style="display: flex; flex: 1;">
+                            <div style="width: 32%; background: var(--zak-surface-variant); border-right: 1px solid var(--zak-border); padding: 8px; font-size: 0.7rem; color: var(--zak-text-secondary);">
+                                ZakDrawer (Clipped)
+                            </div>
+                            <div style="flex: 1; padding: 8px; font-size: 0.7rem; color: var(--zak-text-secondary); background: var(--zak-background);">
+                                ZakMainContent (@@Body)
+                            </div>
+                        </div>
+                    </div>
+                    <ZakText Typo="Typo.body2">
+                        <strong>Best for:</strong> Marketing websites, public portals, or applications where global search, user profiles, and branding must stay constantly anchored at the top.
+                    </ZakText>
+                </ZakCardContent>
+            </ZakCard>
+
+            <!-- Non-Clipped Card -->
+            <ZakCard Elevation="1">
+                <ZakCardHeader Title="Non-Clipped Drawer (ClipMode='false')" Subtitle="Drawer spans full viewport height" />
+                <ZakCardContent>
+                    <div style="border: 1px solid var(--zak-border); border-radius: 8px; overflow: hidden; height: 140px; display: flex; margin-bottom: 1rem; background: var(--zak-surface);">
+                        <div style="width: 32%; background: var(--zak-surface-variant); border-right: 1px solid var(--zak-border); padding: 8px; font-size: 0.7rem; color: var(--zak-text-secondary); font-weight: 700;">
+                            ZakDrawer (Full Height)
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column;">
+                            <div style="background: var(--zak-primary); color: white; padding: 6px 12px; font-size: 0.75rem; font-weight: 700;">
+                                ZakAppBar
+                            </div>
+                            <div style="flex: 1; padding: 8px; font-size: 0.7rem; color: var(--zak-text-secondary); background: var(--zak-background);">
+                                ZakMainContent (@@Body)
+                            </div>
+                        </div>
+                    </div>
+                    <ZakText Typo="Typo.body2">
+                        <strong>Best for:</strong> Admin consoles, analytics suites, and complex SaaS workspaces where tree-like deep navigation needs dedicated vertical real estate.
+                    </ZakText>
+                </ZakCardContent>
+            </ZakCard>
+        </div>
+    </div>
+
+    <!-- Layout Service & Drawer State -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Drawer State &amp; IZakLayoutService</h2>
+        <p class="docs-section-desc">
+            You can manage drawer visibility globally through the injected <code>IZakLayoutService</code> or locally with two-way data binding via <code>@@bind-Open</code>.
+        </p>
+
+        <ZakDocsExample Title="Drawer Control Methods" Code="@LayoutServiceCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3" Wrap="true">
+                    <ZakButton StartIcon="@ZakIcons.Menu"
+                               Color="ZakColor.Primary"
+                               OnClick="() => LayoutService.ToggleDrawer()">
+                        Toggle Global App Drawer
+                    </ZakButton>
+                    <ZakBadge Content="@(LayoutService.IsDrawerOpen ? "Drawer: OPEN" : "Drawer: CLOSED")"
+                              Color="@(LayoutService.IsDrawerOpen ? ZakColor.Success : ZakColor.Default)" />
+                </ZakStack>
+                <ZakText Typo="Typo.caption" Color="ZakColor.Default">
+                    Clicking the button above dispatches an event through <code>IZakLayoutService</code>, which automatically synchronizes all <code>ZakDrawer</code>, <code>ZakAppBar</code>, and <code>ZakMainContent</code> instances across your application.
+                </ZakText>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- App Bar Features -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">App Bar Customization</h2>
+        <p class="docs-section-desc">
+            <code>ZakAppBar</code> provides styling options including fixed pinning, semantic theme colors, elevation shadows, and a dense mode for data-heavy applications.
+        </p>
+
+        <ZakDocsExample Title="App Bar Configurations" Code="@AppBarCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                <!-- Standard App Bar -->
+                <div>
+                    <ZakText Typo="Typo.caption" Style="font-weight: 600; margin-bottom: 6px; display: block;">Default App Bar with Spacer</ZakText>
+                    <div style="background: var(--zak-surface); border: 1px solid var(--zak-border); border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;">
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                            <ZakIconButton Icon="@ZakIcons.Menu" Size="ZakSize.Small" />
+                            <span style="font-weight: 700; font-size: 0.95rem;">Acme Portal</span>
+                        </ZakStack>
+                        <div class="zak-spacer"></div>
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                            <ZakIconButton Icon="@ZakIcons.Bell" Size="ZakSize.Small" />
+                            <ZakIconButton Icon="@ZakIcons.Settings" Size="ZakSize.Small" />
+                            <ZakAvatar Size="ZakSize.Small" Text="AP" Color="ZakColor.Primary" />
+                        </ZakStack>
+                    </div>
+                </div>
+
+                <!-- Primary Colored App Bar -->
+                <div>
+                    <ZakText Typo="Typo.caption" Style="font-weight: 600; margin-bottom: 6px; display: block;">Primary Colored (Color="ZakColor.Primary")</ZakText>
+                    <div style="background: var(--zak-primary); color: white; border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;">
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                            <ZakIconButton Icon="@ZakIcons.Menu" Color="ZakColor.Primary" Size="ZakSize.Small" Style="color: white;" />
+                            <span style="font-weight: 700; font-size: 0.95rem;">Cloud Console</span>
+                        </ZakStack>
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                            <ZakIconButton Icon="@ZakIcons.Search" Color="ZakColor.Primary" Size="ZakSize.Small" Style="color: white;" />
+                            <ZakIconButton Icon="@ZakIcons.Info" Color="ZakColor.Primary" Size="ZakSize.Small" Style="color: white;" />
+                        </ZakStack>
+                    </div>
+                </div>
+
+                <!-- Dense App Bar -->
+                <div>
+                    <ZakText Typo="Typo.caption" Style="font-weight: 600; margin-bottom: 6px; display: block;">Dense Mode (Dense="true" — 48px Height)</ZakText>
+                    <div style="background: var(--zak-surface-variant); border: 1px solid var(--zak-border); border-radius: 8px; padding: 6px 14px; display: flex; align-items: center; justify-content: space-between; height: 48px;">
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                            <span style="font-weight: 600; font-size: 0.85rem; color: var(--zak-text-primary);">Document Editor</span>
+                            <ZakBadge Content="Draft v2.4" Color="ZakColor.Warning" Size="ZakSize.Small" />
+                        </ZakStack>
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="1">
+                            <ZakButton Size="ZakSize.Small" Variant="ZakVariant.Text">File</ZakButton>
+                            <ZakButton Size="ZakSize.Small" Variant="ZakVariant.Text">Edit</ZakButton>
+                            <ZakButton Size="ZakSize.Small" Variant="ZakVariant.Text">View</ZakButton>
+                            <ZakButton Size="ZakSize.Small" Variant="ZakVariant.Filled" Color="ZakColor.Primary">Publish</ZakButton>
+                        </ZakStack>
+                    </div>
+                </div>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Responsive Content & Container -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Responsive Page Content</h2>
+        <p class="docs-section-desc">
+            Inside <code>ZakMainContent</code>, wrap your page components with <code>ZakContainer</code> to constrain reading width to standard responsive breakpoints.
+        </p>
+
+        <ZakDocsExample Title="Responsive Page Structure" Code="@ContainerLayoutCode">
+            <div style="background: var(--zak-surface); border: 1px solid var(--zak-border); border-radius: 8px; padding: 1.5rem;">
+                <ZakContainer MaxWidth="ZakBreakpoint.Lg">
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                        <ZakText Typo="Typo.h5">Contained Page Content (MaxWidth.Lg)</ZakText>
+                        <ZakText Typo="Typo.body2">
+                            This container automatically applies padding on mobile devices and limits the maximum width to 1024px on desktop monitors, keeping content centered and readable.
+                        </ZakText>
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="2" Wrap="true">
+                            <ZakBadge Content="Xs: 100%" Color="ZakColor.Default" />
+                            <ZakBadge Content="Sm: 640px" Color="ZakColor.Default" />
+                            <ZakBadge Content="Md: 768px" Color="ZakColor.Default" />
+                            <ZakBadge Content="Lg: 1024px" Color="ZakColor.Primary" />
+                            <ZakBadge Content="Xl: 1280px" Color="ZakColor.Default" />
+                            <ZakBadge Content="2Xl: 1536px" Color="ZakColor.Default" />
+                        </ZakStack>
+                    </ZakStack>
+                </ZakContainer>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- API Reference Sections -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">API Reference</h2>
+        <p class="docs-section-desc">
+            Component properties and parameter specifications for all layout primitives.
+        </p>
+
+        <ZakApiTable ComponentName="ZakLayout" />
+        <ZakApiTable ComponentName="ZakAppBar" />
+        <ZakApiTable ComponentName="ZakDrawer" />
+        <ZakApiTable ComponentName="ZakMainContent" />
+    </div>
+</div>
+
+@code {
+    private bool _simDrawerOpen = true;
+    private bool _simClipMode = true;
+    private bool _simDense = false;
+    private ZakColor _simColor = ZakColor.Default;
+    private int _simElevation = 1;
+
+    private void ToggleSimDrawer()
+    {
+        _simDrawerOpen = !_simDrawerOpen;
+    }
+
+    private string GetAppBarInlineStyle()
+    {
+        return _simColor switch
+        {
+            ZakColor.Primary => "background: var(--zak-primary); color: var(--zak-on-primary, #ffffff);",
+            ZakColor.Secondary => "background: var(--zak-secondary); color: var(--zak-on-secondary, #ffffff);",
+            _ => "background: var(--zak-surface); color: var(--zak-text-primary);"
+        };
+    }
+
+    private ZakColor GetAppBarIconColor()
+    {
+        return _simColor == ZakColor.Default ? ZakColor.Default : ZakColor.Default;
+    }
+
+    private string GetSimulatorCode()
+    {
+        var clipStr = _simClipMode ? "true" : "false";
+        var denseStr = _simDense ? " Dense=\"true\"" : "";
+        var colorStr = _simColor != ZakColor.Default ? $" Color=\"ZakColor.{_simColor}\"" : "";
+        var elevStr = $" Elevation=\"ZakElevation.{_simElevation}\"";
+
+        return $@"<ZakLayout>
+    <ZakAppBar Fixed=""true""{colorStr}{elevStr}{denseStr}>
+        <ZakIconButton Icon=""@ZakIcons.Menu"" OnClick=""() => LayoutService.ToggleDrawer()"" />
+        <ZakText Typo=""Typo.h6"">My Application</ZakText>
+        <div class=""zak-spacer""></div>
+        <ZakIconButton Icon=""@ZakIcons.Bell"" />
+    </ZakAppBar>
+
+    <ZakDrawer Width=""260px"" ClipMode=""{clipStr}"">
+        <NavMenu />
+    </ZakDrawer>
+
+    <ZakMainContent>
+        <ZakContainer MaxWidth=""ZakBreakpoint.Lg"">
+            @Body
+        </ZakContainer>
+    </ZakMainContent>
+</ZakLayout>";
+    }
+
+    private const string StandardLayoutCode = @"@inherits LayoutComponentBase
+@inject IZakLayoutService LayoutService
+
+<ZakThemeProvider Theme=""_myTheme"" />
+<ZakDialogProvider />
+<ZakSnackbarProvider />
+
+<ZakLayout>
+    <!-- Top Application Bar -->
+    <ZakAppBar Fixed=""true"" Elevation=""1"">
+        <ZakStack Orientation=""ZakOrientation.Horizontal"" Align=""ZakAlignment.Center"" Spacing=""3"">
+            <ZakIconButton Icon=""@ZakIcons.Menu""
+                           AriaLabel=""Toggle Navigation Menu""
+                           OnClick=""() => LayoutService.ToggleDrawer()"" />
+            <a href="""" class=""zak-brand-link"">
+                <img src=""images/logo.svg"" alt=""Logo"" class=""zak-brand-logo"" />
+                <span>MyApplication</span>
+            </a>
+        </ZakStack>
+
+        <div class=""zak-spacer""></div>
+
+        <ZakStack Orientation=""ZakOrientation.Horizontal"" Align=""ZakAlignment.Center"" Spacing=""2"">
+            <ZakIconButton Icon=""@ZakIcons.Sun"" AriaLabel=""Toggle Dark Mode"" />
+            <ZakAvatar Text=""JD"" Color=""ZakColor.Primary"" />
+        </ZakStack>
+    </ZakAppBar>
+
+    <!-- Sidebar Navigation Drawer -->
+    <ZakDrawer Width=""280px"" ClipMode=""true"">
+        <NavMenu />
+    </ZakDrawer>
+
+    <!-- Main Routable Page Content -->
+    <ZakMainContent>
+        <ZakContainer MaxWidth=""ZakBreakpoint.Lg"">
+            @Body
+        </ZakContainer>
+    </ZakMainContent>
+</ZakLayout>";
+
+    private const string LayoutServiceCode = @"@inject IZakLayoutService LayoutService
+
+<!-- Toggle drawer from any button or component -->
+<ZakButton StartIcon=""@ZakIcons.Menu"" OnClick=""() => LayoutService.ToggleDrawer()"">
+    Toggle Sidebar
+</ZakButton>
+
+<!-- Read current drawer state -->
+<p>Drawer is currently: @(LayoutService.IsDrawerOpen ? ""Open"" : ""Closed"")</p>
+
+<!-- Alternatively, bind directly on ZakDrawer -->
+<ZakDrawer @bind-Open=""_drawerOpen"" Width=""280px"">
+    <NavMenu />
+</ZakDrawer>
+
+@code {
+    private bool _drawerOpen = true;
+}";
+
+    private const string AppBarCode = @"<!-- Standard App Bar with Left Branding and Right Actions -->
+<ZakAppBar Fixed=""true"" Elevation=""1"">
+    <ZakIconButton Icon=""@ZakIcons.Menu"" OnClick=""() => LayoutService.ToggleDrawer()"" />
+    <ZakText Typo=""Typo.h6"">Acme Portal</ZakText>
+
+    <!-- Spacer pushes following elements to the right side -->
+    <div class=""zak-spacer""></div>
+
+    <ZakIconButton Icon=""@ZakIcons.Bell"" />
+    <ZakIconButton Icon=""@ZakIcons.Settings"" />
+    <ZakAvatar Text=""AP"" Color=""ZakColor.Primary"" />
+</ZakAppBar>
+
+<!-- Primary Colored App Bar -->
+<ZakAppBar Color=""ZakColor.Primary"" Elevation=""2"">
+    <ZakIconButton Icon=""@ZakIcons.Menu"" />
+    <ZakText Typo=""Typo.h6"">Cloud Console</ZakText>
+</ZakAppBar>
+
+<!-- Dense Mode App Bar for High-Density Toolbars -->
+<ZakAppBar Dense=""true"" Elevation=""0"">
+    <ZakText Typo=""Typo.body2"">Document Editor</ZakText>
+    <div class=""zak-spacer""></div>
+    <ZakButton Size=""ZakSize.Small"" Color=""ZakColor.Primary"">Save</ZakButton>
+</ZakAppBar>";
+
+    private const string ContainerLayoutCode = @"<ZakMainContent>
+    <!-- Use ZakContainer to center and bound max reading width -->
+    <ZakContainer MaxWidth=""ZakBreakpoint.Lg"">
+        <h1>Page Title</h1>
+        <p>Responsive page content goes here...</p>
+    </ZakContainer>
+</ZakMainContent>";
+}

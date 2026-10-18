@@ -1,0 +1,51 @@
+/**
+ * ZAKBlazor Enterprise Sample Application Stylesheet
+ */
+.zak-sample-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--zak-spacing-3);
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+}
+
+.zak-sample-brand img {
+  width: 32px;
+  height: 32px;
+}
+
+.zak-metric-card {
+  border: 1px solid var(--zak-border);
+  background-color: var(--zak-surface);
+  border-radius: var(--zak-radius-lg);
+  padding: var(--zak-spacing-5);
+  box-shadow: var(--zak-shadow-1);
+  transition: transform var(--zak-transition-fast), box-shadow var(--zak-transition-fast);
+}
+
+.zak-metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--zak-shadow-3);
+}
+
+.zak-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--zak-radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.zak-status-active {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: var(--zak-success);
+}
+
+.zak-status-pending {
+  background-color: rgba(245, 158, 11, 0.12);
+  color: var(--zak-warning);
+}

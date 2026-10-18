@@ -1,0 +1,70 @@
+@page "/docs/tooltip"
+
+<PageTitle>Tooltip — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Tooltip</h1>
+        <p class="docs-subtitle">Tooltips display informative text when users hover over, focus on, or tap an element.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Feedback" Color="ZakColor.Primary" />
+            <ZakBadge Content="Hover" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Placement Positions</h2>
+        <p class="docs-section-desc">Hover over the buttons to see tooltips in different positions.</p>
+        <ZakDocsExample Title="Tooltip Positions" Code="@TooltipCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Justify="ZakJustify.Center" Spacing="3" Wrap="true">
+                <ZakTooltip Text="Tooltip on top" Placement="ZakPlacement.Top">
+                    <ZakButton Variant="ZakVariant.Outlined" Size="ZakSize.Small">Top</ZakButton>
+                </ZakTooltip>
+                <ZakTooltip Text="Tooltip below" Placement="ZakPlacement.Bottom">
+                    <ZakButton Variant="ZakVariant.Outlined" Size="ZakSize.Small">Bottom</ZakButton>
+                </ZakTooltip>
+                <ZakTooltip Text="Tooltip on left" Placement="ZakPlacement.Left">
+                    <ZakButton Variant="ZakVariant.Outlined" Size="ZakSize.Small">Left</ZakButton>
+                </ZakTooltip>
+                <ZakTooltip Text="Tooltip on right" Placement="ZakPlacement.Right">
+                    <ZakButton Variant="ZakVariant.Outlined" Size="ZakSize.Small">Right</ZakButton>
+                </ZakTooltip>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Icon Button Tooltips</h2>
+        <p class="docs-section-desc">Use tooltips to explain icon button actions.</p>
+        <ZakDocsExample Title="Icon Tooltips" Code="@IconTooltipCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3">
+                <ZakTooltip Text="Edit this record" Placement="ZakPlacement.Top">
+                    <ZakIconButton Icon="@ZakIcons.Edit" AriaLabel="Edit" Color="ZakColor.Primary" />
+                </ZakTooltip>
+                <ZakTooltip Text="Delete permanently" Placement="ZakPlacement.Top">
+                    <ZakIconButton Icon="@ZakIcons.Trash" AriaLabel="Delete" Color="ZakColor.Danger" />
+                </ZakTooltip>
+                <ZakTooltip Text="Download as CSV" Placement="ZakPlacement.Top">
+                    <ZakIconButton Icon="@ZakIcons.Download" AriaLabel="Download" Color="ZakColor.Success" />
+                </ZakTooltip>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakTooltip" />
+    </div>
+</div>
+
+@code {
+    private const string TooltipCode = @"<ZakTooltip Text=""Tooltip on top"" Placement=""ZakPlacement.Top"">
+    <ZakButton>Top</ZakButton>
+</ZakTooltip>
+<ZakTooltip Text=""Tooltip below"" Placement=""ZakPlacement.Bottom"">
+    <ZakButton>Bottom</ZakButton>
+</ZakTooltip>";
+
+    private const string IconTooltipCode = @"<ZakTooltip Text=""Edit this record"" Placement=""ZakPlacement.Top"">
+    <ZakIconButton Icon=""@ZakIcons.Edit"" AriaLabel=""Edit"" Color=""ZakColor.Primary"" />
+</ZakTooltip>";
+}

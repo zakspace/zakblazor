@@ -1,0 +1,80 @@
+@page "/docs/avatar"
+
+<PageTitle>Avatar — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Avatar</h1>
+        <p class="docs-subtitle">Avatars represent user profiles with image support, fallback letter initials, or semantic icons.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="User Profile" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Initials & Colors -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Initials &amp; Colors</h2>
+        <p class="docs-section-desc">Automatically generates initials from names with tailored color backgrounds.</p>
+        <ZakDocsExample Title="Initials Avatars" Code="@AvatarCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3">
+                <ZakAvatar Text="Sarah Connor" Color="ZakColor.Primary" />
+                <ZakAvatar Text="John Doe" Color="ZakColor.Success" />
+                <ZakAvatar Text="Alex Miller" Color="ZakColor.Warning" />
+                <ZakAvatar Text="David Kim" Color="ZakColor.Danger" />
+                <ZakAvatar Icon="@ZakIcons.User" Color="ZakColor.Info" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Sizes -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Sizes</h2>
+        <p class="docs-section-desc">From extra-small menu chips to large profile headers.</p>
+        <ZakDocsExample Title="Avatar Sizes" Code="@SizeCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3">
+                <ZakAvatar Size="ZakSize.ExtraSmall" Text="XS" Color="ZakColor.Primary" />
+                <ZakAvatar Size="ZakSize.Small" Text="SM" Color="ZakColor.Primary" />
+                <ZakAvatar Size="ZakSize.Medium" Text="MD" Color="ZakColor.Primary" />
+                <ZakAvatar Size="ZakSize.Large" Text="LG" Color="ZakColor.Primary" />
+                <ZakAvatar Size="ZakSize.ExtraLarge" Text="XL" Color="ZakColor.Primary" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Avatar Group -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Avatar Group</h2>
+        <p class="docs-section-desc">Overlap multiple team member avatars with a max count overflow pill.</p>
+        <ZakDocsExample Title="Avatar Group" Code="@GroupCode">
+            <ZakAvatarGroup Max="3">
+                <ZakAvatar Text="Alex" Color="ZakColor.Primary" />
+                <ZakAvatar Text="Betty" Color="ZakColor.Success" />
+                <ZakAvatar Text="Charlie" Color="ZakColor.Warning" />
+                <ZakAvatar Text="David" Color="ZakColor.Danger" />
+                <ZakAvatar Text="Eva" Color="ZakColor.Info" />
+            </ZakAvatarGroup>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakAvatar" />
+    </div>
+</div>
+
+@code {
+    private const string AvatarCode = @"<ZakAvatar Text=""Sarah Connor"" Color=""ZakColor.Primary"" />
+<ZakAvatar Text=""John Doe"" Color=""ZakColor.Success"" />
+<ZakAvatar Icon=""@ZakIcons.User"" Color=""ZakColor.Info"" />";
+
+    private const string SizeCode = @"<ZakAvatar Size=""ZakSize.Small"" Text=""SM"" />
+<ZakAvatar Size=""ZakSize.Medium"" Text=""MD"" />
+<ZakAvatar Size=""ZakSize.Large"" Text=""LG"" />";
+
+    private const string GroupCode = @"<ZakAvatarGroup Max=""3"">
+    <ZakAvatar Text=""Alex"" Color=""ZakColor.Primary"" />
+    <ZakAvatar Text=""Betty"" Color=""ZakColor.Success"" />
+    <ZakAvatar Text=""Charlie"" Color=""ZakColor.Warning"" />
+    <ZakAvatar Text=""David"" Color=""ZakColor.Danger"" />
+</ZakAvatarGroup>";
+}

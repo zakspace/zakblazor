@@ -1,0 +1,62 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+    [Parameter]
+    public int ActiveStep { get; set; } = 0;
+
+    [Parameter]
+    public EventCallback<int> ActiveStepChanged { get; set; }
+
+    [Parameter]
+    public ZakOrientation Orientation { get; set; } = ZakOrientation.Horizontal;
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Primary;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private readonly List<ZakStep> _steps = new();
+
+    internal void RegisterStep(ZakStep step)
+    {
+        if (!_steps.Contains(step))
+        {
+            _steps.Add(step);
+            StateHasChanged();
+        }
+    }
+
+    internal void UnregisterStep(ZakStep step)
+    {
+        _steps.Remove(step);
+    }
+
+    internal int GetStepIndex(ZakStep step) => _steps.IndexOf(step);
+
+    internal bool IsStepCompleted(int index) => index < ActiveStep;
+    internal bool IsStepActive(int index) => index == ActiveStep;
+
+    internal async Task SetActiveStep(int index)
+    {
+        ActiveStep = index;
+        await ActiveStepChanged.InvokeAsync(ActiveStep);
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-stepper")
+        .AddClass(Orientation.ToCssClass("zak-stepper"))
+        .AddClass(Color.ToCssClass("zak-stepper"))
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

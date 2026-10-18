@@ -1,0 +1,34 @@
+/**
+ * ZAKBlazor Icon System
+ */
+.zak-icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition: color var(--zak-transition-fast), transform var(--zak-transition-fast);
+}
+
+.zak-icon.zak-size-xs {
+  width: 14px;
+  height: 14px;
+}
+
+.zak-icon.zak-size-sm {
+  width: 16px;
+  height: 16px;
+}
+
+.zak-icon.zak-size-md {
+  width: 20px;
+  height: 20px;
+}
+
+.zak-icon.zak-size-lg {
+  width: 26px;
+  height: 26px;
+}
+
+.zak-icon.zak-size-xl {
+  width: 32px;
+  height: 32px;
+}

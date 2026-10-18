@@ -1,0 +1,97 @@
+@page "/docs/datatable"
+
+<PageTitle>DataTable — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">DataTable</h1>
+        <p class="docs-subtitle">Data-driven table component with sorting, row selection, column templating, row expansion details, and client-side pagination.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Interactive" Color="ZakColor.Success" />
+            <ZakBadge Content="Generic TItem" Color="ZakColor.Info" />
+        </div>
+    </div>
+
+    <!-- Interactive DataTable -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Sorting & Selection</h2>
+        <p class="docs-section-desc">Click column headers to sort ascending or descending. Use the checkboxes to select rows.</p>
+        <ZakDocsExample Title="Interactive DataTable" Code="@DataTableCode">
+            <ZakDataTable TItem="ProjectMember" Items="@_members" Selectable="true" Paginated="true" PageSize="4" Striped="true" Hoverable="true">
+                <Columns>
+                    <ZakTableColumn TItem="ProjectMember" Field="Name" Title="Name" Sortable="true" Property="@(m => m.Name)" />
+                    <ZakTableColumn TItem="ProjectMember" Field="Role" Title="Role" Sortable="true" Property="@(m => m.Role)" />
+                    <ZakTableColumn TItem="ProjectMember" Field="Department" Title="Department" Sortable="true" Property="@(m => m.Department)" />
+                    <ZakTableColumn TItem="ProjectMember" Title="Status">
+                        <Template>
+                            <ZakBadge Content="@context.Status" Color="@(context.Status == "Active" ? ZakColor.Success : ZakColor.Warning)" />
+                        </Template>
+                    </ZakTableColumn>
+                </Columns>
+            </ZakDataTable>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Expandable Row Details -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Expandable Row Details</h2>
+        <p class="docs-section-desc">Provide a <code>DetailTemplate</code> to allow users to toggle child content rows.</p>
+        <ZakDocsExample Title="Row Details" Code="@DetailCode">
+            <ZakDataTable TItem="ProjectMember" Items="@_members.Take(3)" Striped="true">
+                <Columns>
+                    <ZakTableColumn TItem="ProjectMember" Field="Name" Title="Name" />
+                    <ZakTableColumn TItem="ProjectMember" Field="Role" Title="Role" />
+                </Columns>
+                <DetailTemplate>
+                    <div style="padding: 0.75rem 1rem; background: var(--zak-background); border-radius: 6px; font-size: 0.875rem;">
+                        <strong>Bio:</strong> @context.Name is a @context.Role in the @context.Department team. Contact email: <code>@context.Email</code>
+                    </div>
+                </DetailTemplate>
+            </ZakDataTable>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakDataTable" />
+    </div>
+</div>
+
+@code {
+    public record ProjectMember(string Name, string Role, string Department, string Status, string Email);
+
+    private readonly List<ProjectMember> _members = new()
+    {
+        new("Sarah Jenkins", "Lead Architect", "Cloud Systems", "Active", "s.jenkins@company.com"),
+        new("Marcus Vance", "Frontend Engineer", "Core UI", "Active", "m.vance@company.com"),
+        new("Elena Rostova", "DevOps Engineer", "Infrastructure", "Active", "e.rostova@company.com"),
+        new("Tariq Mansoor", "Product Manager", "Product", "Active", "t.mansoor@company.com"),
+        new("Clara Oswald", "UX Researcher", "Design", "On Leave", "c.oswald@company.com"),
+        new("Kenji Sato", "Backend Engineer", "Payments API", "Active", "k.sato@company.com"),
+    };
+
+    private const string DataTableCode = @"<ZakDataTable TItem=""ProjectMember"" Items=""@_members"" Selectable=""true"" Paginated=""true"" PageSize=""4"" Striped=""true"">
+    <Columns>
+        <ZakTableColumn TItem=""ProjectMember"" Field=""Name"" Title=""Name"" Sortable=""true"" Property=""@(m => m.Name)"" />
+        <ZakTableColumn TItem=""ProjectMember"" Field=""Role"" Title=""Role"" Sortable=""true"" Property=""@(m => m.Role)"" />
+        <ZakTableColumn TItem=""ProjectMember"" Field=""Department"" Title=""Department"" Sortable=""true"" Property=""@(m => m.Department)"" />
+        <ZakTableColumn TItem=""ProjectMember"" Title=""Status"">
+            <Template>
+                <ZakBadge Content=""@context.Status"" Color=""@(context.Status == ""Active"" ? ZakColor.Success : ZakColor.Warning)"" />
+            </Template>
+        </ZakTableColumn>
+    </Columns>
+</ZakDataTable>";
+
+    private const string DetailCode = @"<ZakDataTable TItem=""ProjectMember"" Items=""@_members"" Striped=""true"">
+    <Columns>
+        <ZakTableColumn TItem=""ProjectMember"" Field=""Name"" Title=""Name"" />
+        <ZakTableColumn TItem=""ProjectMember"" Field=""Role"" Title=""Role"" />
+    </Columns>
+    <DetailTemplate>
+        <div style=""padding: 0.75rem 1rem;"">
+            <strong>Bio:</strong> @context.Name is a @context.Role.
+        </div>
+    </DetailTemplate>
+</ZakDataTable>";
+}

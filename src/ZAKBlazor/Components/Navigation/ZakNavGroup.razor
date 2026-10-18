@@ -1,0 +1,82 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div class="@CompiledClass" style="@CompiledStyle" id="@ElementId" @attributes="AdditionalAttributes">
+    <button type="button" 
+            class="zak-nav-group-button" 
+            disabled="@Disabled" 
+            @onclick="ToggleExpandedAsync"
+            aria-expanded="@Expanded">
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <span class="zak-nav-group-icon" aria-hidden="true">
+                <ZakIcon Icon="@Icon" Size="ZakSize.Small" />
+            </span>
+        }
+        
+        <span class="zak-nav-group-title">@Title</span>
+
+        @if (!string.IsNullOrEmpty(Badge))
+        {
+            <ZakBadge Content="@Badge" Color="@BadgeColor" Class="zak-nav-group-badge" />
+        }
+
+        <span class="zak-nav-group-expand-icon @(Expanded ? "zak-expanded" : string.Empty)">
+            <ZakIcon Icon="@ExpandIcon" Size="ZakSize.Small" />
+        </span>
+    </button>
+
+    @if (Expanded)
+    {
+        <div class="zak-nav-group-children">
+            @ChildContent
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public string? Badge { get; set; }
+
+    [Parameter]
+    public ZakColor BadgeColor { get; set; } = ZakColor.Primary;
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public bool Expanded { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ExpandedChanged { get; set; }
+
+    [Parameter]
+    public string ExpandIcon { get; set; } = ZakIcons.ChevronDown;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-nav-group")
+        .AddClass("zak-disabled", Disabled)
+        .AddClass("zak-expanded", Expanded)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task ToggleExpandedAsync()
+    {
+        if (Disabled) return;
+
+        Expanded = !Expanded;
+        if (ExpandedChanged.HasDelegate)
+        {
+            await ExpandedChanged.InvokeAsync(Expanded);
+        }
+    }
+}

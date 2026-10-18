@@ -1,0 +1,803 @@
+/**
+ * ZAKBlazor Feedback & Overlays Stylesheet
+ * Copyright (c) ZAKBlazor. All rights reserved.
+ */
+
+/* ==========================================================================
+   Dialog & Modal Overlay
+   ========================================================================== */
+
+.zak-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--zak-z-modal, 1300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--zak-overlay);
+  padding: 1.5rem;
+  animation: zakFadeIn 0.2s ease-out forwards;
+}
+
+.zak-dialog-backdrop-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.zak-dialog {
+  position: relative;
+  width: 100%;
+  background: var(--zak-surface);
+  color: var(--zak-text-primary);
+  border: 1px solid var(--zak-border);
+  border-radius: var(--zak-radius-xl, 16px);
+  box-shadow: var(--zak-shadow-16);
+  overflow: hidden;
+  animation: zakDialogScaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  display: flex;
+  flex-direction: column;
+}
+
+.zak-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--zak-border);
+  background: var(--zak-surface);
+}
+
+.zak-dialog-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--zak-text-primary);
+}
+
+.zak-dialog-close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--zak-text-secondary);
+  border-radius: var(--zak-radius-md, 8px);
+  padding: 0.35rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.zak-dialog-close-btn:hover {
+  background: var(--zak-surface-hover);
+  color: var(--zak-text-primary);
+}
+
+.zak-dialog-content {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(85vh - 130px);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--zak-text-secondary);
+}
+
+.zak-dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--zak-border);
+  background: var(--zak-surface-variant);
+}
+
+.zak-dialog-confirm-message {
+  margin: 0 0 1.5rem 0;
+  font-size: 1rem;
+  color: var(--zak-text-primary);
+}
+
+/* ==========================================================================
+   Snackbar / Toast Notifications
+   ========================================================================== */
+
+.zak-snackbar-container {
+  position: fixed;
+  z-index: var(--zak-z-snackbar, 1700);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  pointer-events: none;
+}
+
+.zak-snackbar-top-left { top: 0; left: 0; }
+.zak-snackbar-top-right { top: 0; right: 0; }
+.zak-snackbar-top-center { top: 0; left: 50%; transform: translateX(-50%); }
+.zak-snackbar-bottom-left { bottom: 0; left: 0; }
+.zak-snackbar-bottom-right { bottom: 0; right: 0; }
+.zak-snackbar-bottom-center { bottom: 0; left: 50%; transform: translateX(-50%); }
+
+.zak-snackbar {
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1.15rem;
+  min-width: 320px;
+  max-width: 480px;
+  background: var(--zak-surface);
+  color: var(--zak-text-primary);
+  border: 1px solid var(--zak-border);
+  border-left-width: 4px;
+  border-radius: var(--zak-radius-lg, 12px);
+  box-shadow: var(--zak-shadow-8);
+  overflow: hidden;
+  animation: zakSnackbarSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.zak-snackbar-normal { border-left-color: var(--zak-primary); }
+.zak-snackbar-success { border-left-color: var(--zak-success); }
+.zak-snackbar-success .zak-snackbar-icon { color: var(--zak-success); }
+.zak-snackbar-danger { border-left-color: var(--zak-danger); }
+.zak-snackbar-danger .zak-snackbar-icon { color: var(--zak-danger); }
+.zak-snackbar-warning { border-left-color: var(--zak-warning); }
+.zak-snackbar-warning .zak-snackbar-icon { color: var(--zak-warning); }
+.zak-snackbar-info { border-left-color: var(--zak-info); }
+.zak-snackbar-info .zak-snackbar-icon { color: var(--zak-info); }
+
+.zak-snackbar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.zak-snackbar-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.zak-snackbar-title {
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 0.15rem;
+  color: var(--zak-text-primary);
+}
+
+.zak-snackbar-text {
+  font-size: 0.85rem;
+  color: var(--zak-text-secondary);
+  word-break: break-word;
+}
+
+.zak-snackbar-action-btn {
+  background: transparent;
+  border: none;
+  color: var(--zak-primary);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--zak-radius-sm, 6px);
+  transition: background-color 0.15s;
+}
+
+.zak-snackbar-action-btn:hover {
+  background: var(--zak-surface-hover);
+}
+
+.zak-snackbar-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--zak-text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s;
+}
+
+.zak-snackbar-close-btn:hover {
+  color: var(--zak-text-primary);
+}
+
+.zak-snackbar-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: currentColor;
+  opacity: 0.25;
+  animation: zakSnackbarProgress linear forwards;
+}
+
+/* ==========================================================================
+   Tooltips
+   ========================================================================== */
+
+.zak-tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.zak-tooltip {
+  position: absolute;
+  z-index: var(--zak-z-tooltip, 1600);
+  background: var(--zak-dark);
+  color: #FFFFFF;
+  font-size: 0.775rem;
+  font-weight: 500;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--zak-radius-sm, 6px);
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: var(--zak-shadow-4);
+  border: 1px solid var(--zak-border-subtle);
+  animation: zakTooltipFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.zak-tooltip-top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+}
+
+.zak-tooltip-bottom {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+}
+
+.zak-tooltip-left {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+}
+
+.zak-tooltip-right {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+}
+
+.zak-tooltip-arrow {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--zak-dark);
+  transform: rotate(45deg);
+  border: 1px solid var(--zak-border-subtle);
+}
+
+.zak-tooltip-top .zak-tooltip-arrow {
+  bottom: -4px;
+  left: calc(50% - 3px);
+  border-top: none;
+  border-left: none;
+}
+
+.zak-tooltip-bottom .zak-tooltip-arrow {
+  top: -4px;
+  left: calc(50% - 3px);
+  border-bottom: none;
+  border-right: none;
+}
+
+.zak-tooltip-left .zak-tooltip-arrow {
+  right: -4px;
+  top: calc(50% - 3px);
+  border-bottom: none;
+  border-left: none;
+}
+
+.zak-tooltip-right .zak-tooltip-arrow {
+  left: -4px;
+  top: calc(50% - 3px);
+  border-top: none;
+  border-right: none;
+}
+
+/* ==========================================================================
+   Progress Circular
+   ========================================================================== */
+
+.zak-progress-circular {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.zak-progress-circular.zak-size-xs { width: 20px; height: 20px; }
+.zak-progress-circular.zak-size-sm { width: 28px; height: 28px; }
+.zak-progress-circular.zak-size-md { width: 40px; height: 40px; }
+.zak-progress-circular.zak-size-lg { width: 56px; height: 56px; }
+.zak-progress-circular.zak-size-xl { width: 72px; height: 72px; }
+
+.zak-progress-circular-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.zak-progress-circular-track {
+  stroke: var(--zak-border);
+}
+
+.zak-progress-circular-indicator {
+  stroke: currentColor;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.zak-progress-circular.zak-progress-indeterminate .zak-progress-circular-svg {
+  animation: zakRotate 1.4s linear infinite;
+}
+
+.zak-progress-circular.zak-progress-indeterminate .zak-progress-circular-indicator {
+  animation: zakCircularDash 1.4s ease-in-out infinite;
+}
+
+.zak-progress-circular-content {
+  position: absolute;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--zak-text-primary);
+}
+
+/* ==========================================================================
+   Progress Linear
+   ========================================================================== */
+
+.zak-progress-linear {
+  position: relative;
+  width: 100%;
+  background: var(--zak-border);
+  overflow: hidden;
+  height: 4px;
+}
+
+.zak-progress-linear.zak-progress-rounded {
+  border-radius: var(--zak-radius-pill, 9999px);
+}
+
+.zak-progress-linear-bar {
+  height: 100%;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.zak-progress-linear-buffer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: currentColor;
+  opacity: 0.25;
+  transition: width 0.3s ease;
+}
+
+.zak-progress-linear.zak-progress-indeterminate .zak-progress-linear-bar {
+  position: absolute;
+  width: 40%;
+  animation: zakLinearIndeterminate 1.5s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   Skeleton Loaders
+   ========================================================================== */
+
+.zak-skeleton {
+  background: var(--zak-surface-variant);
+  position: relative;
+  overflow: hidden;
+}
+
+.zak-skeleton-text {
+  height: 1rem;
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.zak-skeleton-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.zak-skeleton-rectangle {
+  width: 100%;
+  height: 120px;
+  border-radius: var(--zak-radius-md, 8px);
+}
+
+.zak-skeleton-wave::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--zak-surface-hover) 50%,
+    transparent 100%
+  );
+  animation: zakShimmer 1.6s infinite linear;
+}
+
+.zak-skeleton-pulse {
+  animation: zakPulse 1.5s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+@keyframes zakFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zakDialogScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes zakSnackbarSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes zakSnackbarProgress {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+@keyframes zakTooltipFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zakRotate {
+  100% { transform: rotate(270deg); }
+}
+
+@keyframes zakCircularDash {
+  0% {
+    stroke-dashoffset: 125.66;
+  }
+  50% {
+    stroke-dashoffset: 31.41;
+  }
+  100% {
+    stroke-dashoffset: 125.66;
+  }
+}
+
+@keyframes zakLinearIndeterminate {
+  0% {
+    left: -40%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes zakShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes zakPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* ==========================================================================
+   Alert Component
+   ========================================================================== */
+
+.zak-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--zak-radius-md, 8px);
+  position: relative;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  box-sizing: border-box;
+  transition: all var(--zak-transition-fast);
+}
+
+.zak-alert:not(.zak-alert-has-title) {
+  align-items: center;
+}
+
+.zak-alert-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.zak-alert:not(.zak-alert-has-title) .zak-alert-icon {
+  margin-top: 0;
+}
+
+.zak-alert-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.zak-alert-title {
+  font-weight: 600;
+  font-size: 0.925rem;
+  margin-bottom: 2px;
+  line-height: 1.35;
+}
+
+.zak-alert-message {
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.zak-alert-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.zak-alert-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--zak-radius-sm, 4px);
+  opacity: 0.7;
+  transition: opacity var(--zak-transition-fast), background-color var(--zak-transition-fast);
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.zak-alert-close:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+/* ──────────────────────────────────────────────
+   ALERT: SOFT VARIANT (Default)
+────────────────────────────────────────────── */
+.zak-alert.zak-variant-soft,
+.zak-alert.zak-alert-soft {
+  background-color: var(--zak-surface-variant);
+  color: var(--zak-text-primary);
+  border: 1px solid var(--zak-border);
+}
+
+.zak-alert.zak-variant-soft.zak-color-primary,
+.zak-alert.zak-alert-soft.zak-alert-primary {
+  background-color: var(--zak-primary-light, rgba(94, 67, 243, 0.12));
+  color: var(--zak-primary);
+  border-color: rgba(94, 67, 243, 0.25);
+}
+
+.zak-alert.zak-variant-soft.zak-color-secondary,
+.zak-alert.zak-alert-soft.zak-alert-secondary {
+  background-color: var(--zak-secondary-light, rgba(0, 210, 180, 0.14));
+  color: #008775;
+  border-color: rgba(0, 210, 180, 0.28);
+}
+
+.zak-alert.zak-variant-soft.zak-color-success,
+.zak-alert.zak-alert-soft.zak-alert-success {
+  background-color: var(--zak-success-light, rgba(16, 185, 129, 0.14));
+  color: #059669;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.zak-alert.zak-variant-soft.zak-color-warning,
+.zak-alert.zak-alert-soft.zak-alert-warning {
+  background-color: var(--zak-warning-light, rgba(245, 158, 11, 0.14));
+  color: #B45309;
+  border-color: rgba(245, 158, 11, 0.28);
+}
+
+.zak-alert.zak-variant-soft.zak-color-danger,
+.zak-alert.zak-alert-soft.zak-alert-danger {
+  background-color: var(--zak-danger-light, rgba(239, 68, 68, 0.14));
+  color: #DC2626;
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.zak-alert.zak-variant-soft.zak-color-info,
+.zak-alert.zak-variant-soft.zak-color-default,
+.zak-alert.zak-alert-soft.zak-alert-info,
+.zak-alert.zak-alert-soft.zak-alert-default {
+  background-color: var(--zak-info-light, rgba(14, 165, 233, 0.14));
+  color: #0284C7;
+  border-color: rgba(14, 165, 233, 0.25);
+}
+
+/* ──────────────────────────────────────────────
+   ALERT: OUTLINED VARIANT
+────────────────────────────────────────────── */
+.zak-alert.zak-variant-outlined,
+.zak-alert.zak-alert-outlined {
+  background-color: transparent;
+  border: 1px solid var(--zak-border);
+  color: var(--zak-text-primary);
+}
+
+.zak-alert.zak-variant-outlined.zak-color-primary,
+.zak-alert.zak-alert-outlined.zak-alert-primary {
+  color: var(--zak-primary);
+  border-color: var(--zak-primary);
+}
+
+.zak-alert.zak-variant-outlined.zak-color-secondary,
+.zak-alert.zak-alert-outlined.zak-alert-secondary {
+  color: #008775;
+  border-color: var(--zak-secondary);
+}
+
+.zak-alert.zak-variant-outlined.zak-color-success,
+.zak-alert.zak-alert-outlined.zak-alert-success {
+  color: #059669;
+  border-color: var(--zak-success);
+}
+
+.zak-alert.zak-variant-outlined.zak-color-warning,
+.zak-alert.zak-alert-outlined.zak-alert-warning {
+  color: #B45309;
+  border-color: var(--zak-warning);
+}
+
+.zak-alert.zak-variant-outlined.zak-color-danger,
+.zak-alert.zak-alert-outlined.zak-alert-danger {
+  color: #DC2626;
+  border-color: var(--zak-danger);
+}
+
+.zak-alert.zak-variant-outlined.zak-color-info,
+.zak-alert.zak-variant-outlined.zak-color-default,
+.zak-alert.zak-alert-outlined.zak-alert-info,
+.zak-alert.zak-alert-outlined.zak-alert-default {
+  color: #0284C7;
+  border-color: var(--zak-info);
+}
+
+/* ──────────────────────────────────────────────
+   ALERT: FILLED VARIANT
+────────────────────────────────────────────── */
+.zak-alert.zak-variant-filled,
+.zak-alert.zak-alert-filled {
+  border: 1px solid transparent;
+}
+
+.zak-alert.zak-variant-filled.zak-color-primary,
+.zak-alert.zak-alert-filled.zak-alert-primary {
+  background-color: var(--zak-primary);
+  color: var(--zak-primary-contrast);
+}
+
+.zak-alert.zak-variant-filled.zak-color-secondary,
+.zak-alert.zak-alert-filled.zak-alert-secondary {
+  background-color: var(--zak-secondary);
+  color: var(--zak-secondary-contrast);
+}
+
+.zak-alert.zak-variant-filled.zak-color-success,
+.zak-alert.zak-alert-filled.zak-alert-success {
+  background-color: var(--zak-success);
+  color: var(--zak-success-contrast);
+}
+
+.zak-alert.zak-variant-filled.zak-color-warning,
+.zak-alert.zak-alert-filled.zak-alert-warning {
+  background-color: var(--zak-warning);
+  color: var(--zak-warning-contrast);
+}
+
+.zak-alert.zak-variant-filled.zak-color-danger,
+.zak-alert.zak-alert-filled.zak-alert-danger {
+  background-color: var(--zak-danger);
+  color: var(--zak-danger-contrast);
+}
+
+.zak-alert.zak-variant-filled.zak-color-info,
+.zak-alert.zak-variant-filled.zak-color-default,
+.zak-alert.zak-alert-filled.zak-alert-info,
+.zak-alert.zak-alert-filled.zak-alert-default {
+  background-color: var(--zak-info);
+  color: var(--zak-info-contrast);
+}
+
+/* ──────────────────────────────────────────────
+   DARK THEME REFINEMENTS
+────────────────────────────────────────────── */
+[data-zak-theme="dark"] .zak-alert.zak-variant-soft.zak-color-primary,
+[data-zak-theme="dark"] .zak-alert.zak-alert-soft.zak-alert-primary {
+  background-color: rgba(94, 67, 243, 0.22);
+  color: #C7D2FE;
+  border-color: rgba(94, 67, 243, 0.4);
+}
+
+[data-zak-theme="dark"] .zak-alert.zak-variant-soft.zak-color-secondary,
+[data-zak-theme="dark"] .zak-alert.zak-alert-soft.zak-alert-secondary {
+  background-color: rgba(0, 210, 180, 0.2);
+  color: #5EEAD4;
+  border-color: rgba(0, 210, 180, 0.35);
+}
+
+[data-zak-theme="dark"] .zak-alert.zak-variant-soft.zak-color-success,
+[data-zak-theme="dark"] .zak-alert.zak-alert-soft.zak-alert-success {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #6EE7B7;
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+[data-zak-theme="dark"] .zak-alert.zak-variant-soft.zak-color-warning,
+[data-zak-theme="dark"] .zak-alert.zak-alert-soft.zak-alert-warning {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: #FCD34D;
+  border-color: rgba(245, 158, 11, 0.38);
+}
+
+[data-zak-theme="dark"] .zak-alert.zak-variant-soft.zak-color-danger,
+[data-zak-theme="dark"] .zak-alert.zak-alert-soft.zak-alert-danger {
+  background-color: rgba(239, 68, 68, 0.22);
+  color: #FCA5A5;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+[data-zak-theme="dark"] .zak-alert.zak-variant-soft.zak-color-info,
+[data-zak-theme="dark"] .zak-alert.zak-variant-soft.zak-color-default,
+[data-zak-theme="dark"] .zak-alert.zak-alert-soft.zak-alert-info,
+[data-zak-theme="dark"] .zak-alert.zak-alert-soft.zak-alert-default {
+  background-color: rgba(14, 165, 233, 0.2);
+  color: #7DD3FC;
+  border-color: rgba(14, 165, 233, 0.35);
+}
+
+[data-zak-theme="dark"] .zak-alert-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+

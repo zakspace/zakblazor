@@ -1,0 +1,49 @@
+@page "/docs/accordion"
+
+<PageTitle>Accordion — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Accordion</h1>
+        <p class="docs-subtitle">Accordions toggle visibility of complex content sections to conserve vertical space and reduce cognitive load.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Surface" Color="ZakColor.Primary" />
+            <ZakBadge Content="Interactive" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Collapsible Panels</h2>
+        <p class="docs-section-desc">Click any header to expand or collapse its associated panel.</p>
+        <ZakDocsExample Title="Accordion Example" Code="@AccordionCode">
+            <div style="max-width: 600px;">
+                <ZakAccordion>
+                    <ZakAccordionItem Title="What is ZAKBlazor?">
+                        ZAKBlazor is a modern component suite for Blazor WebAssembly and Blazor Server built with clean C# and native CSS tokens.
+                    </ZakAccordionItem>
+                    <ZakAccordionItem Title="Does it require external JavaScript libraries?">
+                        No. ZAKBlazor has zero dependency on bulky JS frameworks like Bootstrap or jQuery. Only small, focused DOM interop helpers are used.
+                    </ZakAccordionItem>
+                    <ZakAccordionItem Title="Is dark mode supported out of the box?">
+                        Yes! Dark mode is fully built into the CSS custom property token system with seamless runtime switching.
+                    </ZakAccordionItem>
+                </ZakAccordion>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakAccordion" />
+    </div>
+</div>
+
+@code {
+    private const string AccordionCode = @"<ZakAccordion>
+    <ZakAccordionItem Title=""What is ZAKBlazor?"">
+        Content for panel 1
+    </ZakAccordionItem>
+    <ZakAccordionItem Title=""Is dark mode supported?"">
+        Content for panel 2
+    </ZakAccordionItem>
+</ZakAccordion>";
+}

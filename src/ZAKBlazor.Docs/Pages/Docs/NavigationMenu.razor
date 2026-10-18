@@ -1,0 +1,233 @@
+@page "/docs/navigationmenu"
+
+<PageTitle>NavLink & NavMenu — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">NavLink &amp; NavMenu</h1>
+        <p class="docs-subtitle">Navigation links and menus integrated with Blazor's routing system, supporting active state detection, leading icons, status badges, and custom events.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Navigation" Color="ZakColor.Primary" />
+            <ZakBadge Content="Blazor Routing" Color="ZakColor.Success" />
+            <ZakBadge Content="Accessible" Color="ZakColor.Info" />
+        </div>
+    </div>
+
+    <!-- Basic Navigation Links -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Basic Navigation Links</h2>
+        <p class="docs-section-desc"><code>ZakNavLink</code> wraps the native Blazor <code>NavLink</code> component, automatically styling active routes with a high-contrast theme highlight.</p>
+        <ZakDocsExample Title="Standard Links" Code="@BasicLinksCode">
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <ZakNavLink Href="docs/navlink" Match="NavLinkMatch.Prefix">
+                    Active Link (Current)
+                </ZakNavLink>
+                <ZakNavLink Href="docs/button">
+                    Button Docs
+                </ZakNavLink>
+                <ZakNavLink Href="docs/dialog">
+                    Dialog Docs
+                </ZakNavLink>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Icons and Badges -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Icons &amp; Badges</h2>
+        <p class="docs-section-desc">Add visual context using <code>Icon</code> and trailing count or status indicators with <code>Badge</code> and <code>BadgeColor</code>.</p>
+        <ZakDocsExample Title="Links with Icons and Badges" Code="@IconsBadgesCode">
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <ZakNavLink Href="docs/navlink" Icon="@ZakIcons.Layers" Badge="Active" BadgeColor="ZakColor.Primary">
+                    Navigation
+                </ZakNavLink>
+                <ZakNavLink Href="docs/alert" Icon="@ZakIcons.AlertCircle" Badge="New" BadgeColor="ZakColor.Success">
+                    Alerts
+                </ZakNavLink>
+                <ZakNavLink Href="docs/form" Icon="@ZakIcons.FileText" Badge="Updated" BadgeColor="ZakColor.Warning">
+                    Forms
+                </ZakNavLink>
+                <ZakNavLink Href="docs/dialog" Icon="@ZakIcons.Bell" Badge="4" BadgeColor="ZakColor.Info">
+                    Modals
+                </ZakNavLink>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Vertical Navigation Menu -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Navigation Menu / Sidebar</h2>
+        <p class="docs-section-desc">Organize multiple links into grouped menus for drawer panels, dashboards, and application sidebars.</p>
+        <ZakDocsExample Title="Vertical Sidebar Menu" Code="@SidebarMenuCode">
+            <div style="max-width: 280px; width: 100%; border: 1px solid var(--zak-border); border-radius: var(--zak-radius-md); padding: 1rem; background: var(--zak-surface);">
+                <ZakNavMenu>
+                    <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--zak-text-muted); margin-bottom: 0.25rem; padding-left: 0.5rem;">
+                        Main Menu
+                    </span>
+                    <ZakNavLink Href="docs/navlink" Icon="@ZakIcons.LayoutDashboard" Match="NavLinkMatch.Prefix">
+                        Dashboard
+                    </ZakNavLink>
+                    <ZakNavGroup Title="Components" Icon="@ZakIcons.Layers">
+                        <ZakNavLink Href="docs/button" Icon="@ZakIcons.LayoutDashboard">
+                            Button
+                        </ZakNavLink> 
+                        <ZakNavLink Href="docs/alert" Icon="@ZakIcons.Grid">
+                            Alert
+                        </ZakNavLink>
+                        <ZakNavLink Href="docs/form" Icon="@ZakIcons.Grid">
+                            Forms
+                        </ZakNavLink>
+                        <ZakNavLink Href="docs/dialog" Icon="@ZakIcons.Grid">
+                            Dialog
+                        </ZakNavLink>
+                    </ZakNavGroup>
+                    <ZakNavLink Href="docs/button" Icon="@ZakIcons.Layers">
+                        Components
+                    </ZakNavLink>
+                    <ZakNavLink Href="docs/table" Icon="@ZakIcons.FileText" Badge="Beta" BadgeColor="ZakColor.Warning">
+                        Data Tables
+                    </ZakNavLink>
+
+                    <div style="height: 1px; background: var(--zak-border); margin: 0.5rem 0;"></div>
+
+                    <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--zak-text-muted); margin-bottom: 0.25rem; padding-left: 0.5rem;">
+                        System
+                    </span>
+                    <ZakNavLink Href="docs/default-theme" Icon="@ZakIcons.Sparkles">
+                        Theme Settings
+                    </ZakNavLink>
+                    <ZakNavLink Href="docs/installation" Icon="@ZakIcons.Download">
+                        Installation
+                    </ZakNavLink>
+                </ZakNavMenu>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Match Modes & Target -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Matching Modes &amp; External Links</h2>
+        <p class="docs-section-desc">Control route matching strictness with <code>Match="NavLinkMatch.All"</code> or <code>NavLinkMatch.Prefix"</code>, and open external links using <code>Target="_blank"</code>.</p>
+        <ZakDocsExample Title="Match and External Target" Code="@MatchCode">
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <ZakNavLink Href="docs/navlink" Match="NavLinkMatch.All">
+                    Exact Match Only
+                </ZakNavLink>
+                <ZakNavLink Href="docs" Match="NavLinkMatch.Prefix">
+                    Prefix Match (/docs/*)
+                </ZakNavLink>
+                <ZakNavLink Href="https://github.com" Target="_blank" Icon="@ZakIcons.ExternalLink">
+                    GitHub Repo
+                </ZakNavLink>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Disabled & Click Handling -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Disabled State &amp; Click Callback</h2>
+        <p class="docs-section-desc">Disable link navigation using <code>Disabled="true"</code> or capture mouse clicks using <code>OnClick</code>.</p>
+        <ZakDocsExample Title="Disabled and Click Handler" Code="@DisabledClickCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+                    <ZakNavLink Href="docs/navlink" OnClick="HandleCustomClick">
+                        Trigger Click Event
+                    </ZakNavLink>
+                    <ZakNavLink Href="docs/navlink" Disabled="true" Badge="Locked" BadgeColor="ZakColor.Default">
+                        Disabled Route
+                    </ZakNavLink>
+                </div>
+
+                @if (!string.IsNullOrEmpty(_clickMessage))
+                {
+                    <ZakAlert Color="ZakColor.Success">
+                        @_clickMessage
+                    </ZakAlert>
+                }
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+ 
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakNavLink" />
+    </div>
+</div>
+
+@code {
+    private string? _clickMessage;
+
+    private void HandleCustomClick()
+    {
+        _clickMessage = $"Custom OnClick callback triggered at {DateTime.Now.ToString("HH:mm:ss")}";
+    }
+
+    private const string BasicLinksCode = @"<ZakNavLink Href=""docs/navlink"" Match=""NavLinkMatch.Prefix"">
+    Active Link (Current)
+</ZakNavLink>
+<ZakNavLink Href=""docs/button"">
+    Button Docs
+</ZakNavLink>
+<ZakNavLink Href=""docs/dialog"">
+    Dialog Docs
+</ZakNavLink>";
+
+    private const string IconsBadgesCode = @"<ZakNavLink Href=""docs/navlink"" Icon=""@ZakIcons.Layers"" Badge=""Active"" BadgeColor=""ZakColor.Primary"">
+    Navigation
+</ZakNavLink>
+<ZakNavLink Href=""docs/alert"" Icon=""@ZakIcons.AlertCircle"" Badge=""New"" BadgeColor=""ZakColor.Success"">
+    Alerts
+</ZakNavLink>
+<ZakNavLink Href=""docs/form"" Icon=""@ZakIcons.FileText"" Badge=""Updated"" BadgeColor=""ZakColor.Warning"">
+    Forms
+</ZakNavLink>
+<ZakNavLink Href=""docs/dialog"" Icon=""@ZakIcons.Bell"" Badge=""4"" BadgeColor=""ZakColor.Info"">
+    Modals
+</ZakNavLink>";
+
+    private const string SidebarMenuCode = @"<div class=""zak-nav-menu"">
+    <ZakNavLink Href=""docs/navlink"" Icon=""@ZakIcons.LayoutDashboard"" Match=""NavLinkMatch.Prefix"">
+        Dashboard
+    </ZakNavLink>
+    <ZakNavLink Href=""docs/button"" Icon=""@ZakIcons.Grid"">
+        Components
+    </ZakNavLink>
+    <ZakNavLink Href=""docs/table"" Icon=""@ZakIcons.FileText"" Badge=""Beta"" BadgeColor=""ZakColor.Warning"">
+        Data Tables
+    </ZakNavLink>
+</div>";
+
+    private const string MatchCode = @"<ZakNavLink Href=""docs/navlink"" Match=""NavLinkMatch.All"">
+    Exact Match Only
+</ZakNavLink>
+<ZakNavLink Href=""docs"" Match=""NavLinkMatch.Prefix"">
+    Prefix Match (/docs/*)
+</ZakNavLink>
+<ZakNavLink Href=""https://github.com"" Target=""_blank"" Icon=""@ZakIcons.ExternalLink"">
+    GitHub Repo
+</ZakNavLink>";
+
+    private const string DisabledClickCode = @"<ZakNavLink Href=""docs/navlink"" OnClick=""HandleCustomClick"">
+    Trigger Click Event
+</ZakNavLink>
+
+<ZakNavLink Href=""docs/navlink"" Disabled=""true"" Badge=""Locked"" BadgeColor=""ZakColor.Default"">
+    Disabled Route
+</ZakNavLink>
+
+@if (!string.IsNullOrEmpty(_clickMessage))
+{
+    <ZakAlert Color=""ZakColor.Success"">
+        @_clickMessage
+    </ZakAlert>
+}
+
+@code {
+    private string? _clickMessage;
+
+    private void HandleCustomClick()
+    {
+        _clickMessage = $""Custom OnClick callback triggered at {DateTime.Now.ToString(""""HH:mm:ss"""")}"";
+    }
+}";
+}

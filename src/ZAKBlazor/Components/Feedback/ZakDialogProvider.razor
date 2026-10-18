@@ -1,0 +1,100 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+@inject ZAKBlazor.Services.IZakDialogService DialogService
+
+@foreach (var dialog in _dialogs)
+{
+    <div class="zak-dialog-overlay @(dialog.Options.BackdropBlur ? "zak-dialog-backdrop-blur" : "")"
+         @onclick="() => HandleBackdropClick(dialog)"
+         role="presentation">
+        <div class="@ResolveDialogClass(dialog)"
+             style="@ResolveDialogStyle(dialog)"
+             role="dialog"
+             aria-modal="true"
+             @onclick:stopPropagation>
+
+            @if (dialog.Options.ShowCloseButton || !string.IsNullOrEmpty(dialog.Title))
+            {
+                <div class="zak-dialog-header">
+                    @if (!string.IsNullOrEmpty(dialog.Title))
+                    {
+                        <div class="zak-dialog-title">@dialog.Title</div>
+                    }
+                    @if (dialog.Options.ShowCloseButton)
+                    {
+                        <button type="button"
+                                class="zak-dialog-close-btn"
+                                aria-label="Close dialog"
+                                @onclick="() => DialogService.Close(dialog, null)">
+                            <ZakIcon Icon="@ZakIcons.Close" Size="ZakSize.Small" />
+                        </button>
+                    }
+                </div>
+            }
+
+            <div class="zak-dialog-content">
+                @if (dialog.CustomContent != null)
+                {
+                    @dialog.CustomContent
+                }
+                else if (dialog.ComponentType != null)
+                {
+                    <DynamicComponent Type="@dialog.ComponentType"
+                                      Parameters="@dialog.Parameters" />
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private readonly List<ZAKBlazor.Services.ZakDialogReference> _dialogs = new();
+
+    protected override void OnInitialized()
+    {
+        DialogService.OnDialogOpened += HandleDialogOpened;
+        DialogService.OnDialogClosed += HandleDialogClosed;
+    }
+
+    private void HandleDialogOpened(ZAKBlazor.Services.ZakDialogReference reference)
+    {
+        _dialogs.Add(reference);
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleDialogClosed(ZAKBlazor.Services.ZakDialogReference reference)
+    {
+        _dialogs.Remove(reference);
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleBackdropClick(ZAKBlazor.Services.ZakDialogReference dialog)
+    {
+        if (dialog.Options.CloseOnBackdropClick)
+        {
+            DialogService.Close(dialog, null);
+        }
+    }
+
+    private string ResolveDialogClass(ZAKBlazor.Services.ZakDialogReference dialog) =>
+        ZakClassBuilder.Create("zak-dialog")
+            .AddClass("zak-dialog-fullwidth", dialog.Options.FullWidth)
+            .AddClass(dialog.Options.DialogClass)
+            .Build() ?? "zak-dialog";
+
+    private string ResolveDialogStyle(ZAKBlazor.Services.ZakDialogReference dialog) =>
+        ZakStyleBuilder.Create()
+            .AddStyle("max-width", dialog.Options.MaxWidth, !string.IsNullOrEmpty(dialog.Options.MaxWidth))
+            .AddRaw(dialog.Options.DialogStyle)
+            .Build() ?? string.Empty;
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            DialogService.OnDialogOpened -= HandleDialogOpened;
+            DialogService.OnDialogClosed -= HandleDialogClosed;
+        }
+        base.Dispose(disposing);
+    }
+}

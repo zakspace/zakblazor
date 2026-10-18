@@ -1,0 +1,68 @@
+@page "/docs/stat-card"
+
+<PageTitle>Stat Card — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Stat Card</h1>
+        <p class="docs-subtitle">Dashboard KPI metric card displaying numbers, trending indicators, icons, and contextual descriptions.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Dashboard KPI" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- KPI Dashboard Row -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Dashboard KPI Cards</h2>
+        <p class="docs-section-desc">Combine numbers, icons, percent changes, and descriptions into clean metric cards.</p>
+        <ZakDocsExample Title="KPI Grid" Code="@StatCode">
+            <ZakGrid Columns="3" Gap="4">
+                <ZakStatCard Label="Monthly Recurring Revenue"
+                             Value="$42,850"
+                             Icon="@ZakIcons.TrendingUp"
+                             Color="ZakColor.Primary"
+                             Change="+14.2%"
+                             ChangePositive="true"
+                             Description="vs. previous 30 days" />
+
+                <ZakStatCard Label="Active Subscriptions"
+                             Value="1,842"
+                             Icon="@ZakIcons.Users"
+                             Color="ZakColor.Success"
+                             Change="+8.1%"
+                             ChangePositive="true"
+                             Description="128 new this week" />
+
+                <ZakStatCard Label="Churn Rate"
+                             Value="1.24%"
+                             Icon="@ZakIcons.TrendingDown"
+                             Color="ZakColor.Danger"
+                             Change="-0.4%"
+                             ChangePositive="false"
+                             Description="Target is below 1.5%" />
+            </ZakGrid>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakStatCard" />
+    </div>
+</div>
+
+@code {
+    private const string StatCode = @"<ZakStatCard Label=""Monthly Recurring Revenue""
+             Value=""$42,850""
+             Icon=""@ZakIcons.TrendingUp""
+             Color=""ZakColor.Primary""
+             Change=""+14.2%""
+             ChangePositive=""true""
+             Description=""vs. previous 30 days"" />
+
+<ZakStatCard Label=""Active Subscriptions""
+             Value=""1,842""
+             Icon=""@ZakIcons.Users""
+             Color=""ZakColor.Success""
+             Change=""+8.1%""
+             ChangePositive=""true"" />";
+}

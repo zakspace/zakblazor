@@ -1,0 +1,93 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    <div class="zak-step-header" @onclick="HandleStepClick">
+        <div class="zak-step-indicator">
+            @if (IsCompleted)
+            {
+                <ZakIcon Icon="@ZakIcons.Check" Size="ZakSize.ExtraSmall" />
+            }
+            else if (!string.IsNullOrEmpty(Icon))
+            {
+                <ZakIcon Icon="@Icon" Size="ZakSize.ExtraSmall" />
+            }
+            else
+            {
+                <span>@(Index + 1)</span>
+            }
+        </div>
+
+        <div class="zak-step-label-wrap">
+            <div class="zak-step-title">@Title</div>
+            @if (!string.IsNullOrEmpty(Subtitle))
+            {
+                <div class="zak-step-subtitle">@Subtitle</div>
+            }
+        </div>
+    </div>
+
+    <div class="zak-step-connector" aria-hidden="true"></div>
+
+    @if (IsActive && ChildContent != null)
+    {
+        <div class="zak-step-content">
+            @ChildContent
+        </div>
+    }
+</div>
+
+@code {
+    [CascadingParameter]
+    public ZakStepper? ParentStepper { get; set; }
+
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? Subtitle { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    internal int Index => ParentStepper?.GetStepIndex(this) ?? 0;
+    private bool IsCompleted => ParentStepper?.IsStepCompleted(Index) ?? false;
+    private bool IsActive => ParentStepper?.IsStepActive(Index) ?? false;
+
+    protected override void OnInitialized()
+    {
+        ParentStepper?.RegisterStep(this);
+    }
+
+    private async Task HandleStepClick()
+    {
+        if (Disabled || ParentStepper == null) return;
+        await ParentStepper.SetActiveStep(Index);
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-step")
+        .AddClass("zak-step-active", IsActive)
+        .AddClass("zak-step-completed", IsCompleted)
+        .AddClass("zak-step-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            ParentStepper?.UnregisterStep(this);
+        }
+        base.Dispose(disposing);
+    }
+}

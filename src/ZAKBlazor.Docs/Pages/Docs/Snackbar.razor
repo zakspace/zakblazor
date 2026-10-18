@@ -1,0 +1,74 @@
+@page "/docs/snackbar"
+@inject IZakSnackbarService SnackbarService
+
+<PageTitle>Snackbar & Toast — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Snackbar &amp; Toast</h1>
+        <p class="docs-subtitle">Snackbars provide brief feedback about an operation through a message that appears at the bottom of the screen.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Feedback" Color="ZakColor.Primary" />
+            <ZakBadge Content="Toast" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Trigger Toasts</h2>
+        <p class="docs-section-desc">Inject <code>IZakSnackbarService</code> and call convenience methods.</p>
+        <ZakDocsExample Title="Interactive Snackbars" Code="@SnackbarCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3" Wrap="true">
+                <ZakButton Color="ZakColor.Success" OnClick='() => SnackbarService.Success("Changes saved successfully!", "Success")'>
+                    Show Success
+                </ZakButton>
+                <ZakButton Color="ZakColor.Danger" OnClick='() => SnackbarService.Error("Connection lost. Retrying...", "Error")'>
+                    Show Error
+                </ZakButton>
+                <ZakButton Color="ZakColor.Warning" OnClick='() => SnackbarService.Warning("Your session expires soon.", "Warning")'>
+                    Show Warning
+                </ZakButton>
+                <ZakButton Color="ZakColor.Info" OnClick='() => SnackbarService.Info("A new version is available.", "Info")'>
+                    Show Info
+                </ZakButton>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">With Action Button</h2>
+        <p class="docs-section-desc">Show an optional action button like "UNDO" using <code>ZakSnackbarOptions</code>.</p>
+        <ZakDocsExample Title="Snackbar with Action" Code="@ActionCode">
+            <ZakButton Color="ZakColor.Primary" OnClick="ShowUndoToast">
+                Delete Item (with Undo)
+            </ZakButton>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakSnackbarProvider" />
+    </div>
+</div>
+
+@code {
+    private void ShowUndoToast()
+    {
+        SnackbarService.Add("Record deleted.", configure: opt =>
+        {
+            opt.ActionText = "UNDO";
+            opt.OnActionClick = () => SnackbarService.Success("Deletion reversed!");
+        });
+    }
+
+    private const string SnackbarCode = @"@inject IZakSnackbarService SnackbarService
+
+<ZakButton OnClick=""() => SnackbarService.Success(""Saved!"", ""Success"")"">Show Success</ZakButton>
+<ZakButton OnClick=""() => SnackbarService.Error(""Failed"", ""Error"")"">Show Error</ZakButton>
+<ZakButton OnClick=""() => SnackbarService.Warning(""Session expiring"", ""Warning"")"">Show Warning</ZakButton>
+<ZakButton OnClick=""() => SnackbarService.Info(""Update available"", ""Info"")"">Show Info</ZakButton>";
+
+    private const string ActionCode = @"SnackbarService.Add(""Record deleted."", configure: opt =>
+{
+    opt.ActionText = ""UNDO"";
+    opt.OnActionClick = () => SnackbarService.Success(""Deletion reversed!"");
+});";
+}

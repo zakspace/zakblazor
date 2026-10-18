@@ -1,0 +1,38 @@
+@page "/docs/chip"
+
+<PageTitle>Chip — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Chip</h1>
+        <p class="docs-subtitle">Chips are compact elements that represent an input, attribute, or action, supporting removable and clickable states.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Tags" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Variants &amp; Deletable Chips</h2>
+        <p class="docs-section-desc">Chips support Filled, Outlined, and Soft variants with optional close triggers.</p>
+        <ZakDocsExample Title="Chip Styles" Code="@ChipCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2" Wrap="true">
+                <ZakChip Text="Blazor" Color="ZakColor.Primary" Variant="ZakVariant.Filled" />
+                <ZakChip Text="C# 13" Color="ZakColor.Success" Variant="ZakVariant.Soft" />
+                <ZakChip Text=".NET 9" Color="ZakColor.Info" Variant="ZakVariant.Outlined" />
+                <ZakChip Text="Removable Tag" Closable="true" Color="ZakColor.Warning" />
+                <ZakChip Text="Filter Item" Icon="@ZakIcons.Check" Color="ZakColor.Primary" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakChip" />
+    </div>
+</div>
+
+@code {
+    private const string ChipCode = @"<ZakChip Text=""Blazor"" Color=""ZakColor.Primary"" Variant=""ZakVariant.Filled"" />
+<ZakChip Text=""C# 13"" Color=""ZakColor.Success"" Variant=""ZakVariant.Soft"" />
+<ZakChip Text=""Removable Tag"" Closable=""true"" Color=""ZakColor.Warning"" />";
+}

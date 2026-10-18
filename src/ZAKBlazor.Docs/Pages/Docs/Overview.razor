@@ -1,0 +1,67 @@
+@page "/docs/overview"
+
+<PageTitle>Overview — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">ZAKBlazor Overview</h1>
+        <p class="docs-subtitle">A modern, accessible, zero-dependency Blazor component library built for speed, precision design tokens, and developer ergonomics.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="v1.0" Color="ZakColor.Primary" />
+            <ZakBadge Content=".NET 9.0" Color="ZakColor.Success" />
+            <ZakBadge Content="Blazor WASM & Server" Color="ZakColor.Info" />
+        </div>
+    </div>
+
+    <!-- Core Highlights -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Design Philosophy</h2>
+        <p class="docs-section-desc">ZAKBlazor provides a cohesive UI system with over 80+ components crafted for production applications.</p>
+        <ZakGrid Columns="3" Gap="4">
+            <ZakCard Elevation="1" Shape="ZakShape.Rounded">
+                <ZakCardHeader Title="Tokens & Theming" Subtitle="Dynamic CSS Variables" />
+                <ZakCardContent>
+                    <ZakText Typo="Typo.body2">
+                        Comprehensive design tokens for colors, elevations, radii, typography, and spacing that respond dynamically to theme switches.
+                    </ZakText>
+                </ZakCardContent>
+            </ZakCard>
+
+            <ZakCard Elevation="1" Shape="ZakShape.Rounded">
+                <ZakCardHeader Title="Accessible (A11y)" Subtitle="ARIA-First Controls" />
+                <ZakCardContent>
+                    <ZakText Typo="Typo.body2">
+                        Built with proper ARIA attributes, semantic HTML elements, keyboard navigation, and polite screen reader announcements.
+                    </ZakText>
+                </ZakCardContent>
+            </ZakCard>
+
+            <ZakCard Elevation="1" Shape="ZakShape.Rounded">
+                <ZakCardHeader Title="High Performance" Subtitle="Zero Bloat" />
+                <ZakCardContent>
+                    <ZakText Typo="Typo.body2">
+                        Optimized rendering pipelines, reflection-free runtime operations, and tiny bundle footprint without heavy external dependencies.
+                    </ZakText>
+                </ZakCardContent>
+            </ZakCard>
+        </ZakGrid>
+    </div>
+
+    <!-- Next Steps Navigation -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Getting Started</h2>
+        <p class="docs-section-desc">Ready to build? Jump right into installation or explore the components catalog.</p>
+        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3">
+            <NavLink href="docs/installation">
+                <ZakButton Color="ZakColor.Primary" EndIcon="@ZakIcons.ArrowRight">
+                    Installation Guide
+                </ZakButton>
+            </NavLink>
+            <NavLink href="docs/button">
+                <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Default">
+                    Explore Components
+                </ZakButton>
+            </NavLink>
+        </ZakStack>
+    </div>
+</div>

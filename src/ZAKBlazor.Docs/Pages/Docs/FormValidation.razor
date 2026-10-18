@@ -1,0 +1,71 @@
+@page "/docs/form-validation"
+
+<PageTitle>Form Validation — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Form Validation</h1>
+        <p class="docs-subtitle">Build robust forms with standard Blazor EditContext, DataAnnotationsValidator, and ZAK form inputs with instant visual error states.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Validation" Color="ZakColor.Primary" />
+            <ZakBadge Content="DataAnnotations" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Validated Registration Form</h2>
+        <p class="docs-section-desc">Submit empty fields to see inline errors and aria-invalid states automatically applied.</p>
+        <ZakDocsExample Title="Form Example" Code="@FormCode">
+            <div style="max-width: 440px;">
+                <EditForm Model="@_model" OnValidSubmit="HandleSubmit">
+                    <DataAnnotationsValidator />
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                        <ZakTextField Label="Username" @bind-Value="_model.Username" HelperText="Must be at least 3 characters" />
+                        <ZakTextField Label="Email" @bind-Value="_model.Email" />
+                        <ZakButton Type="submit" Variant="ZakVariant.Filled" Color="ZakColor.Primary">
+                            Submit Form
+                        </ZakButton>
+                    </ZakStack>
+                </EditForm>
+                @if (_submitted)
+                {
+                    <div style="margin-top: 1rem;">
+                        <ZakAlert Color="ZakColor.Success">Form submitted successfully!</ZakAlert>
+                    </div>
+                }
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakFormField" />
+    </div>
+</div>
+
+@code {
+    private ExampleModel _model = new();
+    private bool _submitted = false;
+
+    private void HandleSubmit()
+    {
+        _submitted = true;
+    }
+
+    public class ExampleModel
+    {
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.MinLength(3)]
+        public string Username { get; set; } = "";
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.EmailAddress]
+        public string Email { get; set; } = "";
+    }
+
+    private const string FormCode = @"<EditForm Model=""@_model"" OnValidSubmit=""HandleSubmit"">
+    <DataAnnotationsValidator />
+    <ZakTextField Label=""Username"" @bind-Value=""_model.Username"" />
+    <ZakTextField Label=""Email"" @bind-Value=""_model.Email"" />
+    <ZakButton Type=""submit"">Submit Form</ZakButton>
+</EditForm>";
+}

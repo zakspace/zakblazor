@@ -1,0 +1,32 @@
+@page "/docs/file-upload"
+
+<PageTitle>File Upload — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">File Upload</h1>
+        <p class="docs-subtitle">Dropzone file upload component featuring drag-and-drop, multiple selection, file size limits, and interactive item list.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Drag & Drop" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Dropzone File Uploader</h2>
+        <p class="docs-section-desc">Supports drag-and-drop or clicking to select files.</p>
+        <ZakDocsExample Title="Dropzone Upload" Code="@UploadCode">
+            <div style="max-width: 500px;">
+                <ZakFileUpload Label="Upload Documents" Accept=".png,.jpg,.pdf" Multiple="true" MaxFileSize="10485760" />
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakFileUpload" />
+    </div>
+</div>
+
+@code {
+    private const string UploadCode = @"<ZakFileUpload Label=""Upload Documents"" Accept="".png,.jpg,.pdf"" Multiple=""true"" MaxFileSize=""10485760"" />";
+}

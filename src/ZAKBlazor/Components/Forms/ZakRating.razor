@@ -1,0 +1,86 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     role="radiogroup"
+     aria-label="@AriaLabel"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @onmouseleave="HandleMouseLeave"
+     @attributes="AdditionalAttributes">
+    @for (int i = 1; i <= Max; i++)
+    {
+        var ratingIndex = i;
+        var isFilled = (_hoverValue > 0 ? _hoverValue : Value) >= ratingIndex;
+
+        <button type="button"
+                role="radio"
+                aria-checked="@(Value == ratingIndex ? "true" : "false")"
+                aria-label="@($"Rate {ratingIndex} out of {Max}")"
+                disabled="@Disabled"
+                class="zak-rating-item @(isFilled ? "zak-rating-filled" : "zak-rating-empty")"
+                @onmouseenter="() => HandleMouseEnter(ratingIndex)"
+                @onclick="() => HandleItemClick(ratingIndex)">
+            <ZakIcon Icon="@(CustomIcon ?? ZakIcons.Star)" Size="@Size" />
+        </button>
+    }
+</div>
+
+@code {
+    private int _hoverValue = 0;
+
+    [Parameter]
+    public double Value { get; set; }
+
+    [Parameter]
+    public EventCallback<double> ValueChanged { get; set; }
+
+    [Parameter]
+    public int Max { get; set; } = 5;
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Warning;
+
+    [Parameter]
+    public ZakSize Size { get; set; } = ZakSize.Medium;
+
+    [Parameter]
+    public bool ReadOnly { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public string? CustomIcon { get; set; }
+
+    [Parameter]
+    public string AriaLabel { get; set; } = "Rating";
+
+    private void HandleMouseEnter(int index)
+    {
+        if (ReadOnly || Disabled) return;
+        _hoverValue = index;
+    }
+
+    private void HandleMouseLeave()
+    {
+        if (ReadOnly || Disabled) return;
+        _hoverValue = 0;
+    }
+
+    private async Task HandleItemClick(int index)
+    {
+        if (ReadOnly || Disabled) return;
+        Value = index;
+        await ValueChanged.InvokeAsync(Value);
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-rating")
+        .AddClass(Color.ToCssClass("zak-rating"))
+        .AddClass(Size.ToCssClass("zak-rating"))
+        .AddClass("zak-rating-readonly", ReadOnly)
+        .AddClass("zak-rating-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

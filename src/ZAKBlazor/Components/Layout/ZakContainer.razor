@@ -1,0 +1,32 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public ZakBreakpoint MaxWidth { get; set; } = ZakBreakpoint.Lg;
+
+    [Parameter]
+    public bool Gutters { get; set; } = true;
+
+    [Parameter]
+    public bool Centered { get; set; } = true;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-container")
+        .AddClass($"zak-container-max-{MaxWidth.ToString().ToLowerInvariant()}", MaxWidth != ZakBreakpoint.None)
+        .AddClass("zak-container-fluid", MaxWidth == ZakBreakpoint.None)
+        .AddClass("zak-container-gutters", Gutters)
+        .AddClass("zak-container-centered", Centered)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

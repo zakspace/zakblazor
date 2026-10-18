@@ -1,0 +1,36 @@
+@page "/docs/slider"
+
+<PageTitle>Slider — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Slider</h1>
+        <p class="docs-subtitle">Sliders allow users to make selections from a continuous range of values.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Numeric" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Range Sliders</h2>
+        <p class="docs-section-desc">Supports min, max, step increments, and live value label displays.</p>
+        <ZakDocsExample Title="Slider Controls" Code="@SliderCode">
+            <div style="max-width: 440px; display: flex; flex-direction: column; gap: 1.5rem;">
+                <ZakSlider Label="Volume Level" Min="0" Max="100" Step="1" @bind-Value="_volume" ShowValue="true" ValueSuffix="%" Color="ZakColor.Primary" />
+                <ZakSlider Label="Screen Brightness" Min="10" Max="100" Step="5" @bind-Value="_brightness" ShowValue="true" ValueSuffix="%" Color="ZakColor.Warning" />
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakSlider" />
+    </div>
+</div>
+
+@code {
+    private double _volume = 65;
+    private double _brightness = 80;
+
+    private const string SliderCode = @"<ZakSlider Label=""Volume"" Min=""0"" Max=""100"" @bind-Value=""_volume"" ShowValue=""true"" ValueSuffix=""%"" />";
+}

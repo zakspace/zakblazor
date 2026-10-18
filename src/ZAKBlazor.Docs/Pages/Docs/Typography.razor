@@ -1,0 +1,58 @@
+@page "/docs/typography"
+
+<PageTitle>Typography — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Typography</h1>
+        <p class="docs-subtitle">A balanced typographic scale from display headings to fine print, built on modern responsive font metrics.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Typography" Color="ZakColor.Primary" />
+            <ZakBadge Content="Tokens" Color="ZakColor.Default" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Heading Hierarchy</h2>
+        <p class="docs-section-desc">Semantic heading levels with built-in font weights, line heights, and letter spacing.</p>
+        <ZakDocsExample Title="Headings" Code="@HeadingsCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                <ZakText Typo="Typo.h1">Heading 1 (2.5rem)</ZakText>
+                <ZakText Typo="Typo.h2">Heading 2 (2rem)</ZakText>
+                <ZakText Typo="Typo.h3">Heading 3 (1.625rem)</ZakText>
+                <ZakText Typo="Typo.h4">Heading 4 (1.375rem)</ZakText>
+                <ZakText Typo="Typo.h5">Heading 5 (1.125rem)</ZakText>
+                <ZakText Typo="Typo.h6">Heading 6 (1rem)</ZakText>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Body &amp; Subtitle Scales</h2>
+        <p class="docs-section-desc">Designed for optimal readability across body paragraphs, cards, and UI captions.</p>
+        <ZakDocsExample Title="Body and Captions" Code="@BodyCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                <ZakText Typo="Typo.subtitle1">Subtitle 1 — Semi-bold lead paragraph text.</ZakText>
+                <ZakText Typo="Typo.subtitle2">Subtitle 2 — Secondary headline for widgets and cards.</ZakText>
+                <ZakText Typo="Typo.body1">Body 1 — Standard paragraph text with comfortable 1.5 line height for long-form reading.</ZakText>
+                <ZakText Typo="Typo.body2">Body 2 — Compact text for tables, sidebars, and metadata.</ZakText>
+                <ZakText Typo="Typo.caption">Caption — Small metadata notes and timestamps.</ZakText>
+                <ZakText Typo="Typo.overline">Overline — Uppercase category tag or label</ZakText>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakText" />
+    </div>
+</div>
+
+@code {
+    private const string HeadingsCode = @"<ZakText Typo=""Typo.h1"">Heading 1</ZakText>
+<ZakText Typo=""Typo.h2"">Heading 2</ZakText>
+<ZakText Typo=""Typo.h3"">Heading 3</ZakText>";
+
+    private const string BodyCode = @"<ZakText Typo=""Typo.body1"">Standard body text.</ZakText>
+<ZakText Typo=""Typo.caption"">Small caption text.</ZakText>
+<ZakText Typo=""Typo.overline"">OVERLINE TEXT</ZakText>";
+}

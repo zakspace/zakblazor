@@ -1,0 +1,36 @@
+@page "/docs/statistics"
+
+<PageTitle>Statistics & KPI Cards — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Statistics</h1>
+        <p class="docs-subtitle">Stat cards highlight key performance metrics, conversion ratios, trend percentages, and revenue counters.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Dashboard KPI" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">KPI Metric Cards</h2>
+        <p class="docs-section-desc">Clean cards with percentage trend indicators and themed icons.</p>
+        <ZakDocsExample Title="Dashboard Metrics" Code="@StatCode">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+                <ZakStatCard Label="Total Revenue" Value="$128,450" Change="+14.2%" ChangePositive="true" Icon="@ZakIcons.BarChart" Color="ZakColor.Success" />
+                <ZakStatCard Label="Active Sessions" Value="2,842" Change="+8.1%" ChangePositive="true" Icon="@ZakIcons.User" Color="ZakColor.Primary" />
+                <ZakStatCard Label="Churn Rate" Value="1.4%" Change="-0.3%" ChangePositive="true" Icon="@ZakIcons.AlertCircle" Color="ZakColor.Info" />
+                <ZakStatCard Label="Failed Requests" Value="24" Change="+12%" ChangePositive="false" Icon="@ZakIcons.AlertCircle" Color="ZakColor.Danger" />
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakStatCard" />
+    </div>
+</div>
+
+@code {
+    private const string StatCode = @"<ZakStatCard Label=""Total Revenue"" Value=""$128,450"" Change=""+14.2%"" ChangePositive=""true"" Icon=""@ZakIcons.BarChart"" Color=""ZakColor.Success"" />
+<ZakStatCard Label=""Active Sessions"" Value=""2,842"" Change=""+8.1%"" ChangePositive=""true"" Icon=""@ZakIcons.User"" Color=""ZakColor.Primary"" />";
+}

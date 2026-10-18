@@ -1,0 +1,34 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     role="img"
+     aria-label="@Alt"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public string? Image { get; set; }
+
+    [Parameter]
+    public string? Alt { get; set; }
+
+    [Parameter]
+    public string Height { get; set; } = "180px";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-card-media").Build();
+
+    private string? CompiledStyle => CreateStyleBuilder()
+        .AddStyle("height", Height)
+        .AddStyle("background-image", $"url('{Image}')", !string.IsNullOrEmpty(Image))
+        .AddStyle("background-size", "cover")
+        .AddStyle("background-position", "center")
+        .Build();
+}

@@ -1,0 +1,87 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     role="img"
+     aria-label="@(Alt ?? Text ?? "Avatar")"
+     @attributes="AdditionalAttributes">
+    @if (!string.IsNullOrEmpty(Src))
+    {
+        <img class="zak-avatar-img" src="@Src" alt="@Alt" />
+    }
+    else if (!string.IsNullOrEmpty(Icon))
+    {
+        <ZakIcon Icon="@Icon" Size="@ResolveIconSize(Size)" />
+    }
+    else if (!string.IsNullOrEmpty(Text))
+    {
+        <span class="zak-avatar-initials">@GetInitials(Text)</span>
+    }
+    else
+    {
+        @ChildContent
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Src { get; set; }
+
+    [Parameter]
+    public string? Alt { get; set; }
+
+    [Parameter]
+    public string? Text { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Primary;
+
+    [Parameter]
+    public ZakSize Size { get; set; } = ZakSize.Medium;
+
+    [Parameter]
+    public string? CustomSize { get; set; }
+
+    [Parameter]
+    public ZakShape Shape { get; set; } = ZakShape.Circle;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-avatar")
+        .AddClass(Color.ToCssClass())
+        .AddClass(Size.ToCssClass())
+        .AddClass(Shape.ToCssClass())
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder()
+        .AddStyle("width", CustomSize, !string.IsNullOrEmpty(CustomSize))
+        .AddStyle("height", CustomSize, !string.IsNullOrEmpty(CustomSize))
+        .Build();
+
+    private static string GetInitials(string text)
+    {
+        if (string.IsNullOrWhiteSpace(text)) return string.Empty;
+        var parts = text.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length == 1)
+        {
+            return parts[0].Length <= 2 ? parts[0].ToUpperInvariant() : parts[0][..2].ToUpperInvariant();
+        }
+        return $"{parts[0][0]}{parts[^1][0]}".ToUpperInvariant();
+    }
+
+    private static ZakSize ResolveIconSize(ZakSize size) => size switch
+    {
+        ZakSize.ExtraSmall => ZakSize.ExtraSmall,
+        ZakSize.Small => ZakSize.Small,
+        ZakSize.Medium => ZakSize.Medium,
+        ZakSize.Large => ZakSize.Large,
+        ZakSize.ExtraLarge => ZakSize.ExtraLarge,
+        _ => ZakSize.Medium
+    };
+}

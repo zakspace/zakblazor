@@ -1,0 +1,109 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     role="status"
+     aria-live="polite"
+     @attributes="AdditionalAttributes">
+
+    <div class="zak-snackbar-icon" aria-hidden="true">
+        <ZakIcon Icon="@ResolveSeverityIcon(Message.Severity)" Size="ZakSize.Small" />
+    </div>
+
+    <div class="zak-snackbar-body">
+        @if (!string.IsNullOrEmpty(Message.Title))
+        {
+            <div class="zak-snackbar-title">@Message.Title</div>
+        }
+        <div class="zak-snackbar-text">@Message.Message</div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Message.Options.ActionText))
+    {
+        <button type="button"
+                class="zak-snackbar-action-btn"
+                @onclick="HandleActionClickAsync">
+            @Message.Options.ActionText
+        </button>
+    }
+
+    @if (Message.Options.ShowCloseButton)
+    {
+        <button type="button"
+                class="zak-snackbar-close-btn"
+                aria-label="Dismiss notification"
+                @onclick="DismissAsync">
+            <ZakIcon Icon="@ZakIcons.Close" Size="ZakSize.ExtraSmall" />
+        </button>
+    }
+
+    @if (Message.Options.ShowProgressBar && Message.Options.Duration > 0)
+    {
+        <div class="zak-snackbar-progress"
+             style="animation-duration: @(Message.Options.Duration)ms;"></div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public ZAKBlazor.Services.ZakSnackbarMessage Message { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<ZAKBlazor.Services.ZakSnackbarMessage> OnDismiss { get; set; }
+
+    private System.Threading.Timer? _autoDismissTimer;
+
+    protected override void OnInitialized()
+    {
+        if (Message.Options.Duration > 0)
+        {
+            _autoDismissTimer = new System.Threading.Timer(async _ =>
+            {
+                await InvokeAsync(DismissAsync);
+            }, null, Message.Options.Duration, System.Threading.Timeout.Infinite);
+        }
+    }
+
+    private async Task HandleActionClickAsync()
+    {
+        Message.Options.OnActionClick?.Invoke();
+        await DismissAsync();
+    }
+
+    private async Task DismissAsync()
+    {
+        _autoDismissTimer?.Dispose();
+        _autoDismissTimer = null;
+        if (OnDismiss.HasDelegate)
+        {
+            await OnDismiss.InvokeAsync(Message);
+        }
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-snackbar")
+        .AddClass($"zak-snackbar-{Message.Severity.ToString().ToLowerInvariant()}")
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private string ResolveSeverityIcon(ZakSeverity severity) => severity switch
+    {
+        ZakSeverity.Success => ZakIcons.CheckCircle,
+        ZakSeverity.Danger => ZakIcons.AlertCircle,
+        ZakSeverity.Warning => ZakIcons.AlertTriangle,
+        ZakSeverity.Info => ZakIcons.Info,
+        _ => ZakIcons.Bell
+    };
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _autoDismissTimer?.Dispose();
+            _autoDismissTimer = null;
+        }
+        base.Dispose(disposing);
+    }
+}

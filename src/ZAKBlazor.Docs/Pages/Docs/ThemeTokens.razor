@@ -1,0 +1,57 @@
+@page "/docs/theme-tokens"
+
+<PageTitle>Theme Tokens — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Theme Tokens</h1>
+        <p class="docs-subtitle">Explore the foundational tokens that power spacing, elevations, corner radii, and z-index layers across ZAKBlazor.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="CSS Custom Properties" Color="ZakColor.Primary" />
+            <ZakBadge Content="Tokens" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Spacing Scale -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Spacing Scale</h2>
+        <p class="docs-section-desc">Consistent 4px/8px-based spacing variables from <code>--zak-spacing-1</code> (4px) to <code>--zak-spacing-16</code> (64px).</p>
+        <ZakDocsExample Title="Spacing Blocks" Code="@SpacingCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                <div style="background: rgba(134, 66, 217, 0.2); width: var(--zak-spacing-4); height: 24px; border-radius: 4px;"></div>
+                <div style="background: rgba(134, 66, 217, 0.4); width: var(--zak-spacing-8); height: 24px; border-radius: 4px;"></div>
+                <div style="background: rgba(134, 66, 217, 0.6); width: var(--zak-spacing-12); height: 24px; border-radius: 4px;"></div>
+                <div style="background: rgba(134, 66, 217, 0.8); width: var(--zak-spacing-16); height: 24px; border-radius: 4px;"></div>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Elevations -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Elevations & Shadows</h2>
+        <p class="docs-section-desc">Natural depth cues using layered multi-stop box shadows.</p>
+        <ZakDocsExample Title="Elevations" Code="@ElevationsCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="4" Wrap="true">
+                <ZakPaper Elevation="0" Padding="4" style="padding: 0.5rem; font-size: 0.75rem;">Elevation 0</ZakPaper>
+                <ZakPaper Elevation="1" Padding="4" style="padding: 0.5rem; font-size: 0.75rem;">Elevation 1</ZakPaper>
+                <ZakPaper Elevation="2" Padding="4" style="padding: 0.5rem; font-size: 0.75rem;">Elevation 2</ZakPaper>
+                <ZakPaper Elevation="3" Padding="4" style="padding: 0.5rem; font-size: 0.75rem;">Elevation 3</ZakPaper>
+                <ZakPaper Elevation="4" Padding="4" style="padding: 0.5rem; font-size: 0.75rem;">Elevation 4</ZakPaper>
+                <ZakPaper Elevation="5" Padding="4" style="padding: 0.5rem; font-size: 0.75rem;">Elevation 5</ZakPaper>
+                <ZakPaper Elevation="6" Padding="4" style="padding: 0.5rem; font-size: 0.75rem;">Elevation 6</ZakPaper> 
+                <ZakPaper Elevation="8" Padding="4" style="padding: 0.5rem; font-size: 0.75rem;">Elevation 8</ZakPaper> 
+                <ZakPaper Elevation="12" Padding="4" style="padding: 0.5rem; font-size: 0.75rem;">Elevation 12</ZakPaper>
+                <ZakPaper Elevation="16" Padding="4" style="padding: 0.5rem; font-size: 0.75rem;">Elevation 16</ZakPaper>
+                <ZakPaper Elevation="24" Padding="4" style="padding: 0.5rem; font-size: 0.75rem;">Elevation 24</ZakPaper> 
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+</div>
+
+@code {
+    private const string SpacingCode = @"padding: var(--zak-spacing-4); /* 16px */
+margin-bottom: var(--zak-spacing-6); /* 24px */";
+
+    private const string ElevationsCode = @"<ZakPaper Elevation=""1"">Card 1</ZakPaper>
+<ZakPaper Elevation=""3"">Popout 3</ZakPaper>";
+}

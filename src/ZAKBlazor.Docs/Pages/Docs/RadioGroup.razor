@@ -1,0 +1,65 @@
+@page "/docs/radio-group"
+
+<PageTitle>Radio Group — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Radio Group</h1>
+        <p class="docs-subtitle">Allows users to select exactly one option from a mutually exclusive set of choices with cascading state management.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Cascading" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Vertical Radio Group -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Vertical Radio Group</h2>
+        <p class="docs-section-desc">Wrap multiple <code>ZakRadio</code> options in a <code>ZakRadioGroup</code> with two-way data binding.</p>
+        <ZakDocsExample Title="Account Tier Choice" Code="@RadioGroupCode">
+            <div style="max-width: 400px;">
+                <ZakRadioGroup TValue="string" Label="Subscription Plan" @bind-Value="_selectedPlan">
+                    <ZakRadio TValue="string" Value="@("starter")" Label="Starter Plan ($9/mo)" />
+                    <ZakRadio TValue="string" Value="@("pro")" Label="Professional Plan ($29/mo)" />
+                    <ZakRadio TValue="string" Value="@("enterprise")" Label="Enterprise Plan ($99/mo)" />
+                </ZakRadioGroup>
+
+                <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--zak-text-secondary);">
+                    Selected: <strong>@_selectedPlan</strong>
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Horizontal Radio Group -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Horizontal Orientation</h2>
+        <p class="docs-section-desc">Display radio options inline side-by-side using <code>Orientation="ZakOrientation.Horizontal"</code>.</p>
+        <ZakDocsExample Title="Horizontal Choices" Code="@HorizontalCode">
+            <ZakRadioGroup TValue="string" Label="Billing Frequency" Orientation="ZakOrientation.Horizontal" @bind-Value="_billingCycle">
+                <ZakRadio TValue="string" Value="@("monthly")" Label="Monthly" />
+                <ZakRadio TValue="string" Value="@("annual")" Label="Annually (Save 20%)" />
+            </ZakRadioGroup>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakRadioGroup" />
+    </div>
+</div>
+
+@code {
+    private string? _selectedPlan = "pro";
+    private string? _billingCycle = "annual";
+
+    private const string RadioGroupCode = @"<ZakRadioGroup TValue=""string"" Label=""Subscription Plan"" @bind-Value=""_selectedPlan"">
+    <ZakRadio TValue=""string"" Value=""@(""starter"")"" Label=""Starter Plan ($9/mo)"" />
+    <ZakRadio TValue=""string"" Value=""@(""pro"")"" Label=""Professional Plan ($29/mo)"" />
+    <ZakRadio TValue=""string"" Value=""@(""enterprise"")"" Label=""Enterprise Plan ($99/mo)"" />
+</ZakRadioGroup>";
+
+    private const string HorizontalCode = @"<ZakRadioGroup TValue=""string"" Label=""Billing Frequency"" Orientation=""ZakOrientation.Horizontal"" @bind-Value=""_billingCycle"">
+    <ZakRadio TValue=""string"" Value=""@(""monthly"")"" Label=""Monthly"" />
+    <ZakRadio TValue=""string"" Value=""@(""annual"")"" Label=""Annually (Save 20%)"" />
+</ZakRadioGroup>";
+}

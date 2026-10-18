@@ -1,0 +1,62 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     role="progressbar"
+     aria-valuenow="@(Indeterminate ? null : (int)Math.Clamp(Value, 0, 100))"
+     aria-valuemin="0"
+     aria-valuemax="100"
+     @attributes="AdditionalAttributes">
+
+    @if (Buffer.HasValue && !Indeterminate)
+    {
+        <div class="zak-progress-linear-buffer"
+             style="width: @(Math.Clamp(Buffer.Value, 0, 100))%;"></div>
+    }
+
+    <div class="zak-progress-linear-bar"
+         style="@ResolveBarStyle()"></div>
+</div>
+
+@code {
+    [Parameter]
+    public double Value { get; set; }
+
+    [Parameter]
+    public double? Buffer { get; set; }
+
+    [Parameter]
+    public bool Indeterminate { get; set; }
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Primary;
+
+    [Parameter]
+    public int Height { get; set; } = 4;
+
+    [Parameter]
+    public bool Rounded { get; set; } = true;
+
+    [Parameter]
+    public bool Striped { get; set; }
+
+    private string ResolveBarStyle()
+    {
+        if (Indeterminate) return string.Empty;
+        var clamped = Math.Clamp(Value, 0, 100);
+        return $"width: {clamped}%;";
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-progress-linear")
+        .AddClass(Color.ToCssClass())
+        .AddClass("zak-progress-indeterminate", Indeterminate)
+        .AddClass("zak-progress-rounded", Rounded)
+        .AddClass("zak-progress-striped", Striped)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder()
+        .AddStyle("height", $"{Height}px")
+        .Build();
+}

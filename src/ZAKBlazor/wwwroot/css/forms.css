@@ -1,0 +1,1075 @@
+/**
+ * ZAKBlazor Forms & Inputs System
+ * Copyright (c) ZAKBlazor. All rights reserved.
+ */
+
+/* ──────────────────────────────────────────────
+   FORM FIELD & LABEL
+────────────────────────────────────────────── */
+.zak-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zak-spacing-1);
+  width: 100%;
+  margin-bottom: var(--zak-spacing-3);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.zak-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--zak-text-primary);
+  user-select: none;
+  line-height: 1.4;
+}
+
+.zak-label-required::after {
+  content: " *";
+  color: var(--zak-danger);
+}
+
+.zak-helper-text {
+  font-size: 0.75rem;
+  color: var(--zak-text-secondary);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.zak-error-text {
+  font-size: 0.75rem;
+  color: var(--zak-danger);
+  line-height: 1.4;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ──────────────────────────────────────────────
+   TEXT FIELD & INPUT WRAPPER
+────────────────────────────────────────────── */
+.zak-input-wrapper {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  border-radius: var(--zak-radius-md);
+  box-sizing: border-box;
+  transition: border-color var(--zak-transition-fast), box-shadow var(--zak-transition-fast), background-color var(--zak-transition-fast);
+}
+
+/* Outlined Variant */
+.zak-input-wrapper.zak-variant-outlined {
+  background-color: var(--zak-surface);
+  border: 1px solid var(--zak-border);
+}
+
+.zak-input-wrapper.zak-variant-outlined:hover:not(.zak-disabled) {
+  border-color: var(--zak-text-secondary);
+}
+
+.zak-input-wrapper.zak-variant-outlined:focus-within:not(.zak-disabled) {
+  border-color: var(--zak-primary);
+  box-shadow: 0 0 0 3px var(--zak-focus-ring);
+}
+
+/* Filled Variant */
+.zak-input-wrapper.zak-variant-filled {
+  background-color: var(--zak-surface-variant);
+  border: 1px solid transparent;
+  border-bottom: 2px solid var(--zak-border);
+  border-radius: var(--zak-radius-md) var(--zak-radius-md) 0 0;
+}
+
+.zak-input-wrapper.zak-variant-filled:hover:not(.zak-disabled) {
+  background-color: var(--zak-surface-hover);
+}
+
+.zak-input-wrapper.zak-variant-filled:focus-within:not(.zak-disabled) {
+  border-bottom-color: var(--zak-primary);
+  background-color: var(--zak-surface-hover);
+}
+
+/* Underline Variant */
+.zak-input-wrapper.zak-variant-underline,
+.zak-form-field-underline .zak-input-wrapper {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-bottom: 2px solid var(--zak-border);
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.zak-input-wrapper.zak-variant-underline:hover:not(.zak-disabled),
+.zak-form-field-underline .zak-input-wrapper:hover:not(.zak-disabled) {
+  border-bottom-color: var(--zak-text-secondary);
+}
+
+.zak-input-wrapper.zak-variant-underline:focus-within:not(.zak-disabled),
+.zak-form-field-underline .zak-input-wrapper:focus-within:not(.zak-disabled) {
+  border-bottom-color: var(--zak-primary);
+  box-shadow: none;
+}
+
+/* Ghost Variant */
+.zak-input-wrapper.zak-variant-ghost,
+.zak-form-field-ghost .zak-input-wrapper {
+  background-color: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.zak-input-wrapper.zak-variant-ghost:hover:not(.zak-disabled),
+.zak-form-field-ghost .zak-input-wrapper:hover:not(.zak-disabled) {
+  background-color: var(--zak-surface-variant);
+}
+
+.zak-input-wrapper.zak-variant-ghost:focus-within:not(.zak-disabled),
+.zak-form-field-ghost .zak-input-wrapper:focus-within:not(.zak-disabled) {
+  background-color: var(--zak-surface);
+  border-color: var(--zak-border);
+  box-shadow: 0 0 0 2px var(--zak-focus-ring);
+}
+
+
+/* Sizes */
+.zak-input-wrapper.zak-size-sm {
+  min-height: 32px;
+  padding: 0 var(--zak-spacing-2);
+  font-size: 0.8125rem;
+}
+
+.zak-input-wrapper.zak-size-md {
+  min-height: 40px;
+  padding: 0 var(--zak-spacing-3);
+  font-size: 0.875rem;
+}
+
+.zak-input-wrapper.zak-size-lg {
+  min-height: 48px;
+  padding: 0 var(--zak-spacing-4);
+  font-size: 1rem;
+}
+
+/* Raw Inner Input */
+.zak-input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: var(--zak-text-primary);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.5;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.zak-input::placeholder {
+  color: var(--zak-text-muted);
+  opacity: 0.8;
+}
+
+/* Disabled & ReadOnly */
+.zak-input-wrapper.zak-disabled {
+  opacity: 0.55;
+  background-color: var(--zak-surface-variant);
+  cursor: not-allowed;
+}
+
+.zak-input-wrapper.zak-disabled .zak-input {
+  cursor: not-allowed;
+}
+
+/* Error State */
+.zak-input-wrapper.zak-input-error {
+  border-color: var(--zak-danger) !important;
+}
+
+.zak-input-wrapper.zak-input-error:focus-within {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25) !important;
+}
+
+.zak-input-wrapper.zak-variant-underline.zak-input-error,
+.zak-form-field-underline .zak-input-wrapper.zak-input-error {
+  border-top-color: transparent !important;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+  border-bottom-color: var(--zak-danger) !important;
+}
+
+.zak-input-wrapper.zak-variant-underline.zak-input-error:focus-within,
+.zak-form-field-underline .zak-input-wrapper.zak-input-error:focus-within {
+  box-shadow: none !important;
+}
+
+
+/* Adornments: Start/End Icons, Prefix, Suffix */
+.zak-input-adornment {
+  display: inline-flex;
+  align-items: center;
+  color: var(--zak-text-secondary);
+  flex-shrink: 0;
+}
+
+.zak-input-adornment-start {
+  margin-right: var(--zak-spacing-2);
+}
+
+.zak-input-adornment-end {
+  margin-left: var(--zak-spacing-2);
+}
+
+.zak-input-action {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--zak-text-secondary);
+  transition: color var(--zak-transition-fast);
+}
+
+.zak-input-action:hover {
+  color: var(--zak-text-primary);
+}
+
+/* ──────────────────────────────────────────────
+   TEXT AREA
+────────────────────────────────────────────── */
+.zak-textarea-wrapper {
+  align-items: flex-start;
+  padding-top: var(--zak-spacing-2);
+  padding-bottom: var(--zak-spacing-2);
+}
+
+.zak-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ──────────────────────────────────────────────
+   SELECT
+────────────────────────────────────────────── */
+.zak-select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: var(--zak-spacing-6);
+}
+
+.zak-select-arrow {
+  position: absolute;
+  right: var(--zak-spacing-3);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  color: var(--zak-text-secondary);
+}
+
+/* ──────────────────────────────────────────────
+   CHECKBOX
+────────────────────────────────────────────── */
+.zak-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zak-spacing-2);
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.875rem;
+  color: var(--zak-text-primary);
+  line-height: 1.4;
+  vertical-align: middle;
+}
+
+.zak-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.zak-checkbox-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--zak-radius-sm);
+  border: 2px solid var(--zak-border);
+  background-color: var(--zak-surface);
+  transition: all var(--zak-transition-fast);
+  flex-shrink: 0;
+}
+
+.zak-checkbox:hover .zak-checkbox-box {
+  border-color: var(--zak-primary);
+}
+
+.zak-checkbox-checked .zak-checkbox-box {
+  background-color: var(--zak-primary);
+  border-color: var(--zak-primary);
+  color: #FFFFFF;
+}
+
+.zak-checkbox-icon {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  stroke-width: 3;
+  fill: none;
+}
+
+.zak-checkbox.zak-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ──────────────────────────────────────────────
+   SWITCH / TOGGLE
+────────────────────────────────────────────── */
+.zak-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zak-spacing-2);
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.875rem;
+  color: var(--zak-text-primary);
+  vertical-align: middle;
+}
+
+.zak-switch-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.zak-switch-track {
+  display: inline-flex;
+  align-items: center;
+  width: 44px;
+  height: 24px;
+  border-radius: var(--zak-radius-pill);
+  background-color: var(--zak-border);
+  transition: background-color var(--zak-transition-fast);
+  padding: 2px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.zak-switch-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  box-shadow: var(--zak-shadow-2);
+  transition: transform var(--zak-transition-fast);
+}
+
+.zak-switch-checked .zak-switch-track {
+  background-color: var(--zak-primary);
+}
+
+.zak-switch-checked .zak-switch-thumb {
+  transform: translateX(20px);
+}
+
+.zak-switch.zak-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Small Switch */
+.zak-switch-sm .zak-switch-track {
+  width: 34px;
+  height: 18px;
+}
+.zak-switch-sm .zak-switch-thumb {
+  width: 14px;
+  height: 14px;
+}
+.zak-switch-sm.zak-switch-checked .zak-switch-thumb {
+  transform: translateX(16px);
+}
+
+/* ──────────────────────────────────────────────
+   RADIO & RADIO GROUP
+────────────────────────────────────────────── */
+.zak-radio-group {
+  display: flex;
+  gap: var(--zak-spacing-3);
+}
+
+.zak-radio-group-vertical {
+  flex-direction: column;
+}
+
+.zak-radio-group-horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.zak-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zak-spacing-2);
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.875rem;
+  color: var(--zak-text-primary);
+}
+
+.zak-radio-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.zak-radio-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--zak-border);
+  background-color: var(--zak-surface);
+  transition: all var(--zak-transition-fast);
+  flex-shrink: 0;
+}
+
+.zak-radio:hover .zak-radio-circle {
+  border-color: var(--zak-primary);
+}
+
+.zak-radio-checked .zak-radio-circle {
+  border-color: var(--zak-primary);
+}
+
+.zak-radio-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--zak-primary);
+  transform: scale(0);
+  transition: transform var(--zak-transition-fast);
+}
+
+.zak-radio-checked .zak-radio-dot {
+  transform: scale(1);
+}
+
+.zak-radio.zak-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ──────────────────────────────────────────────
+   RANGE SLIDER
+────────────────────────────────────────────── */
+.zak-slider-container {
+  display: flex;
+  align-items: center;
+  gap: var(--zak-spacing-3);
+  width: 100%;
+}
+
+.zak-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--zak-border);
+  outline: none;
+  cursor: pointer;
+  transition: background var(--zak-transition-fast);
+}
+
+.zak-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--zak-primary);
+  cursor: pointer;
+  box-shadow: var(--zak-shadow-2);
+  transition: transform var(--zak-transition-fast), box-shadow var(--zak-transition-fast);
+}
+
+.zak-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: var(--zak-shadow-4);
+}
+
+.zak-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--zak-primary);
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--zak-shadow-2);
+}
+
+.zak-slider-value {
+  min-width: 40px;
+  text-align: right;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--zak-text-secondary);
+}
+
+/* ──────────────────────────────────────────────
+   INPUT GROUP
+────────────────────────────────────────────── */
+.zak-input-group {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.zak-input-group > .zak-input-wrapper:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.zak-input-group > .zak-input-wrapper:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+}
+
+.zak-input-group-addon {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--zak-spacing-3);
+  background-color: var(--zak-surface-variant);
+  border: 1px solid var(--zak-border);
+  color: var(--zak-text-secondary);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.zak-input-group-addon:first-child {
+  border-right: none;
+  border-top-left-radius: var(--zak-radius-md);
+  border-bottom-left-radius: var(--zak-radius-md);
+}
+
+.zak-input-group-addon:last-child {
+  border-left: none;
+  border-top-right-radius: var(--zak-radius-md);
+  border-bottom-right-radius: var(--zak-radius-md);
+}
+
+/* ──────────────────────────────────────────────
+   DATE PICKER
+   ────────────────────────────────────────────── */
+.zak-datepicker-container {
+  position: relative;
+}
+
+.zak-datepicker-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--zak-z-popover, 1200);
+  background: transparent;
+}
+
+.zak-datepicker-popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: var(--zak-z-popover, 1201);
+  width: 290px;
+  background: var(--zak-surface);
+  border: 1px solid var(--zak-border);
+  border-radius: var(--zak-radius-lg, 12px);
+  box-shadow: var(--zak-shadow-8);
+  padding: 1rem;
+  animation: zakDialogScaleIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zak-datepicker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.zak-datepicker-month-year {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--zak-text-primary);
+}
+
+.zak-datepicker-nav-btn {
+  background: transparent;
+  border: none;
+  color: var(--zak-text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.zak-datepicker-nav-btn:hover {
+  background: var(--zak-surface-hover);
+  color: var(--zak-text-primary);
+}
+
+.zak-datepicker-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--zak-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.zak-datepicker-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.zak-datepicker-day {
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  font-size: 0.825rem;
+  color: var(--zak-text-primary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.zak-datepicker-day:hover:not(:disabled) {
+  background: var(--zak-surface-hover);
+}
+
+.zak-datepicker-day.zak-day-selected {
+  background: var(--zak-primary);
+  color: var(--zak-primary-contrast);
+  font-weight: 700;
+}
+
+.zak-datepicker-day.zak-day-today {
+  border: 1px solid var(--zak-primary);
+}
+
+.zak-datepicker-day.zak-day-other-month {
+  opacity: 0.35;
+}
+
+.zak-datepicker-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--zak-border-subtle);
+}
+
+.zak-datepicker-today-btn,
+.zak-datepicker-clear-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--zak-primary);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+.zak-datepicker-today-btn:hover,
+.zak-datepicker-clear-btn:hover {
+  background: var(--zak-surface-hover);
+}
+
+/* ──────────────────────────────────────────────
+   AUTOCOMPLETE
+   ────────────────────────────────────────────── */
+.zak-autocomplete-container {
+  position: relative;
+}
+
+.zak-autocomplete-popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: var(--zak-z-popover, 1200);
+  max-height: 240px;
+  overflow-y: auto;
+  background: var(--zak-surface);
+  border: 1px solid var(--zak-border);
+  border-radius: var(--zak-radius-md, 8px);
+  box-shadow: var(--zak-shadow-6);
+  padding: 4px;
+  animation: zakDialogScaleIn 0.15s ease-out;
+}
+
+.zak-autocomplete-item {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: var(--zak-text-primary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.zak-autocomplete-item:hover,
+.zak-autocomplete-item.zak-item-selected {
+  background: var(--zak-surface-hover);
+  color: var(--zak-primary);
+  font-weight: 500;
+}
+
+.zak-autocomplete-loading,
+.zak-autocomplete-empty {
+  padding: 12px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--zak-text-secondary);
+}
+
+/* ──────────────────────────────────────────────
+   FILE UPLOAD
+   ────────────────────────────────────────────── */
+.zak-file-dropzone {
+  border: 2px dashed var(--zak-border);
+  border-radius: var(--zak-radius-lg, 12px);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background: var(--zak-surface-variant);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.zak-file-dropzone:hover,
+.zak-dropzone-dragover {
+  border-color: var(--zak-primary);
+  background: var(--zak-surface-hover);
+}
+
+.zak-file-input {
+  display: none;
+}
+
+.zak-file-dropzone-content {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.zak-file-dropzone-primary {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--zak-text-primary);
+}
+
+.zak-file-dropzone-secondary {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--zak-text-secondary);
+}
+
+.zak-file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.zak-file-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: var(--zak-surface);
+  border-radius: 8px;
+  border: 1px solid var(--zak-border);
+}
+
+.zak-file-item-name {
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--zak-text-primary);
+}
+
+.zak-file-item-size {
+  font-size: 0.75rem;
+  color: var(--zak-text-muted);
+  margin-left: 8px;
+}
+
+.zak-file-item-remove {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: var(--zak-text-secondary);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.zak-file-item-remove:hover {
+  color: var(--zak-danger);
+}
+
+/* ──────────────────────────────────────────────
+   COLOR PICKER
+   ────────────────────────────────────────────── */
+.zak-colorpicker-container {
+  position: relative;
+}
+
+.zak-color-preview-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: 10px;
+  border: 1px solid var(--zak-border);
+  flex-shrink: 0;
+}
+
+.zak-colorpicker-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--zak-z-popover, 1200);
+}
+
+.zak-colorpicker-popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: var(--zak-z-popover, 1201);
+  width: 250px;
+  background: var(--zak-surface);
+  border: 1px solid var(--zak-border);
+  border-radius: var(--zak-radius-lg, 12px);
+  box-shadow: var(--zak-shadow-8);
+  padding: 1rem;
+  animation: zakDialogScaleIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zak-colorpicker-swatches {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-bottom: 0.85rem;
+}
+
+.zak-color-swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.zak-color-swatch:hover {
+  transform: scale(1.15);
+}
+
+.zak-color-swatch.zak-swatch-active {
+  border-color: var(--zak-text-primary);
+  transform: scale(1.1);
+}
+
+.zak-colorpicker-custom {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.zak-native-color-picker {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  padding: 0;
+}
+
+.zak-color-hex-input {
+  flex: 1;
+}
+
+/* ==========================================================================
+   Rating Component
+   ========================================================================== */
+
+.zak-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.zak-rating-item {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--zak-border);
+  transition: transform var(--zak-transition-fast), color var(--zak-transition-fast);
+}
+
+.zak-rating-item:hover {
+  transform: scale(1.18);
+}
+
+.zak-rating-filled {
+  color: #f59e0b;
+}
+
+.zak-rating.zak-color-primary .zak-rating-filled { color: var(--zak-primary); }
+.zak-rating.zak-color-secondary .zak-rating-filled { color: var(--zak-secondary); }
+.zak-rating.zak-color-danger .zak-rating-filled { color: var(--zak-danger); }
+.zak-rating.zak-color-warning .zak-rating-filled { color: #f59e0b; }
+
+.zak-rating-readonly .zak-rating-item {
+  cursor: default;
+  pointer-events: none;
+}
+
+.zak-rating-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   OTP / PIN Input
+   ========================================================================== */
+
+.zak-otp-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.zak-otp-slot {
+  width: 44px;
+  height: 50px;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: var(--zak-font-family-mono, monospace);
+  background: var(--zak-surface);
+  border: 1px solid var(--zak-border);
+  border-radius: var(--zak-radius-md, 8px);
+  color: var(--zak-text-primary);
+  transition: border-color var(--zak-transition-fast), box-shadow var(--zak-transition-fast);
+  outline: none;
+}
+
+.zak-otp-slot:focus {
+  border-color: var(--zak-primary);
+  box-shadow: 0 0 0 3px var(--zak-primary-light);
+}
+
+.zak-otp-slot.zak-otp-filled {
+  border-color: var(--zak-primary);
+}
+
+.zak-otp-disabled .zak-otp-slot {
+  background: var(--zak-surface-variant);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Size Variants */
+.zak-otp-input.zak-otp-small .zak-otp-slot { width: 36px; height: 42px; font-size: 1rem; }
+.zak-otp-input.zak-otp-large .zak-otp-slot { width: 52px; height: 60px; font-size: 1.5rem; }
+
+/* ==========================================================================
+   Segmented Control
+   ========================================================================== */
+
+.zak-segmented-control {
+  display: inline-flex;
+  align-items: center;
+  background: var(--zak-surface-variant);
+  padding: 4px;
+  border-radius: var(--zak-radius-md, 8px);
+  border: 1px solid var(--zak-border);
+  gap: 2px;
+}
+
+.zak-segmented-fullwidth {
+  display: flex;
+  width: 100%;
+}
+
+.zak-segmented-item {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--zak-text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: calc(var(--zak-radius-md, 8px) - 2px);
+  cursor: pointer;
+  transition: all var(--zak-transition-fast);
+  white-space: nowrap;
+}
+
+.zak-segmented-item:hover:not(:disabled) {
+  color: var(--zak-text-primary);
+}
+
+.zak-segmented-item-active {
+  background: var(--zak-surface);
+  color: var(--zak-text-primary);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.zak-segmented-control.zak-segmented-primary .zak-segmented-item-active {
+  color: var(--zak-primary);
+}
+
+.zak-segmented-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+

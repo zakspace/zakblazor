@@ -1,0 +1,51 @@
+@page "/docs/grid"
+
+<PageTitle>Grid & Flex — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Grid &amp; Flex</h1>
+        <p class="docs-subtitle">Responsive 12-column grid and flexbox primitives for fluid dashboard and application layouts.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Layout" Color="ZakColor.Primary" />
+            <ZakBadge Content="12 Columns" Color="ZakColor.Info" />
+        </div>
+    </div>
+
+    <!-- 12-column Grid -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Responsive Columns</h2>
+        <p class="docs-section-desc">Combine <code>ZakRow</code> and <code>ZakColumn</code> to divide space across screen breakpoints.</p>
+        <ZakDocsExample Title="12-Column Grid" Code="@GridCode">
+            <ZakRow Spacing="3">
+                <ZakColumn Xs="12" Md="6" Lg="3">
+                    <ZakPaper Padding="3" Style="text-align: center;">Col 3</ZakPaper>
+                </ZakColumn>
+                <ZakColumn Xs="12" Md="6" Lg="3">
+                    <ZakPaper Padding="3" Style="text-align: center;">Col 3</ZakPaper>
+                </ZakColumn>
+                <ZakColumn Xs="12" Md="6" Lg="3">
+                    <ZakPaper Padding="3" Style="text-align: center;">Col 3</ZakPaper>
+                </ZakColumn>
+                <ZakColumn Xs="12" Md="6" Lg="3">
+                    <ZakPaper Padding="3" Style="text-align: center;">Col 3</ZakPaper>
+                </ZakColumn>
+            </ZakRow>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakGrid" />
+    </div>
+</div>
+
+@code {
+    private const string GridCode = @"<ZakRow Spacing=""3"">
+    <ZakColumn Xs=""12"" Md=""6"" Lg=""3"">
+        <ZakPaper Padding=""3"">Col 3</ZakPaper>
+    </ZakColumn>
+    <ZakColumn Xs=""12"" Md=""6"" Lg=""3"">
+        <ZakPaper Padding=""3"">Col 3</ZakPaper>
+    </ZakColumn>
+</ZakRow>";
+}

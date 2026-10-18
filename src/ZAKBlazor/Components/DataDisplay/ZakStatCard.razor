@@ -1,0 +1,70 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+
+    <div class="zak-stat-icon-wrap zak-stat-icon-@Color.ToString().ToLowerInvariant()">
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <ZakIcon Icon="@Icon" Size="ZakSize.Medium" />
+        }
+        @if (IconContent != null)
+        {
+            @IconContent
+        }
+    </div>
+
+    <div class="zak-stat-body">
+        <div class="zak-stat-label">@Label</div>
+        <div class="zak-stat-value">@Value</div>
+        @if (!string.IsNullOrEmpty(Change))
+        {
+            <div class="zak-stat-change @(ChangePositive ? "zak-stat-change-positive" : "zak-stat-change-negative")">
+                <ZakIcon Icon="@(ChangePositive ? ZakIcons.ArrowUp : ZakIcons.ArrowDown)" Size="ZakSize.ExtraSmall" />
+                <span>@Change</span>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Description))
+        {
+            <div class="zak-stat-description">@Description</div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string? Label { get; set; }
+
+    [Parameter]
+    public string? Value { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public RenderFragment? IconContent { get; set; }
+
+    [Parameter]
+    public string? Change { get; set; }
+
+    [Parameter]
+    public bool ChangePositive { get; set; } = true;
+
+    [Parameter]
+    public string? Description { get; set; }
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Primary;
+
+    [Parameter]
+    public ZakVariant Variant { get; set; } = ZakVariant.Soft;
+
+    private string? CompiledClass => CreateClassBuilder("zak-stat-card")
+        .AddClass($"zak-stat-card-{Variant.ToString().ToLowerInvariant()}")
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

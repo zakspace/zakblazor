@@ -1,0 +1,71 @@
+@page "/docs/text-area"
+@page "/docs/textarea"
+
+<PageTitle>Text Area — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Text Area</h1>
+        <p class="docs-subtitle">Multi-line text input for long-form comments, descriptions, notes, and code snippets.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Multi-Line" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Standard Text Area -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Standard Text Area</h2>
+        <p class="docs-section-desc">Supports two-way binding with <code>@@bind-Value</code>, labels, helper text, and character counters.</p>
+        <ZakDocsExample Title="Description Input" Code="@TextAreaCode">
+            <div style="max-width: 480px;">
+                <ZakTextArea Label="Project Description"
+                             Placeholder="Provide an overview of objectives and deliverables..."
+                             Rows="4"
+                             MaxLength="300"
+                             ShowCount="true"
+                             HelperText="Provide at least 50 characters."
+                             @bind-Value="_description" />
+
+                <div style="margin-top: 0.75rem; font-size: 0.875rem; color: var(--zak-text-secondary);">
+                    Current value: <strong>@(_description ?? "None")</strong>
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Outlined and Soft Variants -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Variants</h2>
+        <p class="docs-section-desc">Styled with Outlined, Filled, or Soft input wrappers.</p>
+        <ZakDocsExample Title="Outlined Variant" Code="@VariantCode">
+            <div style="max-width: 480px;">
+                <ZakTextArea Label="Feedback / Notes"
+                             Variant="ZakVariant.Outlined"
+                             Rows="3"
+                             Placeholder="Leave your thoughts..." />
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakTextArea" />
+    </div>
+</div>
+
+@code {
+    private string? _description = "ZAKBlazor is a modern, accessible Blazor UI component library built from scratch.";
+
+    private const string TextAreaCode = @"<ZakTextArea Label=""Project Description""
+             Placeholder=""Provide an overview...""
+             Rows=""4""
+             MaxLength=""300""
+             ShowCount=""true""
+             HelperText=""Provide at least 50 characters.""
+             @bind-Value=""_description"" />";
+
+    private const string VariantCode = @"<ZakTextArea Label=""Feedback / Notes""
+             Variant=""ZakVariant.Outlined""
+             Rows=""3""
+             Placeholder=""Leave your thoughts..."" />";
+}

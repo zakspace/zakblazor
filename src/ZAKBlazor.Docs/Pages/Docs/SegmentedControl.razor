@@ -1,0 +1,44 @@
+@page "/docs/segmented-control"
+
+<PageTitle>Segmented Control — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Segmented Control</h1>
+        <p class="docs-subtitle">Segmented controls offer a linear set of two or more segments, each functioning as a mutually exclusive view or filter selector.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Animated" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">View Mode Selector</h2>
+        <p class="docs-section-desc">Toggle between layouts or data modes with slick active indicators.</p>
+        <ZakDocsExample Title="Segmented Control Example" Code="@SegmentedCode">
+            <div style="max-width: 420px;">
+                <ZakSegmentedControl TValue="string" @bind-Value="_selectedView" Items="_views" Color="ZakColor.Primary" />
+                <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--zak-text-secondary);">
+                    Current View: <strong>@_selectedView</strong>
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakSegmentedControl" />
+    </div>
+</div>
+
+@code {
+    private string _selectedView = "grid";
+
+    private readonly List<ZakSegmentItem<string>> _views = new()
+    {
+        new("list", "List View", ZakIcons.Menu),
+        new("grid", "Grid View", ZakIcons.Grid),
+        new("table", "Table View", ZakIcons.Layers)
+    };
+
+    private const string SegmentedCode = @"<ZakSegmentedControl TValue=""string"" @bind-Value=""_selectedView"" Items=""_views"" Color=""ZakColor.Primary"" />";
+}

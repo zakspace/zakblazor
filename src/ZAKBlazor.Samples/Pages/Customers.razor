@@ -1,0 +1,184 @@
+@page "/customers"
+@namespace ZAKBlazor.Samples.Pages
+@inject IZakSnackbarService SnackbarService
+@inject IZakDialogService DialogService
+
+<PageTitle>Customers — ZAK Enterprise</PageTitle>
+
+<ZakContainer MaxWidth="ZakBreakpoint.Xl" Style="padding: var(--zak-spacing-6) 0;">
+    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="6">
+        <!-- Header Toolbar -->
+        <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true" Wrap="true">
+            <div>
+                <ZakText Typo="Typo.h4" GutterBottom="true">Customer Accounts</ZakText>
+                <ZakText Typo="Typo.body2">Manage enterprise organizations, team members, and billing subscriptions.</ZakText>
+            </div>
+            <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Primary" StartIcon="@ZakIcons.Plus" OnClick="() => _showNewCustomerModal = true">
+                Add Customer
+            </ZakButton>
+        </ZakStack>
+
+        <!-- Search and Filters Bar -->
+        <ZakCard Elevation="ZakElevation.Elevation1">
+            <ZakCardContent>
+                <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="4" Align="ZakAlignment.Center" Wrap="true">
+                    <div style="flex: 1; min-width: 260px;">
+                        <ZakSearchInput Placeholder="Search by organization, email, or contact..." @bind-Value="_searchQuery" />
+                    </div>
+                    <div style="width: 180px;">
+                        <ZakSelect T="string" @bind-Value="_planFilter" Label="">
+                            <ZakOption T="string" Value="@("All")" Text="All Plans" />
+                            <ZakOption T="string" Value="@("Enterprise")" Text="Enterprise" />
+                            <ZakOption T="string" Value="@("Pro")" Text="Pro Tier" />
+                            <ZakOption T="string" Value="@("Starter")" Text="Starter" />
+                        </ZakSelect>
+                    </div>
+                </ZakStack>
+            </ZakCardContent>
+        </ZakCard>
+
+        <!-- Customer DataTable Card -->
+        <ZakCard Elevation="ZakElevation.Elevation2">
+            <ZakDataTable TItem="CustomerModel" Items="@FilteredCustomers" Hover="true" Striped="true" PageSize="5">
+                <Columns>
+                    <ZakTableColumn TItem="CustomerModel" Title="Customer" Field="Name">
+                        <Template Context="c">
+                            <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Align="ZakAlignment.Center">
+                                <ZakAvatar Text="@c.Name" Color="@c.AvatarColor" Size="ZakSize.Medium" />
+                                <div>
+                                    <ZakText Typo="Typo.subtitle2">@c.Name</ZakText>
+                                    <ZakText Typo="Typo.caption" Color="ZakColor.Default">@c.Email</ZakText>
+                                </div>
+                            </ZakStack>
+                        </Template>
+                    </ZakTableColumn>
+
+                    <ZakTableColumn TItem="CustomerModel" Title="Plan" Field="Plan">
+                        <Template Context="c">
+                            <ZakChip Text="@c.Plan" Color="@(c.Plan == "Enterprise" ? ZakColor.Primary : ZakColor.Default)" Variant="ZakVariant.Soft" Size="ZakSize.Small" />
+                        </Template>
+                    </ZakTableColumn>
+
+                    <ZakTableColumn TItem="CustomerModel" Title="MRR" Field="Mrr" Sortable="true">
+                        <Template Context="c">
+                            <ZakText Typo="Typo.body2" Style="font-weight: 600;">$@c.Mrr.ToString("N0")/mo</ZakText>
+                        </Template>
+                    </ZakTableColumn>
+
+                    <ZakTableColumn TItem="CustomerModel" Title="Status" Field="Status">
+                        <Template Context="c">
+                            <ZakBadge Dot Color="@(c.Status == "Active" ? ZakColor.Success : ZakColor.Warning)" Inline="true">
+                                <span style="margin-left: 14px; font-size: 0.85rem;">@c.Status</span>
+                            </ZakBadge>
+                        </Template>
+                    </ZakTableColumn>
+
+                    <ZakTableColumn TItem="CustomerModel" Title="Actions">
+                        <Template Context="c">
+                            <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="1">
+                                <ZakIconButton Icon="@ZakIcons.Edit" Size="ZakSize.Small" Variant="ZakVariant.Text" AriaLabel="Edit" OnClick="() => EditCustomer(c)" />
+                                <ZakIconButton Icon="@ZakIcons.Trash" Size="ZakSize.Small" Color="ZakColor.Danger" Variant="ZakVariant.Text" AriaLabel="Delete" OnClick="() => DeleteCustomerAsync(c)" />
+                            </ZakStack>
+                        </Template>
+                    </ZakTableColumn>
+                </Columns>
+            </ZakDataTable>
+        </ZakCard>
+    </ZakStack>
+</ZakContainer>
+
+<!-- New Customer Modal -->
+<ZakDialog @bind-IsVisible="_showNewCustomerModal" Title="Add Enterprise Organization" MaxWidth="520px">
+    <ChildContent>
+        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+            <ZakTextField Label="Company Name" @bind-Value="_newOrgName" Placeholder="Acme Corporation" Required="true" />
+            <ZakTextField Label="Primary Contact Email" @bind-Value="_newOrgEmail" Placeholder="admin@acme.com" Required="true" />
+            <ZakSelect T="string" Label="Subscription Plan" @bind-Value="_newOrgPlan">
+                <ZakOption T="string" Value="@("Enterprise")" Text="Enterprise ($2,400/mo)" />
+                <ZakOption T="string" Value="@("Pro")" Text="Pro Tier ($490/mo)" />
+                <ZakOption T="string" Value="@("Starter")" Text="Starter ($99/mo)" />
+            </ZakSelect>
+        </ZakStack>
+    </ChildContent>
+    <Actions>
+        <ZakButton Variant="ZakVariant.Text" OnClick="() => _showNewCustomerModal = false">Cancel</ZakButton>
+        <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Primary" OnClick="SaveNewCustomer">Create Account</ZakButton>
+    </Actions>
+</ZakDialog>
+
+@code {
+    private string _searchQuery = string.Empty;
+    private string _planFilter = "All";
+    private bool _showNewCustomerModal;
+
+    private string _newOrgName = string.Empty;
+    private string _newOrgEmail = string.Empty;
+    private string _newOrgPlan = "Enterprise";
+
+    private List<CustomerModel> _customers = new()
+    {
+        new CustomerModel { Name = "Cyberdyne Systems", Email = "ops@cyberdyne.io", Plan = "Enterprise", Mrr = 4500, Status = "Active", AvatarColor = ZakColor.Primary },
+        new CustomerModel { Name = "Wayne Enterprises", Email = "bwayne@wayne.com", Plan = "Enterprise", Mrr = 7200, Status = "Active", AvatarColor = ZakColor.Secondary },
+        new CustomerModel { Name = "Stark Industries", Email = "tony@stark.org", Plan = "Enterprise", Mrr = 12000, Status = "Active", AvatarColor = ZakColor.Warning },
+        new CustomerModel { Name = "Oscorp Technologies", Email = "contact@oscorp.net", Plan = "Pro", Mrr = 490, Status = "Active", AvatarColor = ZakColor.Success },
+        new CustomerModel { Name = "Umbrella Corp", Email = "security@umbrella.bio", Plan = "Starter", Mrr = 99, Status = "Pending", AvatarColor = ZakColor.Danger },
+        new CustomerModel { Name = "Massive Dynamic", Email = "support@massivedynamic.com", Plan = "Pro", Mrr = 490, Status = "Active", AvatarColor = ZakColor.Info }
+    };
+
+    private IEnumerable<CustomerModel> FilteredCustomers => _customers
+        .Where(c => string.IsNullOrWhiteSpace(_searchQuery) ||
+                    c.Name.Contains(_searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                    c.Email.Contains(_searchQuery, StringComparison.OrdinalIgnoreCase))
+        .Where(c => _planFilter == "All" || c.Plan == _planFilter);
+
+    private void EditCustomer(CustomerModel customer)
+    {
+        SnackbarService.Info($"Opening account settings for {customer.Name}");
+    }
+
+    private async Task DeleteCustomerAsync(CustomerModel customer)
+    {
+        var confirmed = await DialogService.ConfirmAsync(
+            message: $"Are you sure you want to suspend and delete {customer.Name}?",
+            title: "Confirm Deletion",
+            confirmText: "Suspend Account",
+            confirmColor: ZakColor.Danger
+        );
+
+        if (confirmed)
+        {
+            _customers.Remove(customer);
+            SnackbarService.Success($"Customer {customer.Name} deleted.");
+        }
+    }
+
+    private void SaveNewCustomer()
+    {
+        if (string.IsNullOrWhiteSpace(_newOrgName)) return;
+
+        _customers.Insert(0, new CustomerModel
+        {
+            Name = _newOrgName,
+            Email = _newOrgEmail,
+            Plan = _newOrgPlan,
+            Mrr = _newOrgPlan == "Enterprise" ? 2400 : (_newOrgPlan == "Pro" ? 490 : 99),
+            Status = "Active",
+            AvatarColor = ZakColor.Primary
+        });
+
+        _showNewCustomerModal = false;
+        SnackbarService.Success($"Account for {_newOrgName} created successfully.");
+        _newOrgName = string.Empty;
+        _newOrgEmail = string.Empty;
+    }
+
+    public class CustomerModel
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Plan { get; set; } = "Enterprise";
+        public decimal Mrr { get; set; }
+        public string Status { get; set; } = "Active";
+        public ZakColor AvatarColor { get; set; } = ZakColor.Primary;
+    }
+}

@@ -1,0 +1,37 @@
+@page "/docs/text"
+
+<PageTitle>Text — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Text</h1>
+        <p class="docs-subtitle">ZakText renders standardized typography variants with configurable colors, alignments, and gutters.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Typography" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Typographic Variants</h2>
+        <p class="docs-section-desc">Quickly apply typography scales to any paragraph, heading, or label.</p>
+        <ZakDocsExample Title="Text Variants" Code="@TextCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                <ZakText Typo="Typo.h3">Main Section Title</ZakText>
+                <ZakText Typo="Typo.subtitle1">Subtitle introducing the body copy below.</ZakText>
+                <ZakText Typo="Typo.body1">Standard body text rendered with optimal line spacing for readability.</ZakText>
+                <ZakText Typo="Typo.caption" Color="ZakColor.Secondary">Footnote and timestamp caption</ZakText>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakText" />
+    </div>
+</div>
+
+@code {
+    private const string TextCode = @"<ZakText Typo=""Typo.h3"">Main Title</ZakText>
+<ZakText Typo=""Typo.body1"">Paragraph content here.</ZakText>
+<ZakText Typo=""Typo.caption"">Small caption</ZakText>";
+}

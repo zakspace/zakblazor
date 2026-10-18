@@ -1,0 +1,33 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     aria-hidden="true"
+     @attributes="AdditionalAttributes">
+</div>
+
+@code {
+    [Parameter]
+    public ZakSkeletonVariant Variant { get; set; } = ZakSkeletonVariant.Text;
+
+    [Parameter]
+    public ZakSkeletonAnimation Animation { get; set; } = ZakSkeletonAnimation.Wave;
+
+    [Parameter]
+    public string? Width { get; set; }
+
+    [Parameter]
+    public string? Height { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-skeleton")
+        .AddClass($"zak-skeleton-{Variant.ToString().ToLowerInvariant()}")
+        .AddClass($"zak-skeleton-{Animation.ToString().ToLowerInvariant()}")
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder()
+        .AddStyle("width", Width, !string.IsNullOrEmpty(Width))
+        .AddStyle("height", Height, !string.IsNullOrEmpty(Height))
+        .Build();
+}

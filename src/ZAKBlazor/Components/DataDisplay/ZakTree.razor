@@ -1,0 +1,30 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<ul id="@ElementId"
+    class="@CompiledClass"
+    style="@CompiledStyle"
+    @attributes="AdditionalAttributes">
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</ul>
+
+@code {
+    private readonly List<ZakTreeNode> _nodes = new();
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public bool Dense { get; set; }
+
+    [Parameter]
+    public bool Expandable { get; set; } = true;
+
+    private string? CompiledClass => CreateClassBuilder("zak-tree")
+        .AddClass("zak-tree-dense", Dense)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

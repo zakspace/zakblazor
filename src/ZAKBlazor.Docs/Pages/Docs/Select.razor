@@ -1,0 +1,45 @@
+@page "/docs/select"
+
+<PageTitle>Select — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Select</h1>
+        <p class="docs-subtitle">Select menus present a collapsible list of options for single or multi-value selection.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Two-Way Binding" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Standard Select</h2>
+        <p class="docs-section-desc">Supports two-way binding with <code>@@bind-Value</code> and customizable option templates.</p>
+        <ZakDocsExample Title="Dropdown Selection" Code="@SelectCode">
+            <div style="max-width: 360px;">
+                <ZakSelect TValue="string" Label="Choose Region" @bind-Value="_selectedRegion" Placeholder="Select a region...">
+                    <ZakOption TValue="string" Value="@("us")" Text="North America (US-East)" />
+                    <ZakOption TValue="string" Value="@("eu")" Text="Europe (Frankfurt)" />
+                    <ZakOption TValue="string" Value="@("ap")" Text="Asia Pacific (Tokyo)" />
+                </ZakSelect>
+                <div style="margin-top: 0.75rem; font-size: 0.875rem; color: var(--zak-text-secondary);">
+                    Selected Region: <strong>@(_selectedRegion ?? "None")</strong>
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakSelect" />
+    </div>
+</div>
+
+@code {
+    private string? _selectedRegion;
+
+    private const string SelectCode = @"<ZakSelect TValue=""string"" Label=""Choose Region"" @bind-Value=""_selectedRegion"">
+    <ZakOption TValue=""string"" Value=""@(""us"")"" Text=""North America"" />
+    <ZakOption TValue=""string"" Value=""@(""eu"")"" Text=""Europe"" />
+    <ZakOption TValue=""string"" Value=""@(""ap"")"" Text=""Asia Pacific"" />
+</ZakSelect>";
+}

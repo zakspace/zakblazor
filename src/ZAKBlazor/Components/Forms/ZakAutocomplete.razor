@@ -1,0 +1,245 @@
+@namespace ZAKBlazor
+@typeparam T
+@inherits ZAKBlazor.Primitives.ZakInputBase<T>
+
+<div class="zak-form-field zak-autocomplete-container">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <ZakLabel For="@ElementId" Required="@Required" Text="@Label" />
+    }
+
+    <div class="@CompiledWrapperClass" style="@CompiledStyle">
+        <span class="zak-input-adornment zak-input-adornment-start" aria-hidden="true">
+            <ZakIcon Icon="@ZakIcons.Search" Size="@ResolveIconSize(Size)" />
+        </span>
+
+        <input id="@ElementId"
+               type="text"
+               class="zak-input"
+               value="@_searchTerm"
+               placeholder="@Placeholder"
+               disabled="@Disabled"
+               readonly="@ReadOnly"
+               aria-invalid="@(HasError ? "true" : "false")"
+               aria-autocomplete="list"
+               aria-expanded="@(_isOpen ? "true" : "false")"
+               @oninput="HandleInputAsync"
+               @onfocus="HandleFocusAsync"
+               @onblur="HandleBlurAsync"
+               @attributes="AdditionalAttributes" />
+
+        @if (_isLoading)
+        {
+            <span class="zak-input-adornment zak-input-adornment-end" aria-hidden="true">
+                <ZakProgressCircular Indeterminate Size="ZakSize.ExtraSmall" Color="ZakColor.Primary" />
+            </span>
+        }
+        else if (Clearable && Value != null && !Disabled && !ReadOnly)
+        {
+            <button type="button"
+                    class="zak-input-action"
+                    aria-label="Clear selection"
+                    @onclick="HandleClearAsync">
+                <ZakIcon Icon="@ZakIcons.Close" Size="ZakSize.ExtraSmall" />
+            </button>
+        }
+        else
+        {
+            <span class="zak-input-adornment zak-input-adornment-end" aria-hidden="true">
+                <ZakIcon Icon="@ZakIcons.ChevronDown" Size="ZakSize.ExtraSmall" />
+            </span>
+        }
+    </div>
+
+    @if (_isOpen && !Disabled && !ReadOnly)
+    {
+        <div class="zak-autocomplete-popover" role="listbox">
+            @if (_isLoading)
+            {
+                <div class="zak-autocomplete-loading">
+                    <span>Searching...</span>
+                </div>
+            }
+            else if (_items.Any())
+            {
+                @foreach (var item in _items)
+                {
+                    var isSelected = EqualityComparer<T>.Default.Equals(item, Value);
+                    <div class="zak-autocomplete-item @(isSelected ? "zak-item-selected" : "")"
+                         role="option"
+                         aria-selected="@(isSelected ? "true" : "false")"
+                         @onmousedown="() => SelectItemAsync(item)">
+                        @if (ItemTemplate != null)
+                        {
+                            @ItemTemplate(item)
+                        }
+                        else
+                        {
+                            <span>@GetItemDisplay(item)</span>
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="zak-autocomplete-empty">
+                    <span>No results found</span>
+                </div>
+            }
+        </div>
+    }
+
+    @if (HasError && !string.IsNullOrEmpty(ValidationErrorMessage))
+    {
+        <span class="zak-error-text" role="alert">@ValidationErrorMessage</span>
+    }
+    else if (!string.IsNullOrEmpty(HelperText))
+    {
+        <span class="zak-helper-text">@HelperText</span>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public Func<string, Task<IEnumerable<T>>>? SearchFunc { get; set; }
+
+    [Parameter]
+    public Func<T, string>? ToStringFunc { get; set; }
+
+    [Parameter]
+    public RenderFragment<T>? ItemTemplate { get; set; }
+
+    [Parameter]
+    public int MinCharacters { get; set; } = 0;
+
+    [Parameter]
+    public int DebounceInterval { get; set; } = 250;
+
+    [Parameter]
+    public bool Clearable { get; set; } = true;
+
+    private string? _searchTerm;
+    private bool _isOpen;
+    private bool _isLoading;
+    private List<T> _items = new();
+    private CancellationTokenSource? _debounceCts;
+
+    protected override void OnParametersSet()
+    {
+        if (Value != null && string.IsNullOrEmpty(_searchTerm))
+        {
+            _searchTerm = GetItemDisplay(Value);
+        }
+    }
+
+    private string GetItemDisplay(T? item)
+    {
+        if (item == null) return string.Empty;
+        if (ToStringFunc != null) return ToStringFunc(item);
+        return item.ToString() ?? string.Empty;
+    }
+
+    private async Task HandleInputAsync(ChangeEventArgs e)
+    {
+        _searchTerm = e.Value?.ToString() ?? string.Empty;
+        _isOpen = true;
+
+        _debounceCts?.Cancel();
+        _debounceCts = new CancellationTokenSource();
+
+        if (string.IsNullOrEmpty(_searchTerm) && Clearable)
+        {
+            await SetCurrentValueAsync(default);
+        }
+
+        if (_searchTerm.Length >= MinCharacters && SearchFunc != null)
+        {
+            try
+            {
+                _isLoading = true;
+                StateHasChanged();
+                await Task.Delay(DebounceInterval, _debounceCts.Token);
+                var results = await SearchFunc(_searchTerm);
+                _items = results.ToList();
+            }
+            catch (TaskCanceledException) { }
+            finally
+            {
+                _isLoading = false;
+                StateHasChanged();
+            }
+        }
+        else
+        {
+            _items.Clear();
+            _isLoading = false;
+        }
+    }
+
+    private async Task HandleFocusAsync()
+    {
+        if (SearchFunc != null && (MinCharacters == 0 || (_searchTerm?.Length ?? 0) >= MinCharacters))
+        {
+            _isOpen = true;
+            _isLoading = true;
+            var results = await SearchFunc(_searchTerm ?? string.Empty);
+            _items = results.ToList();
+            _isLoading = false;
+        }
+    }
+
+    private void HandleBlurAsync()
+    {
+        // Delay to allow item onmousedown to fire
+        _ = Task.Delay(180).ContinueWith(_ =>
+        {
+            _isOpen = false;
+            if (Value != null)
+            {
+                _searchTerm = GetItemDisplay(Value);
+            }
+            InvokeAsync(StateHasChanged);
+        });
+    }
+
+    private async Task SelectItemAsync(T item)
+    {
+        await SetCurrentValueAsync(item);
+        _searchTerm = GetItemDisplay(item);
+        _isOpen = false;
+    }
+
+    private async Task HandleClearAsync()
+    {
+        await SetCurrentValueAsync(default);
+        _searchTerm = string.Empty;
+        _items.Clear();
+        _isOpen = false;
+    }
+
+    private string? CompiledWrapperClass => CreateClassBuilder("zak-input-wrapper")
+        .AddClass(Size.ToCssClass())
+        .AddClass("zak-input-error", HasError)
+        .AddClass("zak-input-disabled", Disabled)
+        .AddClass("zak-input-focused", _isOpen)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private ZakSize ResolveIconSize(ZakSize size) => size switch
+    {
+        ZakSize.Large => ZakSize.Medium,
+        ZakSize.Small => ZakSize.ExtraSmall,
+        _ => ZakSize.Small
+    };
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _debounceCts?.Cancel();
+            _debounceCts?.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+}

@@ -1,0 +1,84 @@
+@page "/docs/paper"
+
+<PageTitle>Paper — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Paper</h1>
+        <p class="docs-subtitle">A container surface element that builds visual hierarchy using elevation shadows, background treatments, and rounded corners.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Surfaces" Color="ZakColor.Primary" />
+            <ZakBadge Content="Elevation" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Elevation Tiers -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Elevation Tiers</h2>
+        <p class="docs-section-desc">Paper supports 6 levels of box shadows from subtle card edges to floating modals.</p>
+        <ZakDocsExample Title="Paper Elevation Levels" Code="@ElevationCode">
+            <ZakGrid Columns="4" Gap="4">
+                <ZakPaper Elevation="1" Shape="ZakShape.Rounded">
+                    <div style="padding: 1.5rem; text-align: center;">
+                        <ZakText Typo="Typo.h5">Level 1</ZakText>
+                        <ZakText Typo="Typo.caption">Subtle depth</ZakText>
+                    </div>
+                </ZakPaper>
+
+                <ZakPaper Elevation="2" Shape="ZakShape.Rounded">
+                    <div style="padding: 1.5rem; text-align: center;">
+                        <ZakText Typo="Typo.h5">Level 2</ZakText>
+                        <ZakText Typo="Typo.caption">Card default</ZakText>
+                    </div>
+                </ZakPaper>
+
+                <ZakPaper Elevation="4" Shape="ZakShape.Rounded">
+                    <div style="padding: 1.5rem; text-align: center;">
+                        <ZakText Typo="Typo.h5">Level 4</ZakText>
+                        <ZakText Typo="Typo.caption">Dropdowns</ZakText>
+                    </div>
+                </ZakPaper>
+
+                <ZakPaper Elevation="6" Shape="ZakShape.Rounded">
+                    <div style="padding: 1.5rem; text-align: center;">
+                        <ZakText Typo="Typo.h5">Level 6</ZakText>
+                        <ZakText Typo="Typo.caption">Modals & Popovers</ZakText>
+                    </div>
+                </ZakPaper>
+            </ZakGrid>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Outlined and Shapes -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Outlined Paper</h2>
+        <p class="docs-section-desc">Use <code>Outlined="true"</code> for flat bordered container panels without shadows.</p>
+        <ZakDocsExample Title="Outlined Container" Code="@OutlinedCode">
+            <ZakPaper Outlined="true" Shape="ZakShape.Rounded">
+                <div style="padding: 1.5rem;">
+                    <ZakText Typo="Typo.h5" GutterBottom="true">Outlined Flat Paper</ZakText>
+                    <ZakText Typo="Typo.body2">
+                        Useful for clean data sections or secondary widget boxes in high-density dashboards.
+                    </ZakText>
+                </div>
+            </ZakPaper>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakPaper" />
+    </div>
+</div>
+
+@code {
+    private const string ElevationCode = @"<ZakPaper Elevation=""1"" Shape=""ZakShape.Rounded"">
+    <div style=""padding: 1.5rem;"">Level 1</div>
+</ZakPaper>
+<ZakPaper Elevation=""4"" Shape=""ZakShape.Rounded"">
+    <div style=""padding: 1.5rem;"">Level 4</div>
+</ZakPaper>";
+
+    private const string OutlinedCode = @"<ZakPaper Outlined=""true"" Shape=""ZakShape.Rounded"">
+    <div style=""padding: 1.5rem;"">Flat Bordered Panel</div>
+</ZakPaper>";
+}

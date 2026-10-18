@@ -1,0 +1,38 @@
+@page "/docs/breadcrumbs"
+
+<PageTitle>Breadcrumbs — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Breadcrumbs</h1>
+        <p class="docs-subtitle">Breadcrumbs reveal the current page's location within a navigational hierarchy, enabling users to trace their step back up.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Navigation" Color="ZakColor.Primary" />
+            <ZakBadge Content="Accessible" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Navigation Trail</h2>
+        <p class="docs-section-desc">Compose items with <code>ZakBreadcrumbs</code> and <code>ZakBreadcrumbItem</code>.</p>
+        <ZakDocsExample Title="Breadcrumbs Example" Code="@BreadcrumbCode">
+            <ZakBreadcrumbs>
+                <ZakBreadcrumbItem Href="/">Home</ZakBreadcrumbItem>
+                <ZakBreadcrumbItem Href="/docs/overview">Docs</ZakBreadcrumbItem>
+                <ZakBreadcrumbItem Href="/docs/breadcrumbs" Selected="true">Breadcrumbs</ZakBreadcrumbItem>
+            </ZakBreadcrumbs>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakBreadcrumbs" />
+    </div>
+</div>
+
+@code {
+    private const string BreadcrumbCode = @"<ZakBreadcrumbs>
+    <ZakBreadcrumbItem Href=""/"">Home</ZakBreadcrumbItem>
+    <ZakBreadcrumbItem Href=""/docs/overview"">Docs</ZakBreadcrumbItem>
+    <ZakBreadcrumbItem Href=""/docs/breadcrumbs"" Selected=""true"">Breadcrumbs</ZakBreadcrumbItem>
+</ZakBreadcrumbs>";
+}

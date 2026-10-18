@@ -1,0 +1,122 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakInputBase<string>
+
+<div class="zak-form-field zak-colorpicker-container">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <ZakLabel For="@ElementId" Required="@Required" Text="@Label" />
+    }
+
+    <div class="@CompiledWrapperClass" style="@CompiledStyle" @onclick="TogglePopover">
+        <div class="zak-color-preview-swatch"
+             style="background-color: @(string.IsNullOrEmpty(Value) ? "#5E43F3" : Value);"
+             aria-hidden="true"></div>
+
+        <input id="@ElementId"
+               type="text"
+               class="zak-input"
+               value="@Value"
+               placeholder="#5E43F3"
+               readonly
+               disabled="@Disabled"
+               aria-invalid="@(HasError ? "true" : "false")"
+               aria-haspopup="dialog"
+               aria-expanded="@(_isOpen ? "true" : "false")"
+               @attributes="AdditionalAttributes" />
+
+        <span class="zak-input-adornment zak-input-adornment-end" aria-hidden="true">
+            <ZakIcon Icon="@ZakIcons.Sparkles" Size="ZakSize.ExtraSmall" />
+        </span>
+    </div>
+
+    @if (_isOpen && !Disabled && !ReadOnly)
+    {
+        <div class="zak-colorpicker-backdrop" @onclick="ClosePopover"></div>
+        <div class="zak-colorpicker-popover" role="dialog" aria-modal="true" @onclick:stopPropagation>
+            <div class="zak-colorpicker-swatches">
+                @foreach (var color in _presetColors)
+                {
+                    <button type="button"
+                            class="zak-color-swatch @(string.Equals(Value, color, StringComparison.OrdinalIgnoreCase) ? "zak-swatch-active" : "")"
+                            style="background-color: @color;"
+                            aria-label="@($"Select color {color}")"
+                            @onclick="() => SelectColorAsync(color)">
+                    </button>
+                }
+            </div>
+
+            <div class="zak-colorpicker-custom">
+                <input type="color"
+                       class="zak-native-color-picker"
+                       value="@(string.IsNullOrEmpty(Value) ? "#5E43F3" : Value)"
+                       @onchange="HandleNativeColorChanged" />
+                <input type="text"
+                       class="zak-input zak-color-hex-input"
+                       value="@Value"
+                       placeholder="#HEX"
+                       @oninput="HandleHexInputAsync" />
+            </div>
+        </div>
+    }
+
+    @if (HasError && !string.IsNullOrEmpty(ValidationErrorMessage))
+    {
+        <span class="zak-error-text" role="alert">@ValidationErrorMessage</span>
+    }
+    else if (!string.IsNullOrEmpty(HelperText))
+    {
+        <span class="zak-helper-text">@HelperText</span>
+    }
+</div>
+
+@code {
+    private bool _isOpen;
+
+    private readonly string[] _presetColors = new[]
+    {
+        "#5E43F3", "#00D2B4", "#3B82F6", "#10B981", "#F59E0B", "#EF4444",
+        "#8B5CF6", "#EC4899", "#14B8A6", "#6366F1", "#06B6D4", "#F97316",
+        "#0F172A", "#334155", "#64748B", "#94A3B8", "#E2E8F0", "#FFFFFF"
+    };
+
+    private void TogglePopover()
+    {
+        if (Disabled || ReadOnly) return;
+        _isOpen = !_isOpen;
+    }
+
+    private void ClosePopover() => _isOpen = false;
+
+    private async Task SelectColorAsync(string color)
+    {
+        await SetCurrentValueAsync(color);
+        _isOpen = false;
+    }
+
+    private async Task HandleNativeColorChanged(ChangeEventArgs e)
+    {
+        var val = e.Value?.ToString();
+        if (!string.IsNullOrEmpty(val))
+        {
+            await SetCurrentValueAsync(val);
+        }
+    }
+
+    private async Task HandleHexInputAsync(ChangeEventArgs e)
+    {
+        var val = e.Value?.ToString();
+        if (!string.IsNullOrEmpty(val))
+        {
+            await SetCurrentValueAsync(val);
+        }
+    }
+
+    private string? CompiledWrapperClass => CreateClassBuilder("zak-input-wrapper")
+        .AddClass(Size.ToCssClass())
+        .AddClass("zak-input-error", HasError)
+        .AddClass("zak-input-disabled", Disabled)
+        .AddClass("zak-input-focused", _isOpen)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

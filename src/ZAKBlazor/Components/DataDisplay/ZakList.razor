@@ -1,0 +1,30 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<ul id="@ElementId"
+    class="@CompiledClass"
+    style="@CompiledStyle"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</ul>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public bool Dense { get; set; }
+
+    [Parameter]
+    public bool Divided { get; set; }
+
+    [Parameter]
+    public bool Disableable { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-list")
+        .AddClass("zak-list-dense", Dense)
+        .AddClass("zak-list-divided", Divided)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

@@ -1,0 +1,67 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<svg id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     viewBox="@ViewBox"
+     fill="@Fill"
+     stroke="@Stroke"
+     stroke-width="@StrokeWidth"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     aria-hidden="@(string.IsNullOrEmpty(Title) ? "true" : "false")"
+     role="@(string.IsNullOrEmpty(Title) ? "presentation" : "img")"
+     @attributes="AdditionalAttributes">
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <title>@Title</title>
+    }
+    @if (!string.IsNullOrWhiteSpace(Icon))
+    {
+        <path d="@Icon" />
+    }
+    @ChildContent
+</svg>
+
+@code {
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Inherit;
+
+    [Parameter]
+    public ZakSize Size { get; set; } = ZakSize.Medium;
+
+    [Parameter]
+    public string? CustomSize { get; set; }
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string ViewBox { get; set; } = "0 0 24 24";
+
+    [Parameter]
+    public double StrokeWidth { get; set; } = 2.0;
+
+    [Parameter]
+    public string Fill { get; set; } = "none";
+
+    [Parameter]
+    public string Stroke { get; set; } = "currentColor";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-icon")
+        .AddClass(Color.ToCssClass())
+        .AddClass(Size.ToCssClass())
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder()
+        .AddStyle("width", CustomSize, !string.IsNullOrWhiteSpace(CustomSize))
+        .AddStyle("height", CustomSize, !string.IsNullOrWhiteSpace(CustomSize))
+        .Build();
+}

@@ -1,0 +1,38 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<header id="@ElementId"
+        role="banner"
+        class="@CompiledClass"
+        style="@CompiledStyle"
+        @attributes="AdditionalAttributes">
+    <div class="zak-appbar-content">
+        @ChildContent
+    </div>
+</header>
+
+@code {
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Default;
+
+    [Parameter]
+    public int Elevation { get; set; } = 1;
+
+    [Parameter]
+    public bool Dense { get; set; }
+
+    [Parameter]
+    public bool Fixed { get; set; } = true;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-appbar")
+        .AddClass(Color.ToCssClass("zak-appbar-"))
+        .AddClass(Elevation.ToCssClass())
+        .AddClass("zak-appbar-dense", Dense)
+        .AddClass("zak-appbar-fixed", Fixed)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

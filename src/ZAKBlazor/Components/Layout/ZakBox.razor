@@ -1,0 +1,47 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<ZakElement TagName="@TagName"
+            Id="@ElementId"
+            Class="@CompiledClass"
+            Style="@CompiledStyle"
+            @attributes="AdditionalAttributes">
+    @ChildContent
+</ZakElement>
+
+@code {
+    [Parameter]
+    public string TagName { get; set; } = "div";
+
+    [Parameter]
+    public int? Padding { get; set; }
+
+    [Parameter]
+    public int? Margin { get; set; }
+
+    [Parameter]
+    public int Elevation { get; set; } = 0;
+
+    [Parameter]
+    public ZakColor Background { get; set; } = ZakColor.Transparent;
+
+    [Parameter]
+    public ZakShape Shape { get; set; } = ZakShape.Default;
+
+    [Parameter]
+    public bool Border { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-box")
+        .AddClass(Elevation.ToCssClass())
+        .AddClass(Shape.ToCssClass())
+        .AddClass(Background.ToCssClass("zak-bg-"))
+        .AddClass($"zak-p-{Padding}", Padding.HasValue)
+        .AddClass($"zak-m-{Margin}", Margin.HasValue)
+        .AddClass("zak-border", Border)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

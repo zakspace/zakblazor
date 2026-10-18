@@ -1,0 +1,67 @@
+@page "/docs/colors"
+
+<PageTitle>Colors & Palette — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Colors &amp; Palette</h1>
+        <p class="docs-subtitle">Harmonious semantic color tokens designed with WCAG AA compliance and seamless dark mode adaptability.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Tokens" Color="ZakColor.Primary" />
+            <ZakBadge Content="WCAG AA" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Semantic Colors</h2>
+        <p class="docs-section-desc">Each semantic role automatically adjusts brightness and contrast between light and dark themes.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div style="background: var(--zak-primary); color: #FFF; padding: 1.5rem; border-radius: 8px;">
+                <div style="font-weight: 700;">Primary</div>
+                <div style="font-size: 0.8rem; opacity: 0.9;">Main brand color</div>
+            </div>
+            <div style="background: var(--zak-secondary); color: #FFF; padding: 1.5rem; border-radius: 8px;">
+                <div style="font-weight: 700;">Secondary</div>
+                <div style="font-size: 0.8rem; opacity: 0.9;">Supporting tone</div>
+            </div>
+            <div style="background: var(--zak-success); color: #FFF; padding: 1.5rem; border-radius: 8px;">
+                <div style="font-weight: 700;">Success</div>
+                <div style="font-size: 0.8rem; opacity: 0.9;">Positive actions</div>
+            </div>
+            <div style="background: var(--zak-warning); color: #FFF; padding: 1.5rem; border-radius: 8px;">
+                <div style="font-weight: 700;">Warning</div>
+                <div style="font-size: 0.8rem; opacity: 0.9;">Cautionary items</div>
+            </div>
+            <div style="background: var(--zak-danger); color: #FFF; padding: 1.5rem; border-radius: 8px;">
+                <div style="font-weight: 700;">Danger</div>
+                <div style="font-size: 0.8rem; opacity: 0.9;">Destructive actions</div>
+            </div>
+            <div style="background: var(--zak-info); color: #FFF; padding: 1.5rem; border-radius: 8px;">
+                <div style="font-weight: 700;">Info</div>
+                <div style="font-size: 0.8rem; opacity: 0.9;">System feedback</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Component Integration</h2>
+        <p class="docs-section-desc">Use colors with any Zak component using the <code>ZakColor</code> enum.</p>
+        <ZakDocsExample Title="Semantic Badges" Code="@BadgeExampleCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3" Wrap="true">
+                <ZakBadge Content="Primary" Color="ZakColor.Primary" />
+                <ZakBadge Content="Secondary" Color="ZakColor.Secondary" />
+                <ZakBadge Content="Success" Color="ZakColor.Success" />
+                <ZakBadge Content="Warning" Color="ZakColor.Warning" />
+                <ZakBadge Content="Danger" Color="ZakColor.Danger" />
+                <ZakBadge Content="Info" Color="ZakColor.Info" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+</div>
+
+@code {
+    private const string BadgeExampleCode = @"<ZakBadge Content=""Primary"" Color=""ZakColor.Primary"" />
+<ZakBadge Content=""Success"" Color=""ZakColor.Success"" />
+<ZakBadge Content=""Danger"" Color=""ZakColor.Danger"" />";
+}

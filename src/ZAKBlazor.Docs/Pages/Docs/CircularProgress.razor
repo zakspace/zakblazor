@@ -1,0 +1,57 @@
+@page "/docs/progress-circular"
+@page "/docs/circular-progress"
+
+<PageTitle>Circular Progress — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Circular Progress</h1>
+        <p class="docs-subtitle">Circular spinning indicators and progress rings for indeterminate loaders or quantified percentage completion.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Feedback" Color="ZakColor.Primary" />
+            <ZakBadge Content="Spinner" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Indeterminate Spinners -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Indeterminate Spinners</h2>
+        <p class="docs-section-desc">Available across all standard size tiers and semantic theme colors.</p>
+        <ZakDocsExample Title="Indeterminate Spinners" Code="@SpinnerCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="4">
+                <ZakProgressCircular Indeterminate="true" Size="ZakSize.Small" Color="ZakColor.Primary" />
+                <ZakProgressCircular Indeterminate="true" Size="ZakSize.Medium" Color="ZakColor.Success" />
+                <ZakProgressCircular Indeterminate="true" Size="ZakSize.Large" Color="ZakColor.Warning" />
+                <ZakProgressCircular Indeterminate="true" Size="ZakSize.Large" Color="ZakColor.Danger" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Determinate with Values -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Determinate with Percentage</h2>
+        <p class="docs-section-desc">Pass <code>ShowValue="true"</code> to display centered percentage numbers inside the ring.</p>
+        <ZakDocsExample Title="Determinate Rings" Code="@DeterminateCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="4">
+                <ZakProgressCircular Value="25" ShowValue="true" Color="ZakColor.Primary" Size="ZakSize.Large" />
+                <ZakProgressCircular Value="50" ShowValue="true" Color="ZakColor.Info" Size="ZakSize.Large" />
+                <ZakProgressCircular Value="75" ShowValue="true" Color="ZakColor.Warning" Size="ZakSize.Large" />
+                <ZakProgressCircular Value="100" ShowValue="true" Color="ZakColor.Success" Size="ZakSize.Large" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakProgressCircular" />
+    </div>
+</div>
+
+@code {
+    private const string SpinnerCode = @"<ZakProgressCircular Indeterminate=""true"" Size=""ZakSize.Small"" Color=""ZakColor.Primary"" />
+<ZakProgressCircular Indeterminate=""true"" Size=""ZakSize.Medium"" Color=""ZakColor.Success"" />
+<ZakProgressCircular Indeterminate=""true"" Size=""ZakSize.Large"" Color=""ZakColor.Warning"" />";
+
+    private const string DeterminateCode = @"<ZakProgressCircular Value=""25"" ShowValue=""true"" Color=""ZakColor.Primary"" Size=""ZakSize.Large"" />
+<ZakProgressCircular Value=""75"" ShowValue=""true"" Color=""ZakColor.Warning"" Size=""ZakSize.Large"" />
+<ZakProgressCircular Value=""100"" ShowValue=""true"" Color=""ZakColor.Success"" Size=""ZakSize.Large"" />";
+}

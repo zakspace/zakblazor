@@ -1,0 +1,72 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakInputBase<bool>
+
+<label class="@CompiledLabelClass" style="@CompiledStyle">
+    <input type="checkbox"
+           id="@ElementId"
+           class="zak-checkbox-input"
+           checked="@Value"
+           disabled="@Disabled"
+           required="@Required"
+           aria-checked="@(Value ? "true" : "false")"
+           aria-invalid="@(HasError ? "true" : "false")"
+           @onchange="HandleChangeAsync"
+           @attributes="AdditionalAttributes" />
+
+    <span class="zak-checkbox-box" aria-hidden="true">
+        @if (Value)
+        {
+            <svg class="zak-checkbox-icon" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+        }
+    </span>
+
+    @if (!string.IsNullOrEmpty(Label) || ChildContent != null)
+    {
+        <span class="zak-checkbox-label">
+            @if (!string.IsNullOrEmpty(Label))
+            {
+                @Label
+            }
+            else
+            {
+                @ChildContent
+            }
+        </span>
+    }
+</label>
+
+@if (HasError && !string.IsNullOrEmpty(ValidationErrorMessage))
+{
+    <div class="zak-error-text" role="alert">
+        @ValidationErrorMessage
+    </div>
+}
+else if (!string.IsNullOrEmpty(HelperText))
+{
+    <div class="zak-helper-text">
+        @HelperText
+    </div>
+}
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledLabelClass => CreateClassBuilder("zak-checkbox")
+        .AddClass("zak-checkbox-checked", Value)
+        .AddClass(Color.ToCssClass())
+        .AddClass(Size.ToCssClass())
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task HandleChangeAsync(ChangeEventArgs e)
+    {
+        if (Disabled) return;
+        var isChecked = e.Value is bool b && b;
+        await SetCurrentValueAsync(isChecked);
+    }
+}

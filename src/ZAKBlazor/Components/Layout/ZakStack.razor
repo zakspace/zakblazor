@@ -1,0 +1,43 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public ZakOrientation Orientation { get; set; } = ZakOrientation.Horizontal;
+
+    [Parameter]
+    public int Spacing { get; set; } = 3;
+
+    [Parameter]
+    public ZakAlignment Align { get; set; } = ZakAlignment.Center;
+
+    [Parameter]
+    public ZakJustify Justify { get; set; } = ZakJustify.Start;
+
+    [Parameter]
+    public bool Wrap { get; set; }
+
+    [Parameter]
+    public bool FullWidth { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-stack")
+        .AddClass(Orientation == ZakOrientation.Vertical ? "zak-stack-vertical" : "zak-stack-horizontal")
+        .AddClass($"zak-gap-{Spacing}")
+        .AddClass(Align.ToCssClass())
+        .AddClass(Justify.ToCssClass())
+        .AddClass("zak-stack-wrap", Wrap)
+        .AddClass("zak-stack-full-width", FullWidth)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

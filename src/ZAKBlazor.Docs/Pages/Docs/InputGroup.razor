@@ -1,0 +1,45 @@
+@page "/docs/input-group"
+
+<PageTitle>Input Group — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Input Group</h1>
+        <p class="docs-subtitle">Extend text inputs with prepended and appended icons, currency symbols, domain suffixes, or action buttons.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Addons" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Text Addons -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Prepend & Append Addons</h2>
+        <p class="docs-section-desc">Attach fixed text tags like <code>https://</code> or <code>.com</code> to input controls.</p>
+        <ZakDocsExample Title="Prefix & Suffix Text" Code="@AddonCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4" Style="max-width: 440px;">
+                <ZakInputGroup Label="Subdomain" PrependText="https://" AppendText=".zakblazor.dev">
+                    <input type="text" class="zak-input" placeholder="my-app" />
+                </ZakInputGroup>
+
+                <ZakInputGroup Label="Price / Budget" PrependText="$" AppendText=".00">
+                    <input type="number" class="zak-input" placeholder="250" />
+                </ZakInputGroup>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakInputGroup" />
+    </div>
+</div>
+
+@code {
+    private const string AddonCode = @"<ZakInputGroup Label=""Subdomain"" PrependText=""https://"" AppendText="".zakblazor.dev"">
+    <input type=""text"" class=""zak-input"" placeholder=""my-app"" />
+</ZakInputGroup>
+
+<ZakInputGroup Label=""Price / Budget"" PrependText=""$"" AppendText="".00"">
+    <input type=""number"" class=""zak-input"" placeholder=""250"" />
+</ZakInputGroup>";
+}

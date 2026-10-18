@@ -1,0 +1,54 @@
+@page "/docs/button-toolbar"
+
+<PageTitle>Button Toolbar — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Button Toolbar</h1>
+        <p class="docs-subtitle">Button toolbars combine sets of button groups or action controls into rich, responsive application command bars.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Buttons" Color="ZakColor.Primary" />
+            <ZakBadge Content="Toolbar" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Rich Command Toolbar</h2>
+        <p class="docs-section-desc">Combine multiple <code>ZakButtonGroup</code> components or individual action buttons.</p>
+        <ZakDocsExample Title="Formatting Command Bar" Code="@ToolbarCode">
+            <ZakButtonToolbar AriaLabel="Editor formatting toolbar" Gap="2">
+                <ZakButtonGroup Variant="ZakVariant.Outlined" Size="ZakSize.Small">
+                    <ZakButton><strong>B</strong></ZakButton>
+                    <ZakButton><em>I</em></ZakButton>
+                    <ZakButton><u>U</u></ZakButton>
+                </ZakButtonGroup>
+
+                <ZakButtonGroup Variant="ZakVariant.Outlined" Size="ZakSize.Small">
+                    <ZakButton StartIcon="@ZakIcons.ChevronLeft" />
+                    <ZakButton StartIcon="@ZakIcons.ChevronRight" />
+                </ZakButtonGroup>
+
+                <ZakButtonGroup Variant="ZakVariant.Outlined" Size="ZakSize.Small">
+                    <ZakButton StartIcon="@ZakIcons.Code">Code</ZakButton>
+                    <ZakButton StartIcon="@ZakIcons.Download">Export</ZakButton>
+                </ZakButtonGroup>
+            </ZakButtonToolbar>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakButtonToolbar" />
+    </div>
+</div>
+
+@code {
+    private const string ToolbarCode = @"<ZakButtonToolbar AriaLabel=""Editor formatting toolbar"" Gap=""2"">
+    <ZakButtonGroup Variant=""ZakVariant.Outlined"" Size=""ZakSize.Small"">
+        <ZakButton><strong>B</strong></ZakButton>
+        <ZakButton><em>I</em></ZakButton>
+    </ZakButtonGroup>
+    <ZakButtonGroup Variant=""ZakVariant.Outlined"" Size=""ZakSize.Small"">
+        <ZakButton StartIcon=""@ZakIcons.Code"">Code</ZakButton>
+    </ZakButtonGroup>
+</ZakButtonToolbar>";
+}

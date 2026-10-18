@@ -1,0 +1,386 @@
+@page "/"
+
+<PageTitle>ZAKBlazor — Enterprise Blazor UI Component Library</PageTitle>
+
+<!-- Hero Section -->
+<div class="zak-hero">
+    <ZakContainer MaxWidth="ZakBreakpoint.Lg">
+        <div class="zak-hero-badge">
+            <ZakIcon Icon="@ZakIcons.Sparkles" Size="ZakSize.Small" />
+            <span>ZAKBlazor v1.0 • Enterprise Component System</span>
+        </div>
+
+        <h1 class="zak-hero-title">
+            A Production-Ready Blazor UI Kit.<br />
+            <span class="zak-hero-accent">Pure C# &amp; CSS Design Tokens.</span>
+        </h1>
+
+        <p class="zak-hero-subtitle">
+            Every component is hand-crafted on the ZAK design tokens, with light and dark themes, WCAG AA contrast, five sizes, and enterprise-ready states. Built with zero unnecessary third-party dependencies.
+        </p>
+
+        <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Justify="ZakJustify.Center" Spacing="4" Wrap="true">
+            <ZakButton Variant="ZakVariant.Filled"
+                       Color="ZakColor.Primary"
+                       Size="ZakSize.Large"
+                       Shape="ZakShape.Rounded"
+                       StartIcon="@ZakIcons.Layers"
+                       Href="docs/overview">
+                Explore Components
+            </ZakButton>
+            <ZakButton Variant="ZakVariant.Outlined"
+                       Color="ZakColor.Default"
+                       Size="ZakSize.Large"
+                       Shape="ZakShape.Rounded"
+                       StartIcon="@ZakIcons.LayoutDashboard"
+                       Href="templates">
+                View Templates
+            </ZakButton>
+            <ZakButton Variant="ZakVariant.Text"
+                       Color="ZakColor.Default"
+                       Size="ZakSize.Large"
+                       StartIcon="@ZakIcons.Github"
+                       Href="https://github.com"
+                       Target="_blank">
+                GitHub
+            </ZakButton>
+        </ZakStack>
+
+        <!-- Stats Counter Strip -->
+        <div class="zak-hero-stats">
+            <div class="zak-hero-stat-item">
+                <span class="zak-hero-stat-number">10+</span>
+                <span class="zak-hero-stat-label">Component Galleries</span>
+            </div>
+            <div class="zak-hero-stat-item">
+                <span class="zak-hero-stat-number">60+</span>
+                <span class="zak-hero-stat-label">Handcrafted Primitives</span>
+            </div>
+            <div class="zak-hero-stat-item">
+                <span class="zak-hero-stat-number">2</span>
+                <span class="zak-hero-stat-label">Themes (Light &amp; Dark)</span>
+            </div>
+            <div class="zak-hero-stat-item">
+                <span class="zak-hero-stat-number">AA</span>
+                <span class="zak-hero-stat-label">WCAG 2.1 Accessible</span>
+            </div>
+        </div>
+    </ZakContainer>
+</div>
+
+<ZakContainer MaxWidth="ZakBreakpoint.Lg" Class="zak-docs-page">
+
+    <!-- Interactive Component Preview Banner -->
+    <div style="margin-top: -1rem; margin-bottom: var(--zak-spacing-12);">
+        <ZakBox Padding="6" Elevation="4" Shape="ZakShape.Rounded" Border="true" Style="background: var(--zak-surface);">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="5">
+                <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true" Wrap="true">
+                    <div>
+                        <ZakText Typo="Typo.h5" GutterBottom="true">Live Interactive Component Showcase</ZakText>
+                        <ZakText Typo="Typo.body2">Experience ZAKBlazor buttons, badges, avatars, chips, and layout primitives in real time.</ZakText>
+                    </div>
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="2" Wrap="true">
+                        <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Primary" Size="ZakSize.Small" OnClick="() => _counter++">
+                            Clicked: @_counter
+                        </ZakButton>
+                        <ZakButton Variant="ZakVariant.Soft" Color="ZakColor.Success" Size="ZakSize.Small">
+                            <ZakIcon Icon="@ZakIcons.Check" Size="ZakSize.ExtraSmall" Style="margin-right: 4px;" /> Success
+                        </ZakButton>
+                        <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Warning" Size="ZakSize.Small">Warning</ZakButton>
+                        <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Danger" Size="ZakSize.Small">Danger</ZakButton>
+                    </ZakStack>
+                </ZakStack>
+
+                <ZakDivider />
+
+                <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="4" Wrap="true" Align="ZakAlignment.Center" Justify="ZakJustify.SpaceBetween">
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Wrap="true" Align="ZakAlignment.Center">
+                        <ZakAvatar Text="ZB" Color="ZakColor.Primary" Size="ZakSize.Medium" />
+                        <div>
+                            <ZakText Typo="Typo.subtitle2">Enterprise UI Stack</ZakText>
+                            <ZakText Typo="Typo.caption">Blazor WebAssembly + .NET 8 / 9</ZakText>
+                        </div>
+                        <ZakChip Label="Active" Color="ZakColor.Success" Variant="ZakVariant.Soft" Size="ZakSize.Small" />
+                        <ZakBadge Content="Pro" Color="ZakColor.Secondary" Variant="ZakVariant.Filled" />
+                    </ZakStack>
+
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="2" Align="ZakAlignment.Center">
+                        <ZakSwitch @bind-Value="_liveToggle" Label="@(_liveToggle ? "Enabled" : "Disabled")" Color="ZakColor.Primary" />
+                        <ZakIconButton Icon="@ZakIcons.Bell" Variant="ZakVariant.Outlined" Color="ZakColor.Primary" AriaLabel="Notifications" />
+                        <ZakIconButton Icon="@ZakIcons.Settings" Variant="ZakVariant.Soft" Color="ZakColor.Secondary" AriaLabel="Settings" />
+                    </ZakStack>
+                </ZakStack>
+            </ZakStack>
+        </ZakBox>
+    </div>
+
+    <!-- Basic Setup Section (3 Steps) -->
+    <div style="margin-bottom: var(--zak-spacing-12);">
+        <div style="margin-bottom: 1rem;">
+            <ZakText Typo="Typo.h3" GutterBottom="true">Basic Setup</ZakText>
+            <ZakText Typo="Typo.body1">Three simple steps to start composing with ZAKBlazor — zero Tailwind or complex bundlers required.</ZakText>
+        </div>
+
+        <div class="zak-setup-steps">
+            <div class="zak-setup-step-card">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="zak-setup-step-num">1</div>
+                    <ZakText Typo="Typo.h6">Install the Package</ZakText>
+                </div>
+                <ZakText Typo="Typo.body2">Add the NuGet package to your Blazor project.</ZakText>
+                <div class="zak-example-code" style="border-radius: var(--zak-radius-md); padding: 10px 14px;">
+                    <code>dotnet add package ZAKBlazor</code>
+                </div>
+            </div>
+
+            <div class="zak-setup-step-card">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="zak-setup-step-num">2</div>
+                    <ZakText Typo="Typo.h6">Register Services</ZakText>
+                </div>
+                <ZakText Typo="Typo.body2">Register DI services inside <code>Program.cs</code>.</ZakText>
+                <div class="zak-example-code" style="border-radius: var(--zak-radius-md); padding: 10px 14px;">
+                    <code>builder.Services.AddZAKBlazor();</code>
+                </div>
+            </div>
+
+            <div class="zak-setup-step-card">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="zak-setup-step-num">3</div>
+                    <ZakText Typo="Typo.h6">Wrap with Provider</ZakText>
+                </div>
+                <ZakText Typo="Typo.body2">Wrap your application inside <code>ZakThemeProvider</code>.</ZakText>
+                <div class="zak-example-code" style="border-radius: var(--zak-radius-md); padding: 10px 14px;">
+                    <code>&lt;ZakThemeProvider&gt; ... &lt;/ZakThemeProvider&gt;</code>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Component Galleries Section -->
+    <div style="margin-bottom: var(--zak-spacing-12);">
+        <div style="margin-bottom: 1rem;">
+            <ZakText Typo="Typo.h3" GutterBottom="true">Component Galleries</ZakText>
+            <ZakText Typo="Typo.body1">Every component category ships with complete documentation, live demos, and interactive API tables.</ZakText>
+        </div>
+
+        <div class="zak-category-grid">
+            <!-- Buttons -->
+            <a href="docs/button" class="zak-category-card">
+                <div>
+                    <div class="zak-category-header">
+                        <div class="zak-category-icon-box">
+                            <ZakIcon Icon="@ZakIcons.CheckCircle" Size="ZakSize.Medium" />
+                        </div>
+                        <ZakBadge Content="11+ Variants" Color="ZakColor.Primary" Variant="ZakVariant.Soft" />
+                    </div>
+                    <div class="zak-category-title">Buttons &amp; Actions</div>
+                    <div class="zak-category-desc">Filled, outlined, soft, text buttons, icon buttons, loading states, split buttons, and full size scales.</div>
+                </div>
+                <div class="zak-category-browse">
+                    <span>Browse Buttons</span>
+                    <ZakIcon Icon="@ZakIcons.ChevronRight" Size="ZakSize.ExtraSmall" />
+                </div>
+            </a>
+
+            <!-- Forms & Inputs -->
+            <a href="docs/text-field" class="zak-category-card">
+                <div>
+                    <div class="zak-category-header">
+                        <div class="zak-category-icon-box">
+                            <ZakIcon Icon="@ZakIcons.Edit" Size="ZakSize.Medium" />
+                        </div>
+                        <ZakBadge Content="12+ Inputs" Color="ZakColor.Secondary" Variant="ZakVariant.Soft" />
+                    </div>
+                    <div class="zak-category-title">Forms &amp; Inputs</div>
+                    <div class="zak-category-desc">Text fields, selects, autocomplete, checkboxes, switches, radio groups, sliders, date and color pickers.</div>
+                </div>
+                <div class="zak-category-browse">
+                    <span>Browse Forms</span>
+                    <ZakIcon Icon="@ZakIcons.ChevronRight" Size="ZakSize.ExtraSmall" />
+                </div>
+            </a>
+
+            <!-- Layout & Shell -->
+            <a href="docs/layout" class="zak-category-card">
+                <div>
+                    <div class="zak-category-header">
+                        <div class="zak-category-icon-box">
+                            <ZakIcon Icon="@ZakIcons.LayoutDashboard" Size="ZakSize.Medium" />
+                        </div>
+                        <ZakBadge Content="App Shell" Color="ZakColor.Primary" Variant="ZakVariant.Soft" />
+                    </div>
+                    <div class="zak-category-title">Layout &amp; Shell</div>
+                    <div class="zak-category-desc">ZakLayout, ZakDrawer, ZakAppBar, responsive containers, flex stacks, responsive grids, and box primitives.</div>
+                </div>
+                <div class="zak-category-browse">
+                    <span>Browse Layout</span>
+                    <ZakIcon Icon="@ZakIcons.ChevronRight" Size="ZakSize.ExtraSmall" />
+                </div>
+            </a>
+
+            <!-- Navigation -->
+            <a href="docs/navlink" class="zak-category-card">
+                <div>
+                    <div class="zak-category-header">
+                        <div class="zak-category-icon-box">
+                            <ZakIcon Icon="@ZakIcons.Layers" Size="ZakSize.Medium" />
+                        </div>
+                        <ZakBadge Content="Navigation" Color="ZakColor.Secondary" Variant="ZakVariant.Soft" />
+                    </div>
+                    <div class="zak-category-title">Navigation</div>
+                    <div class="zak-category-desc">ZakNavLink, ZakDrawer, ZakTabs, Breadcrumbs, dropdown menus, and pagination controls.</div>
+                </div>
+                <div class="zak-category-browse">
+                    <span>Browse Navigation</span>
+                    <ZakIcon Icon="@ZakIcons.ChevronRight" Size="ZakSize.ExtraSmall" />
+                </div>
+            </a>
+
+            <!-- Data Display -->
+            <a href="docs/badge" class="zak-category-card">
+                <div>
+                    <div class="zak-category-header">
+                        <div class="zak-category-icon-box">
+                            <ZakIcon Icon="@ZakIcons.FileText" Size="ZakSize.Medium" />
+                        </div>
+                        <ZakBadge Content="Display" Color="ZakColor.Success" Variant="ZakVariant.Soft" />
+                    </div>
+                    <div class="zak-category-title">Data Display</div>
+                    <div class="zak-category-desc">Badges, chips, avatars, stat cards, activity timelines, semantic text, lists, and tree views.</div>
+                </div>
+                <div class="zak-category-browse">
+                    <span>Browse Data Display</span>
+                    <ZakIcon Icon="@ZakIcons.ChevronRight" Size="ZakSize.ExtraSmall" />
+                </div>
+            </a>
+
+            <!-- Tables & Grids -->
+            <a href="docs/datagrid" class="zak-category-card">
+                <div>
+                    <div class="zak-category-header">
+                        <div class="zak-category-icon-box">
+                            <ZakIcon Icon="@ZakIcons.Grid" Size="ZakSize.Medium" />
+                        </div>
+                        <ZakBadge Content="Enterprise" Color="ZakColor.Warning" Variant="ZakVariant.Soft" />
+                    </div>
+                    <div class="zak-category-title">Tables &amp; Grids</div>
+                    <div class="zak-category-desc">Full-featured DataGrid and DataTable with column sorting, live filtering, row selection, and pagination.</div>
+                </div>
+                <div class="zak-category-browse">
+                    <span>Browse Tables</span>
+                    <ZakIcon Icon="@ZakIcons.ChevronRight" Size="ZakSize.ExtraSmall" />
+                </div>
+            </a>
+
+            <!-- Feedback & Overlays -->
+            <a href="docs/dialog" class="zak-category-card">
+                <div>
+                    <div class="zak-category-header">
+                        <div class="zak-category-icon-box">
+                            <ZakIcon Icon="@ZakIcons.Bell" Size="ZakSize.Medium" />
+                        </div>
+                        <ZakBadge Content="Overlays" Color="ZakColor.Danger" Variant="ZakVariant.Soft" />
+                    </div>
+                    <div class="zak-category-title">Feedback &amp; Overlays</div>
+                    <div class="zak-category-desc">Modal dialogs, snackbar toast alerts, circular and linear progress bars, tooltips, and skeleton loaders.</div>
+                </div>
+                <div class="zak-category-browse">
+                    <span>Browse Feedback</span>
+                    <ZakIcon Icon="@ZakIcons.ChevronRight" Size="ZakSize.ExtraSmall" />
+                </div>
+            </a>
+
+            <!-- Theming & Tokens -->
+            <a href="docs/default-theme" class="zak-category-card">
+                <div>
+                    <div class="zak-category-header">
+                        <div class="zak-category-icon-box">
+                            <ZakIcon Icon="@ZakIcons.Sparkles" Size="ZakSize.Medium" />
+                        </div>
+                        <ZakBadge Content="CSS Tokens" Color="ZakColor.Primary" Variant="ZakVariant.Soft" />
+                    </div>
+                    <div class="zak-category-title">Theming &amp; Tokens</div>
+                    <div class="zak-category-desc">Comprehensive CSS variable engine supporting instant light/dark switching and custom palette overrides.</div>
+                </div>
+                <div class="zak-category-browse">
+                    <span>Browse Theming</span>
+                    <ZakIcon Icon="@ZakIcons.ChevronRight" Size="ZakSize.ExtraSmall" />
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Application Templates Showcase -->
+    <div style="margin-bottom: var(--zak-spacing-12);">
+        <div style="margin-bottom: 1rem;">
+            <ZakText Typo="Typo.h3" GutterBottom="true">Application Templates</ZakText>
+            <ZakText Typo="Typo.body1">Full-page, runnable layouts composed using ZAKBlazor primitives.</ZakText>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--zak-spacing-5);">
+            <ZakBox Padding="5" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakText Typo="Typo.h5">SaaS Executive Dashboard</ZakText>
+                    <ZakText Typo="Typo.body2">KPI cards, recurring revenue charts, subscription breakdown, and recent transaction log.</ZakText>
+                    <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Primary" Href="templates" StartIcon="@ZakIcons.LayoutDashboard">
+                        Open Template
+                    </ZakButton>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="5" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakText Typo="Typo.h5">User Settings &amp; Security</ZakText>
+                    <ZakText Typo="Typo.body2">Tabbed settings layout with profile photo upload, password change, appearance theme picker, and switches.</ZakText>
+                    <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Primary" Href="templates" StartIcon="@ZakIcons.Settings">
+                        Open Template
+                    </ZakButton>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="5" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakText Typo="Typo.h5">Analytics &amp; Performance</ZakText>
+                    <ZakText Typo="Typo.body2">Traffic trends, funnel conversion rates, latency statistics, and exportable report summaries.</ZakText>
+                    <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Primary" Href="templates" StartIcon="@ZakIcons.BarChart">
+                        Open Template
+                    </ZakButton>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    </div>
+
+    <!-- Core Architectural Pillars -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--zak-spacing-5); margin-bottom: var(--zak-spacing-12);">
+        <div class="zak-feature-card">
+            <ZakIcon Icon="@ZakIcons.Layers" Color="ZakColor.Primary" Size="ZakSize.Large" Style="margin-bottom: var(--zak-spacing-3);" />
+            <ZakText Typo="Typo.h6" GutterBottom="true">Coherent Architecture</ZakText>
+            <ZakText Typo="Typo.body2">Built around standardized design tokens, composable primitives, and uniform naming and parameter conventions.</ZakText>
+        </div>
+
+        <div class="zak-feature-card">
+            <ZakIcon Icon="@ZakIcons.Sparkles" Color="ZakColor.Secondary" Size="ZakSize.Large" Style="margin-bottom: var(--zak-spacing-3);" />
+            <ZakText Typo="Typo.h6" GutterBottom="true">Dark / Light Theming</ZakText>
+            <ZakText Typo="Typo.body2">CSS custom properties generated dynamically at runtime. Seamless switching with zero page flash.</ZakText>
+        </div>
+
+        <div class="zak-feature-card">
+            <ZakIcon Icon="@ZakIcons.CheckCircle" Color="ZakColor.Success" Size="ZakSize.Large" Style="margin-bottom: var(--zak-spacing-3);" />
+            <ZakText Typo="Typo.h6" GutterBottom="true">WCAG Accessibility</ZakText>
+            <ZakText Typo="Typo.body2">Semantic HTML5 tags, full keyboard navigation, screen reader roles, and visible focus management built-in.</ZakText>
+        </div>
+
+        <div class="zak-feature-card">
+            <ZakIcon Icon="@ZakIcons.Code" Color="ZakColor.Primary" Size="ZakSize.Large" Style="margin-bottom: var(--zak-spacing-3);" />
+            <ZakText Typo="Typo.h6" GutterBottom="true">Minimal JavaScript</ZakText>
+            <ZakText Typo="Typo.body2">Pure Blazor C# component rendering and CSS layout, retaining JavaScript exclusively where browser APIs strictly demand it.</ZakText>
+        </div>
+    </div>
+
+</ZakContainer>
+
+@code {
+    private int _counter = 0;
+    private bool _liveToggle = true;
+}

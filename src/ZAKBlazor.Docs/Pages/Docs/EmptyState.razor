@@ -1,0 +1,49 @@
+@page "/docs/empty-state"
+
+<PageTitle>Empty State — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Empty State</h1>
+        <p class="docs-subtitle">Empty states guide users when there is no data to display, offering helpful explanations and primary call-to-actions.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="UX" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Zero Data Placeholder</h2>
+        <p class="docs-section-desc">Compose with icons, titles, explanations, and action buttons.</p>
+        <ZakDocsExample Title="Empty State Example" Code="@EmptyStateCode">
+            <ZakPaper Elevation="1" Padding="6">
+                <ZakEmptyState Icon="@ZakIcons.Inbox"
+                               Title="No Transactions Found"
+                               Description="You haven't initiated any payment transactions yet. Create your first invoice or transfer to get started.">
+                    <Actions>
+                        <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Primary" StartIcon="@ZakIcons.Layers">
+                            Create First Invoice
+                        </ZakButton>
+                        <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Default">
+                            Learn More
+                        </ZakButton>
+                    </Actions>
+                </ZakEmptyState>
+            </ZakPaper>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakEmptyState" />
+    </div>
+</div>
+
+@code {
+    private const string EmptyStateCode = @"<ZakEmptyState Icon=""@ZakIcons.Inbox""
+               Title=""No Transactions Found""
+               Description=""You haven't initiated any transactions yet."">
+    <Actions>
+        <ZakButton Variant=""ZakVariant.Filled"" Color=""ZakColor.Primary"">Create First Invoice</ZakButton>
+    </Actions>
+</ZakEmptyState>";
+}

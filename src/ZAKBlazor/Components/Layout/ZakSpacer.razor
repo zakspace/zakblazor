@@ -1,0 +1,14 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     aria-hidden="true"
+     @attributes="AdditionalAttributes">
+</div>
+
+@code {
+    private string? CompiledClass => CreateClassBuilder("zak-spacer").Build();
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

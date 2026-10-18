@@ -1,0 +1,73 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @if (Graphic != null)
+    {
+        <div class="zak-empty-state-graphic">
+            @Graphic
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(Icon))
+    {
+        <div class="zak-empty-state-icon">
+            <ZakIcon Icon="@Icon" Size="ZakSize.ExtraLarge" />
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <div class="zak-empty-state-title">@Title</div>
+    }
+
+    @if (!string.IsNullOrEmpty(Description))
+    {
+        <div class="zak-empty-state-desc">@Description</div>
+    }
+
+    @if (ChildContent != null)
+    {
+        <div class="zak-empty-state-body">
+            @ChildContent
+        </div>
+    }
+
+    @if (Actions != null)
+    {
+        <div class="zak-empty-state-actions">
+            @Actions
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Icon { get; set; } = ZakIcons.Inbox;
+
+    [Parameter]
+    public string? Title { get; set; } = "No data found";
+
+    [Parameter]
+    public string? Description { get; set; }
+
+    [Parameter]
+    public bool Compact { get; set; }
+
+    [Parameter]
+    public RenderFragment? Graphic { get; set; }
+
+    [Parameter]
+    public RenderFragment? Actions { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-empty-state")
+        .AddClass("zak-empty-state-compact", Compact)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

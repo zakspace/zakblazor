@@ -1,0 +1,138 @@
+@page "/docs/table"
+
+<PageTitle>Table — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Table</h1>
+        <p class="docs-subtitle">Basic HTML-based table wrapper with styling for striped rows, borders, compact view, and sticky headers.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Semantic HTML" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Basic Table -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Basic Table</h2>
+        <p class="docs-section-desc">Wrap standard <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, and <code>&lt;tr&gt;</code> rows in <code>ZakTable</code>.</p>
+        <ZakDocsExample Title="Standard Table" Code="@BasicTableCode">
+            <ZakTable Striped="true" Hoverable="true">
+                <HeaderContent>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                    </tr>
+                </HeaderContent>
+                <ChildContent>
+                    <tr>
+                        <td><strong>Alex Morgan</strong></td>
+                        <td>Senior Frontend Engineer</td>
+                        <td>Engineering</td>
+                        <td><ZakBadge Content="Active" Color="ZakColor.Success" /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Jordan Lee</strong></td>
+                        <td>Product Designer</td>
+                        <td>Design</td>
+                        <td><ZakBadge Content="Active" Color="ZakColor.Success" /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Samira Khan</strong></td>
+                        <td>Engineering Lead</td>
+                        <td>Platform</td>
+                        <td><ZakBadge Content="On Leave" Color="ZakColor.Warning" /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Taylor Swift</strong></td>
+                        <td>DevOps Architect</td>
+                        <td>Infrastructure</td>
+                        <td><ZakBadge Content="Active" Color="ZakColor.Success" /></td>
+                    </tr>
+                </ChildContent>
+            </ZakTable>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Bordered and Compact -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Bordered & Compact</h2>
+        <p class="docs-section-desc">Enable <code>Bordered="true"</code> and <code>Compact="true"</code> for dense data presentation.</p>
+        <ZakDocsExample Title="Bordered Dense Table" Code="@CompactTableCode">
+            <ZakTable Bordered="true" Compact="true" Hoverable="true">
+                <HeaderContent>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Target</th>
+                        <th>Current</th>
+                        <th>Progress</th>
+                    </tr>
+                </HeaderContent>
+                <ChildContent>
+                    <tr>
+                        <td>API Uptime</td>
+                        <td>99.9%</td>
+                        <td>99.98%</td>
+                        <td><ZakBadge Content="Optimal" Color="ZakColor.Success" /></td>
+                    </tr>
+                    <tr>
+                        <td>P99 Latency</td>
+                        <td>&lt; 150ms</td>
+                        <td>88ms</td>
+                        <td><ZakBadge Content="Optimal" Color="ZakColor.Success" /></td>
+                    </tr>
+                    <tr>
+                        <td>Error Rate</td>
+                        <td>&lt; 0.05%</td>
+                        <td>0.02%</td>
+                        <td><ZakBadge Content="Optimal" Color="ZakColor.Success" /></td>
+                    </tr>
+                </ChildContent>
+            </ZakTable>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakTable" />
+    </div>
+</div>
+
+@code {
+    private const string BasicTableCode = @"<ZakTable Striped=""true"" Hoverable=""true"">
+    <HeaderContent>
+        <tr>
+            <th>Employee</th>
+            <th>Role</th>
+            <th>Department</th>
+            <th>Status</th>
+        </tr>
+    </HeaderContent>
+    <ChildContent>
+        <tr>
+            <td><strong>Alex Morgan</strong></td>
+            <td>Senior Engineer</td>
+            <td>Engineering</td>
+            <td><ZakBadge Content=""Active"" Color=""ZakColor.Success"" /></td>
+        </tr>
+    </ChildContent>
+</ZakTable>";
+
+    private const string CompactTableCode = @"<ZakTable Bordered=""true"" Compact=""true"" Hoverable=""true"">
+    <HeaderContent>
+        <tr>
+            <th>Metric</th>
+            <th>Target</th>
+            <th>Current</th>
+        </tr>
+    </HeaderContent>
+    <ChildContent>
+        <tr>
+            <td>API Uptime</td>
+            <td>99.9%</td>
+            <td>99.98%</td>
+        </tr>
+    </ChildContent>
+</ZakTable>";
+}

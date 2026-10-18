@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZAKBlazor — Modern, Accessible Blazor UI Framework</title>
+    <base href="/" />
+    <!-- Modern Typography: Inter & Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- ZAKBlazor Library Stylesheet -->
+    <link rel="stylesheet" href="_content/ZAKBlazor/css/zakblazor.css" />
+    <!-- Docs App Styles -->
+    <link rel="stylesheet" href="css/docs.css" />
+    <link rel="icon" type="image/png" href="images/favicon.ico" />
+</head>
+
+<body>
+    <div id="app">
+        <div
+            style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: 'Inter', sans-serif; color: #FFFFFF;">
+            <img src="images/logo.svg" alt="ZAKBlazor Logo"
+                style="width: 72px; height: 72px; margin-bottom: 24px; animation: pulse 2s infinite ease-in-out;" />
+            <div style="font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px;">ZAKBlazor
+            </div>
+            <div style="font-size: 0.875rem; color: #94A3B8;">Loading component system...</div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui"
+        style="display: none; position: fixed; bottom: 16px; right: 16px; background: #EF4444; color: #FFFFFF; padding: 12px 20px; border-radius: 8px; z-index: 99999; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+        An unhandled error has occurred.
+        <a href="." class="reload" style="color: #FFFFFF; text-decoration: underline; margin-left: 8px;">Reload</a>
+        <span class="dismiss" style="cursor: pointer; margin-left: 12px;">✕</span>
+    </div>
+    <!-- ZAKBlazor Minimal JS Interop -->
+    <script src="_content/ZAKBlazor/js/zakblazor.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+</body>
+
+</html>

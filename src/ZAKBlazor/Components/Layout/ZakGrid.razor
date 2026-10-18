@@ -1,0 +1,36 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public int? Columns { get; set; }
+
+    [Parameter]
+    public bool AutoFit { get; set; }
+
+    [Parameter]
+    public string MinItemWidth { get; set; } = "260px";
+
+    [Parameter]
+    public int Spacing { get; set; } = 4;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-grid")
+        .AddClass($"zak-grid-cols-{Columns}", Columns.HasValue && !AutoFit)
+        .AddClass("zak-grid-autofit", AutoFit)
+        .AddClass($"zak-gap-{Spacing}")
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder()
+        .AddStyle("--zak-grid-min-width", MinItemWidth, AutoFit)
+        .Build();
+}

@@ -1,0 +1,54 @@
+@page "/docs/autocomplete"
+
+<PageTitle>Autocomplete — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Autocomplete</h1>
+        <p class="docs-subtitle">Autocomplete provides real-time search suggestions with debounced querying, custom item templates, and keyboard navigation.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Async Search" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Search Suggestions</h2>
+        <p class="docs-section-desc">Type into the input to search through a dynamically filtered list.</p>
+        <ZakDocsExample Title="Country Autocomplete" Code="@AutoCode">
+            <div style="max-width: 400px;">
+                <ZakAutocomplete T="string" Label="Select Country" Placeholder="Type to search countries..." @bind-Value="_selectedCountry" SearchFunc="SearchCountriesAsync" />
+                <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--zak-text-secondary);">
+                    Selected: <strong>@(_selectedCountry ?? "None")</strong>
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakAutocomplete" />
+    </div>
+</div>
+
+@code {
+    private string? _selectedCountry;
+
+    private readonly List<string> _countries = new()
+    {
+        "United States", "Canada", "United Kingdom", "Germany", "France",
+        "Japan", "Australia", "Brazil", "India", "Singapore", "Netherlands"
+    };
+
+    private Task<IEnumerable<string>> SearchCountriesAsync(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Task.FromResult<IEnumerable<string>>(_countries);
+
+        return Task.FromResult(_countries.Where(c => c.Contains(value, StringComparison.OrdinalIgnoreCase)));
+    }
+
+    private const string AutoCode = @"<ZakAutocomplete T=""string""
+                 Label=""Select Country""
+                 @bind-Value=""_selectedCountry""
+                 SearchFunc=""SearchCountriesAsync"" />";
+}

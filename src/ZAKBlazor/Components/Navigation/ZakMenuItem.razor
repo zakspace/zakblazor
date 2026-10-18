@@ -1,0 +1,81 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+@if (IsDivider)
+{
+    <div class="zak-menu-item-divider" role="separator" aria-hidden="true"></div>
+}
+else
+{
+    <div id="@ElementId"
+         role="menuitem"
+         tabindex="@(Disabled ? -1 : 0)"
+         aria-disabled="@(Disabled ? "true" : null)"
+         class="@CompiledClass"
+         style="@CompiledStyle"
+         @onclick="HandleClickAsync"
+         @attributes="AdditionalAttributes">
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <ZakIcon Icon="@Icon" Size="ZakSize.Small" Class="zak-menu-item-icon" />
+        }
+
+        <span class="zak-menu-item-text">
+            @if (ChildContent != null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                @Text
+            }
+        </span>
+
+        @if (!string.IsNullOrEmpty(Shortcut))
+        {
+            <span class="zak-menu-item-shortcut">@Shortcut</span>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string? Text { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public string? Shortcut { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public bool Danger { get; set; }
+
+    [Parameter]
+    public bool IsDivider { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-menu-item")
+        .AddClass("zak-menu-item-danger", Danger)
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task HandleClickAsync(MouseEventArgs args)
+    {
+        if (Disabled) return;
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(args);
+        }
+    }
+}

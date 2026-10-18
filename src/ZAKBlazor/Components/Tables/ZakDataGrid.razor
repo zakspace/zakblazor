@@ -1,0 +1,345 @@
+@namespace ZAKBlazor
+@typeparam TItem
+@implements IZakColumnHost<TItem>
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<CascadingValue Value="this" IsFixed="true">
+    @Columns
+</CascadingValue>
+
+<div id="@ElementId" class="@CompiledClass" style="@CompiledStyle" @attributes="AdditionalAttributes">
+    <!-- Toolbar -->
+    <div class="zak-datagrid-toolbar">
+        <div style="display:flex; align-items:center; gap: var(--zak-spacing-3);">
+            @if (!string.IsNullOrEmpty(Title))
+            {
+                <span class="zak-datagrid-title">@Title</span>
+            }
+            @if (ToolbarContent != null)
+            {
+                @ToolbarContent
+            }
+        </div>
+        <div class="zak-datagrid-actions">
+            @if (Searchable)
+            {
+                <div class="zak-datagrid-search">
+                    <ZakTextField @bind-Value="_searchQuery"
+                                  Placeholder="Search..."
+                                  Size="ZakSize.Small"
+                                  StartIcon="@ZakIcons.Search"
+                                  Clearable="true" />
+                </div>
+            }
+            @if (ActionsContent != null)
+            {
+                @ActionsContent
+            }
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="zak-table-container @(StickyHeader ? "zak-table-sticky-header" : "")">
+        <table class="zak-table @(Striped ? "zak-table-striped" : "") @(Hoverable ? "zak-table-hoverable" : "") @(Compact ? "zak-table-compact" : "")">
+            <thead>
+                <tr>
+                    @if (Selectable)
+                    {
+                        <th class="zak-table-cell-checkbox">
+                            <ZakCheckbox Value="@IsAllSelected"
+                                         ValueChanged="HandleSelectAllChangedAsync"
+                                         AriaLabel="Select all rows" />
+                        </th>
+                    }
+                    @foreach (var col in _columns)
+                    {
+                        var isCurrentSort = _sortColumn == col;
+                        <th class="@(col.Sortable ? "zak-table-th-sortable" : "") @(isCurrentSort ? "zak-table-sort-active" : "")"
+                            style="@(col.Width != null ? $"width:{col.Width};" : "")"
+                            @onclick="() => HandleSortAsync(col)">
+                            <div class="zak-table-th-content">
+                                <span>@(col.Title ?? col.Field)</span>
+                                @if (col.Sortable)
+                                {
+                                    <span class="zak-table-sort-icon" aria-hidden="true">
+                                        <ZakIcon Icon="@(isCurrentSort && _sortDescending ? ZakIcons.ChevronDown : ZakIcons.ChevronUp)"
+                                                 Size="ZakSize.ExtraSmall" />
+                                    </span>
+                                }
+                            </div>
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (PageItems.Any())
+                {
+                    @foreach (var item in PageItems)
+                    {
+                        var isSelected = SelectedItems.Contains(item);
+                        <tr class="@(isSelected ? "zak-row-selected" : "")"
+                            @onclick="() => HandleRowClickAsync(item)">
+                            @if (Selectable)
+                            {
+                                <td class="zak-table-cell-checkbox" @onclick:stopPropagation="true">
+                                    <ZakCheckbox Value="@isSelected"
+                                                 ValueChanged="(b) => HandleRowSelectionChangedAsync(item, b)"
+                                                 AriaLabel="Select row" />
+                                </td>
+                            }
+                            @foreach (var col in _columns)
+                            {
+                                <td style="@ResolveAlignment(col.Align)">
+                                    @if (col.Template != null)
+                                    {
+                                        @col.Template(item)
+                                    }
+                                    else if (col.Property != null)
+                                    {
+                                        @col.Property(item)?.ToString()
+                                    }
+                                    else if (!string.IsNullOrEmpty(col.Field))
+                                    {
+                                        @GetPropertyValue(item, col.Field)
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="@TotalColSpan" class="zak-table-empty">
+                            @if (EmptyContent != null)
+                            {
+                                @EmptyContent
+                            }
+                            else
+                            {
+                                <ZakText Typo="Typo.body2">@EmptyText</ZakText>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer with pagination -->
+    @if (ProcessedItems.Any())
+    {
+        <div class="zak-datagrid-footer">
+            <span class="zak-pagination-info">
+                @if (Selectable && SelectedItems.Any())
+                {
+                    <span>@SelectedItems.Count selected · </span>
+                }
+                @ProcessedItems.Count() of @(Items?.Count() ?? 0) rows
+            </span>
+            <ZakPagination TotalItems="@ProcessedItems.Count()"
+                           PageSize="@PageSize"
+                           PageSizeChanged="HandlePageSizeChanged"
+                           CurrentPage="@_currentPage"
+                           CurrentPageChanged="HandleCurrentPageChanged"
+                           ShowPageSize="@ShowPageSizeOptions"
+                           ShowInfo="false" />
+        </div>
+    }
+</div>
+
+@code {
+    private readonly List<ZakTableColumn<TItem>> _columns = new();
+    private ZakTableColumn<TItem>? _sortColumn;
+    private bool _sortDescending;
+    private int _currentPage = 1;
+    private string _searchQuery = string.Empty;
+
+    [Parameter]
+    public IEnumerable<TItem>? Items { get; set; }
+
+    [Parameter]
+    public RenderFragment? Columns { get; set; }
+
+    [Parameter]
+    public RenderFragment? EmptyContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ToolbarContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ActionsContent { get; set; }
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string EmptyText { get; set; } = "No matching records found.";
+
+    [Parameter]
+    public bool Striped { get; set; } = true;
+
+    [Parameter]
+    public bool Hoverable { get; set; } = true;
+
+    [Parameter]
+    public bool Compact { get; set; }
+
+    [Parameter]
+    public bool StickyHeader { get; set; }
+
+    [Parameter]
+    public bool Selectable { get; set; }
+
+    [Parameter]
+    public bool Searchable { get; set; } = true;
+
+    [Parameter]
+    public HashSet<TItem> SelectedItems { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<HashSet<TItem>> SelectedItemsChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<TItem> OnRowClick { get; set; }
+
+    [Parameter]
+    public int PageSize { get; set; } = 10;
+
+    [Parameter]
+    public bool ShowPageSizeOptions { get; set; } = true;
+
+    [Parameter]
+    public Func<TItem, string, bool>? SearchFilter { get; set; }
+
+    public void RegisterColumn(ZakTableColumn<TItem> column)
+    {
+        if (!_columns.Contains(column))
+        {
+            _columns.Add(column);
+            StateHasChanged();
+        }
+    }
+
+    public void UnregisterColumn(ZakTableColumn<TItem> column)
+    {
+        _columns.Remove(column);
+        StateHasChanged();
+    }
+
+    private int TotalColSpan => _columns.Count + (Selectable ? 1 : 0);
+
+    private bool IsAllSelected =>
+        ProcessedItems.Any() && ProcessedItems.All(i => SelectedItems.Contains(i));
+
+    private string? CompiledClass => CreateClassBuilder("zak-datagrid").Build();
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private IEnumerable<TItem> ProcessedItems
+    {
+        get
+        {
+            if (Items == null) return Enumerable.Empty<TItem>();
+            var query = Items;
+
+            // Search
+            if (!string.IsNullOrWhiteSpace(_searchQuery))
+            {
+                if (SearchFilter != null)
+                {
+                    query = query.Where(i => SearchFilter(i, _searchQuery));
+                }
+                else
+                {
+                    query = query.Where(i =>
+                        _columns.Any(col =>
+                        {
+                            string? val = col.Property != null
+                                ? col.Property(i)?.ToString()
+                                : GetPropertyValue(i, col.Field ?? "")?.ToString();
+                            return val?.Contains(_searchQuery, StringComparison.OrdinalIgnoreCase) == true;
+                        }));
+                }
+            }
+
+            // Sort
+            if (_sortColumn != null)
+            {
+                if (_sortColumn.Property != null)
+                {
+                    query = _sortDescending
+                        ? query.OrderByDescending(_sortColumn.Property)
+                        : query.OrderBy(_sortColumn.Property);
+                }
+                else if (!string.IsNullOrEmpty(_sortColumn.Field))
+                {
+                    query = _sortDescending
+                        ? query.OrderByDescending(i => GetPropertyValue(i, _sortColumn.Field))
+                        : query.OrderBy(i => GetPropertyValue(i, _sortColumn.Field));
+                }
+            }
+
+            return query;
+        }
+    }
+
+    private IEnumerable<TItem> PageItems =>
+        ProcessedItems.Skip((_currentPage - 1) * PageSize).Take(PageSize);
+
+    private static string ResolveAlignment(ZakAlignment align) => align switch
+    {
+        ZakAlignment.Center => "text-align: center;",
+        ZakAlignment.End => "text-align: right;",
+        _ => "text-align: left;"
+    };
+
+    private static object? GetPropertyValue(TItem item, string propertyName)
+    {
+        if (item == null || string.IsNullOrEmpty(propertyName)) return null;
+        var prop = typeof(TItem).GetProperty(propertyName);
+        return prop?.GetValue(item);
+    }
+
+    private void HandleSortAsync(ZakTableColumn<TItem> col)
+    {
+        if (!col.Sortable) return;
+        if (_sortColumn == col)
+            _sortDescending = !_sortDescending;
+        else
+        {
+            _sortColumn = col;
+            _sortDescending = false;
+        }
+        _currentPage = 1;
+    }
+
+    private async Task HandleRowClickAsync(TItem item)
+    {
+        if (OnRowClick.HasDelegate)
+            await OnRowClick.InvokeAsync(item);
+    }
+
+    private async Task HandleRowSelectionChangedAsync(TItem item, bool isSelected)
+    {
+        if (isSelected) SelectedItems.Add(item);
+        else SelectedItems.Remove(item);
+        await SelectedItemsChanged.InvokeAsync(SelectedItems);
+    }
+
+    private async Task HandleSelectAllChangedAsync(bool isAllSelected)
+    {
+        if (isAllSelected)
+            foreach (var item in ProcessedItems) SelectedItems.Add(item);
+        else
+            SelectedItems.Clear();
+        await SelectedItemsChanged.InvokeAsync(SelectedItems);
+    }
+
+    private void HandleCurrentPageChanged(int page) => _currentPage = page;
+
+    private void HandlePageSizeChanged(int size)
+    {
+        PageSize = size;
+        _currentPage = 1;
+    }
+}

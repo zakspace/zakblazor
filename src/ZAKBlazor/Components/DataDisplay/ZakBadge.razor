@@ -1,0 +1,97 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+@if (ChildContent != null)
+{
+    <div id="@ElementId"
+         class="@WrapperClass"
+         style="@CompiledStyle"
+         @attributes="AdditionalAttributes">
+        @ChildContent
+        @if (Visible)
+        {
+            <span class="@BadgeClass" aria-hidden="true">
+                @if (!Dot)
+                {
+                    @FormatContent()
+                }
+            </span>
+        }
+    </div>
+}
+else if (Visible)
+{
+    <span id="@ElementId"
+          class="@StandaloneBadgeClass"
+          style="@CompiledStyle"
+          @attributes="AdditionalAttributes">
+        @if (!Dot)
+        {
+            @FormatContent()
+        }
+    </span>
+}
+
+@code {
+    [Parameter]
+    public string? Content { get; set; }
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Danger;
+
+    [Parameter]
+    public ZakPlacement Placement { get; set; } = ZakPlacement.TopEnd;
+
+    [Parameter]
+    public bool Dot { get; set; }
+
+    [Parameter]
+    public int Max { get; set; } = 99;
+
+    [Parameter]
+    public bool Overlap { get; set; }
+
+    [Parameter]
+    public bool Pulse { get; set; }
+
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? WrapperClass => CreateClassBuilder("zak-badge-wrapper").Build();
+
+    private string? BadgeClass => ZakClassBuilder.Create("zak-badge")
+        .AddClass(Color.ToCssClass("zak-badge-"))
+        .AddClass(ResolvePlacementClass())
+        .AddClass("zak-badge-dot", Dot)
+        .AddClass("zak-badge-overlap", Overlap)
+        .AddClass("zak-badge-pulse", Pulse)
+        .Build();
+
+    private string? StandaloneBadgeClass => ZakClassBuilder.Create("zak-badge zak-badge-standalone")
+        .AddClass(Color.ToCssClass("zak-badge-"))
+        .AddClass("zak-badge-dot", Dot)
+        .AddClass("zak-badge-pulse", Pulse)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private string ResolvePlacementClass() => Placement switch
+    {
+        ZakPlacement.TopStart => "zak-badge-top-start",
+        ZakPlacement.BottomStart => "zak-badge-bottom-start",
+        ZakPlacement.BottomEnd => "zak-badge-bottom-end",
+        _ => "zak-badge-top-end"
+    };
+
+    private string? FormatContent()
+    {
+        if (int.TryParse(Content, out var number))
+        {
+            return number > Max ? $"{Max}+" : number.ToString();
+        }
+        return Content;
+    }
+}

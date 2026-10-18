@@ -1,0 +1,59 @@
+@page "/docs/avatar-group"
+
+<PageTitle>Avatar Group — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Avatar Group</h1>
+        <p class="docs-subtitle">Displays a stack of overlapping user avatars with automatic overflow count indicator.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Team" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Standard Avatar Group -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Stacked Avatars</h2>
+        <p class="docs-section-desc">Wrap multiple <code>ZakAvatar</code> components inside <code>ZakAvatarGroup</code>. Set <code>Max</code> to limit visible faces.</p>
+        <ZakDocsExample Title="Team Avatars" Code="@GroupCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                <div>
+                    <ZakText Typo="Typo.caption" GutterBottom="true">Default Max (4)</ZakText>
+                    <ZakAvatarGroup Max="4">
+                        <ZakAvatar Text="Sarah Connor" Color="ZakColor.Primary" />
+                        <ZakAvatar Text="John Doe" Color="ZakColor.Success" />
+                        <ZakAvatar Text="Alex Miller" Color="ZakColor.Warning" />
+                        <ZakAvatar Text="David Kim" Color="ZakColor.Danger" />
+                        <ZakAvatar Text="Emma Watson" Color="ZakColor.Info" />
+                        <ZakAvatar Text="Peter Parker" Color="ZakColor.Secondary" />
+                    </ZakAvatarGroup>
+                </div>
+
+                <div>
+                    <ZakText Typo="Typo.caption" GutterBottom="true">Compact Stack (Max 3)</ZakText>
+                    <ZakAvatarGroup Max="3">
+                        <ZakAvatar Size="ZakSize.Small" Text="A" Color="ZakColor.Primary" />
+                        <ZakAvatar Size="ZakSize.Small" Text="B" Color="ZakColor.Success" />
+                        <ZakAvatar Size="ZakSize.Small" Text="C" Color="ZakColor.Warning" />
+                        <ZakAvatar Size="ZakSize.Small" Text="D" Color="ZakColor.Danger" />
+                    </ZakAvatarGroup>
+                </div>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakAvatarGroup" />
+    </div>
+</div>
+
+@code {
+    private const string GroupCode = @"<ZakAvatarGroup Max=""4"">
+    <ZakAvatar Text=""Sarah Connor"" Color=""ZakColor.Primary"" />
+    <ZakAvatar Text=""John Doe"" Color=""ZakColor.Success"" />
+    <ZakAvatar Text=""Alex Miller"" Color=""ZakColor.Warning"" />
+    <ZakAvatar Text=""David Kim"" Color=""ZakColor.Danger"" />
+    <ZakAvatar Text=""Emma Watson"" Color=""ZakColor.Info"" />
+</ZakAvatarGroup>";
+}

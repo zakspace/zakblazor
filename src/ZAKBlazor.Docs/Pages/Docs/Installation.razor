@@ -1,0 +1,85 @@
+@page "/docs/installation"
+
+<PageTitle>Installation — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Installation</h1>
+        <p class="docs-subtitle">Follow these quick steps to install and configure ZAKBlazor in your Blazor application.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Quickstart" Color="ZakColor.Success" />
+            <ZakBadge Content="NuGet" Color="ZakColor.Primary" />
+        </div>
+    </div>
+
+    <!-- Step 1: Add Package -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">1. Install NuGet Package</h2>
+        <p class="docs-section-desc">Add the ZAKBlazor package via the .NET CLI or NuGet Package Manager.</p>
+        <ZakDocsExample Title=".NET CLI" Code="dotnet add package ZAKBlazor">
+            <code>dotnet add package ZAKBlazor</code>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Step 2: Register Services -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">2. Register Services in Program.cs</h2>
+        <p class="docs-section-desc">Call <code>AddZAKBlazor()</code> on your service collection in <code>Program.cs</code>.</p>
+        <ZakDocsExample Title="Program.cs" Code="@ProgramCsCode">
+            <pre><code>builder.Services.AddZAKBlazor();</code></pre>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Step 3: Global Imports -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">3. Add Global Using in _Imports.razor</h2>
+        <p class="docs-section-desc">Include the namespace in your project's <code>_Imports.razor</code> for easy access.</p>
+        <ZakDocsExample Title="_Imports.razor" Code="@ImportsCode">
+            <pre><code>@@using ZAKBlazor</code></pre>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Step 4: Include Styles and Scripts -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">4. Include Static Assets in App.razor or index.html</h2>
+        <p class="docs-section-desc">Reference the CSS design tokens and the minimal JavaScript interop helper.</p>
+        <ZakDocsExample Title="index.html / App.razor" Code="@AssetsCode">
+            <pre><code>&lt;link rel="stylesheet" href="_content/ZAKBlazor/css/zakblazor.css" /&gt;
+&lt;script src="_content/ZAKBlazor/js/zakblazor.js"&gt;&lt;/script&gt;</code></pre>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Step 5: Layout Providers -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">5. Add Providers in MainLayout.razor</h2>
+        <p class="docs-section-desc">Add the Theme, Dialog, and Snackbar providers to your root layout.</p>
+        <ZakDocsExample Title="MainLayout.razor" Code="@LayoutCode">
+            <pre><code>&lt;ZakThemeProvider /&gt;
+&lt;ZakDialogProvider /&gt;
+&lt;ZakSnackbarProvider /&gt;</code></pre>
+        </ZakDocsExample>
+    </div>
+</div>
+@code {
+    private const string ProgramCsCode = @"using ZAKBlazor;
+
+builder.Services.AddZAKBlazor();";
+
+    private const string ImportsCode = @"@using ZAKBlazor
+@using ZAKBlazor.Services
+@using ZAKBlazor.Primitives";
+
+    private const string AssetsCode = @"<!-- Inside <head> -->
+<link rel=""stylesheet"" href=""_content/ZAKBlazor/css/zakblazor.css"" />
+
+<!-- Inside <body> before closing tag -->
+<script src=""_content/ZAKBlazor/js/zakblazor.js""></script>";
+
+    private const string LayoutCode = @"<ZakThemeProvider />
+<ZakDialogProvider />
+<ZakSnackbarProvider />
+
+<ZakLayout>
+    @Body
+</ZakLayout>";
+}

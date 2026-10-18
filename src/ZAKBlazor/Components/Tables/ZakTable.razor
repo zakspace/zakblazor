@@ -1,0 +1,89 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+@if (Responsive)
+{
+    <div class="zak-table-container @(StickyHeader ? "zak-table-sticky-header" : "")">
+        <table id="@ElementId"
+               class="@CompiledClass"
+               style="@CompiledStyle"
+               @attributes="AdditionalAttributes">
+            @if (HeaderContent != null)
+            {
+                <thead>
+                    @HeaderContent
+                </thead>
+            }
+            <tbody>
+                @ChildContent
+            </tbody>
+            @if (FooterContent != null)
+            {
+                <tfoot>
+                    @FooterContent
+                </tfoot>
+            }
+        </table>
+    </div>
+}
+else
+{
+    <table id="@ElementId"
+           class="@CompiledClass"
+           style="@CompiledStyle"
+           @attributes="AdditionalAttributes">
+        @if (HeaderContent != null)
+        {
+            <thead>
+                @HeaderContent
+            </thead>
+        }
+        <tbody>
+            @ChildContent
+        </tbody>
+        @if (FooterContent != null)
+        {
+            <tfoot>
+                @FooterContent
+            </tfoot>
+        }
+    </table>
+}
+
+@code {
+    [Parameter]
+    public bool Striped { get; set; }
+
+    [Parameter]
+    public bool Bordered { get; set; }
+
+    [Parameter]
+    public bool Hoverable { get; set; } = true;
+
+    [Parameter]
+    public bool Compact { get; set; }
+
+    [Parameter]
+    public bool Responsive { get; set; } = true;
+
+    [Parameter]
+    public bool StickyHeader { get; set; }
+
+    [Parameter]
+    public RenderFragment? HeaderContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? FooterContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-table")
+        .AddClass("zak-table-striped", Striped)
+        .AddClass("zak-table-bordered", Bordered)
+        .AddClass("zak-table-hoverable", Hoverable)
+        .AddClass("zak-table-compact", Compact)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

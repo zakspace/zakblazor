@@ -1,0 +1,47 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public ZakOrientation Direction { get; set; } = ZakOrientation.Horizontal;
+
+    [Parameter]
+    public bool Inline { get; set; }
+
+    [Parameter]
+    public bool Wrap { get; set; }
+
+    [Parameter]
+    public ZakAlignment Align { get; set; } = ZakAlignment.Start;
+
+    [Parameter]
+    public ZakJustify Justify { get; set; } = ZakJustify.Start;
+
+    [Parameter]
+    public int? Gap { get; set; }
+
+    [Parameter]
+    public bool FullWidth { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder(Inline ? "zak-inline-flex" : "zak-flex")
+        .AddClass(Direction == ZakOrientation.Vertical ? "zak-flex-column" : "zak-flex-row")
+        .AddClass("zak-flex-wrap", Wrap)
+        .AddClass("zak-flex-nowrap", !Wrap)
+        .AddClass(Align.ToCssClass())
+        .AddClass(Justify.ToCssClass())
+        .AddClass($"zak-gap-{Gap}", Gap.HasValue)
+        .AddClass("zak-flex-full-width", FullWidth)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

@@ -1,0 +1,38 @@
+@page "/docs/icon-button"
+
+<PageTitle>Icon Button — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Icon Button</h1>
+        <p class="docs-subtitle">Compact circular or square icon buttons for toolbars, headers, table rows, and secondary actions.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Action" Color="ZakColor.Primary" />
+            <ZakBadge Content="Compact" Color="ZakColor.Default" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Variants &amp; Sizes</h2>
+        <p class="docs-section-desc">Combine variants and semantic colors with any icon from the ZAK icon set.</p>
+        <ZakDocsExample Title="Icon Buttons" Code="@IconBtnCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3" Wrap="true">
+                <ZakIconButton Icon="@ZakIcons.Heart" Variant="ZakVariant.Filled" Color="ZakColor.Danger" AriaLabel="Like" />
+                <ZakIconButton Icon="@ZakIcons.Share" Variant="ZakVariant.Outlined" Color="ZakColor.Primary" AriaLabel="Share" />
+                <ZakIconButton Icon="@ZakIcons.Bookmark" Variant="ZakVariant.Soft" Color="ZakColor.Success" AriaLabel="Bookmark" />
+                <ZakIconButton Icon="@ZakIcons.MoreVertical" Variant="ZakVariant.Text" Color="ZakColor.Default" AriaLabel="More" />
+                <ZakIconButton Icon="@ZakIcons.Settings" Size="ZakSize.Large" Color="ZakColor.Primary" AriaLabel="Settings" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakIconButton" />
+    </div>
+</div>
+
+@code {
+    private const string IconBtnCode = @"<ZakIconButton Icon=""@ZakIcons.Heart"" Variant=""ZakVariant.Filled"" Color=""ZakColor.Danger"" AriaLabel=""Like"" />
+<ZakIconButton Icon=""@ZakIcons.Share"" Variant=""ZakVariant.Outlined"" Color=""ZakColor.Primary"" AriaLabel=""Share"" />
+<ZakIconButton Icon=""@ZakIcons.Bookmark"" Variant=""ZakVariant.Soft"" Color=""ZakColor.Success"" AriaLabel=""Bookmark"" />";
+}

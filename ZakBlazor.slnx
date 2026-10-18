@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ZAKBlazor.Docs/ZAKBlazor.Docs.csproj" />
+    <Project Path="src/ZAKBlazor.Samples/ZAKBlazor.Samples.csproj" />
+    <Project Path="src/ZAKBlazor/ZAKBlazor.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ZAKBlazor.Tests/ZAKBlazor.Tests.csproj" />
+  </Folder>
+</Solution>

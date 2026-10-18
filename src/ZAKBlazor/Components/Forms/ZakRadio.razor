@@ -1,0 +1,67 @@
+@namespace ZAKBlazor
+@typeparam TValue
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<label class="@CompiledLabelClass" style="@CompiledStyle">
+    <input type="radio"
+           id="@ElementId"
+           name="@ParentGroup?.ElementId"
+           class="zak-radio-input"
+           checked="@IsChecked"
+           disabled="@(Disabled || (ParentGroup?.Disabled ?? false))"
+           @onchange="HandleChangeAsync"
+           @attributes="AdditionalAttributes" />
+
+    <span class="zak-radio-circle" aria-hidden="true">
+        <span class="zak-radio-dot"></span>
+    </span>
+
+    @if (!string.IsNullOrEmpty(Label) || ChildContent != null)
+    {
+        <span class="zak-radio-label">
+            @if (!string.IsNullOrEmpty(Label))
+            {
+                @Label
+            }
+            else
+            {
+                @ChildContent
+            }
+        </span>
+    }
+</label>
+
+@code {
+    [CascadingParameter]
+    public ZakRadioGroup<TValue>? ParentGroup { get; set; }
+
+    [Parameter]
+    public TValue? Value { get; set; }
+
+    [Parameter]
+    public string? Label { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool IsChecked => ParentGroup?.IsSelected(Value) ?? false;
+
+    private string? CompiledLabelClass => CreateClassBuilder("zak-radio")
+        .AddClass("zak-radio-checked", IsChecked)
+        .AddClass("zak-disabled", Disabled || (ParentGroup?.Disabled ?? false))
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task HandleChangeAsync(ChangeEventArgs e)
+    {
+        if (Disabled || (ParentGroup?.Disabled ?? false)) return;
+        if (ParentGroup != null)
+        {
+            await ParentGroup.SelectValueAsync(Value);
+        }
+    }
+}

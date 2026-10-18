@@ -1,0 +1,37 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     role="toolbar"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     aria-label="@AriaLabel"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public ZakJustify Justify { get; set; } = ZakJustify.Start;
+
+    [Parameter]
+    public int Gap { get; set; } = 2;
+
+    [Parameter]
+    public bool Wrap { get; set; } = true;
+
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-btn-toolbar")
+        .AddClass(Justify.ToCssClass())
+        .AddClass($"zak-gap-{Gap}")
+        .AddClass("zak-toolbar-wrap", Wrap)
+        .AddClass("zak-toolbar-nowrap", !Wrap)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

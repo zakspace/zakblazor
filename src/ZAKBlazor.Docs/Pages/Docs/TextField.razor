@@ -1,0 +1,60 @@
+@page "/docs/text-field"
+
+<PageTitle>Text Field — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Text Field</h1>
+        <p class="docs-subtitle">Inputs allow users to enter and edit text, numbers, and passwords with clear label states, helper texts, and validation.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Accessible" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Basic Inputs -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Standard Inputs</h2>
+        <p class="docs-section-desc">Text fields support placeholder text, labels, helper texts, and clearable triggers.</p>
+        <ZakDocsExample Title="Text Field Examples" Code="@TextFieldCode">
+            <div style="max-width: 440px; display: flex; flex-direction: column; gap: 1rem;">
+                <ZakTextField Label="Full Name" Placeholder="Enter your name" @bind-Value="_name" HelperText="Please enter your official legal name" />
+                <ZakTextField Label="Email Address" Placeholder="user@domain.com" @bind-Value="_email" StartIcon="@ZakIcons.Mail" Clearable="true" />
+                <ZakPasswordInput Label="Password" Placeholder="••••••••" @bind-Value="_password" />
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Variants -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Variants</h2>
+        <p class="docs-section-desc">Text fields support <code>Outlined</code>, <code>Filled</code>, <code>Underline</code>, and <code>Ghost</code> variants, either configured individually or inherited from an enclosing <code>ZakFormField</code>.</p>
+        <ZakDocsExample Title="Visual Variants" Code="@VariantsCode">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; width: 100%;">
+                <ZakTextField Label="Outlined" Variant="ZakVariant.Outlined" Placeholder="Outlined variant" />
+                <ZakTextField Label="Filled" Variant="ZakVariant.Filled" Placeholder="Filled variant" />
+                <ZakTextField Label="Underline" Variant="ZakVariant.Underline" Placeholder="Underline variant" />
+                <ZakTextField Label="Ghost" Variant="ZakVariant.Ghost" Placeholder="Ghost variant" />
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakTextField" />
+    </div>
+</div>
+
+@code {
+    private string _name = "";
+    private string _email = "";
+    private string _password = "";
+
+    private const string TextFieldCode = @"<ZakTextField Label=""Full Name"" Placeholder=""Enter your name"" @bind-Value=""_name"" />
+<ZakTextField Label=""Email"" Placeholder=""user@domain.com"" @bind-Value=""_email"" StartIcon=""@ZakIcons.Mail"" Clearable=""true"" />
+<ZakPasswordInput Label=""Password"" @bind-Value=""_password"" />";
+
+    private const string VariantsCode = @"<ZakTextField Label=""Outlined"" Variant=""ZakVariant.Outlined"" />
+<ZakTextField Label=""Filled"" Variant=""ZakVariant.Filled"" />
+<ZakTextField Label=""Underline"" Variant=""ZakVariant.Underline"" />
+<ZakTextField Label=""Ghost"" Variant=""ZakVariant.Ghost"" />";
+}

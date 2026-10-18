@@ -1,0 +1,79 @@
+@page "/docs/appbar"
+@page "/docs/app-bar"
+
+<PageTitle>App Bar — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">App Bar</h1>
+        <p class="docs-subtitle">Top-level application header navigation bar for branding, screen titles, search bars, and profile actions.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Layout" Color="ZakColor.Primary" />
+            <ZakBadge Content="Navigation" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Interactive App Bar Demo -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Standard Application Header</h2>
+        <p class="docs-section-desc">Compose with logo, title text, navigation links, and action buttons.</p>
+        <ZakDocsExample Title="App Bar Example" Code="@AppBarCode">
+            <div style="border: 1px solid var(--zak-border); border-radius: 8px; overflow: hidden;">
+                <ZakAppBar Fixed="false" Color="ZakColor.Default" Elevation="1">
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3" Style="width: 100%;">
+                        <ZakIconButton Icon="@ZakIcons.Menu" Color="ZakColor.Default" AriaLabel="Open drawer" />
+                        <span style="font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em;">CloudPlatform</span>
+                        
+                        <ZakSpacer />
+
+                        <ZakIconButton Icon="@ZakIcons.Search" Color="ZakColor.Default" AriaLabel="Search" />
+                        <ZakIconButton Icon="@ZakIcons.Bell" Color="ZakColor.Default" AriaLabel="Notifications" />
+                        <ZakAvatar Size="ZakSize.Small" Text="Alex M" Color="ZakColor.Primary" />
+                    </ZakStack>
+                </ZakAppBar>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Primary Color Variant -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Color Theming</h2>
+        <p class="docs-section-desc">Supports primary, dark, or transparent color themes.</p>
+        <ZakDocsExample Title="Primary App Bar" Code="@PrimaryCode">
+            <div style="border: 1px solid var(--zak-border); border-radius: 8px; overflow: hidden;">
+                <ZakAppBar Fixed="false" Color="ZakColor.Primary" Elevation="2">
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3" Style="width: 100%;">
+                        <span style="font-weight: 700; font-size: 1.1rem; color: #FFFFFF;">ZAK Console</span>
+                        <ZakSpacer />
+                        <ZakButton Variant="ZakVariant.Text" Color="ZakColor.Light" Size="ZakSize.Small">Docs</ZakButton>
+                        <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Default" Size="ZakSize.Small">Log Out</ZakButton>
+                    </ZakStack>
+                </ZakAppBar>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakAppBar" />
+    </div>
+</div>
+
+@code {
+    private const string AppBarCode = @"<ZakAppBar Fixed=""false"" Color=""ZakColor.Default"" Elevation=""1"">
+    <ZakStack Orientation=""ZakOrientation.Horizontal"" Align=""ZakAlignment.Center"" Spacing=""3"">
+        <ZakIconButton Icon=""@ZakIcons.Menu"" AriaLabel=""Open drawer"" />
+        <span>CloudPlatform</span>
+        <ZakSpacer />
+        <ZakIconButton Icon=""@ZakIcons.Bell"" AriaLabel=""Notifications"" />
+        <ZakAvatar Size=""ZakSize.Small"" Text=""Alex M"" Color=""ZakColor.Primary"" />
+    </ZakStack>
+</ZakAppBar>";
+
+    private const string PrimaryCode = @"<ZakAppBar Fixed=""false"" Color=""ZakColor.Primary"" Elevation=""2"">
+    <ZakStack Orientation=""ZakOrientation.Horizontal"" Align=""ZakAlignment.Center"" Spacing=""3"">
+        <span style=""color: #FFFFFF;"">ZAK Console</span>
+        <ZakSpacer />
+        <ZakButton Variant=""ZakVariant.Filled"" Color=""ZakColor.Default"" Size=""ZakSize.Small"">Log Out</ZakButton>
+    </ZakStack>
+</ZakAppBar>";
+}

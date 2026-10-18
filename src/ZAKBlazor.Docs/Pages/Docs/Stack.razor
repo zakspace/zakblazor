@@ -1,0 +1,56 @@
+@page "/docs/stack"
+
+<PageTitle>Stack — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Stack</h1>
+        <p class="docs-subtitle">Stack manages layout of immediate children along the vertical or horizontal axis with optional spacing, alignment, and wrapping.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Flexbox" Color="ZakColor.Primary" />
+            <ZakBadge Content="Layout" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Horizontal Stack -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Horizontal Orientation</h2>
+        <p class="docs-section-desc">Distribute items along a horizontal row with controlled spacing tokens.</p>
+        <ZakDocsExample Title="Horizontal Row" Code="@HorizontalCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3" Wrap="true">
+                <ZakButton Color="ZakColor.Primary">Action 1</ZakButton>
+                <ZakButton Color="ZakColor.Secondary">Action 2</ZakButton>
+                <ZakButton Color="ZakColor.Success">Action 3</ZakButton>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Vertical Stack -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Vertical Orientation</h2>
+        <p class="docs-section-desc">Stack items vertically into structured columns.</p>
+        <ZakDocsExample Title="Vertical Column" Code="@VerticalCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2">
+                <ZakPaper Padding="3">Row 1</ZakPaper>
+                <ZakPaper Padding="3">Row 2</ZakPaper>
+                <ZakPaper Padding="3">Row 3</ZakPaper>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakStack" />
+    </div>
+</div>
+
+@code {
+    private const string HorizontalCode = @"<ZakStack Orientation=""ZakOrientation.Horizontal"" Align=""ZakAlignment.Center"" Spacing=""3"">
+    <ZakButton>Action 1</ZakButton>
+    <ZakButton>Action 2</ZakButton>
+</ZakStack>";
+
+    private const string VerticalCode = @"<ZakStack Orientation=""ZakOrientation.Vertical"" Spacing=""2"">
+    <div>Item 1</div>
+    <div>Item 2</div>
+</ZakStack>";
+}

@@ -1,0 +1,93 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+@inject ZAKBlazor.Services.IZakLayoutService LayoutService
+
+<aside id="@ElementId"
+       role="navigation"
+       aria-label="@AriaLabel"
+       class="@CompiledClass"
+       style="@CompiledStyle"
+       @attributes="AdditionalAttributes">
+    <div class="zak-drawer-content">
+        @ChildContent
+    </div>
+</aside>
+
+@if (IsCurrentOpen)
+{
+    <div class="zak-drawer-backdrop"
+         role="presentation"
+         @onclick="HandleBackdropClick">
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool? Open { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OpenChanged { get; set; }
+
+    [Parameter]
+    public string Width { get; set; } = "280px";
+
+    [Parameter]
+    public int Elevation { get; set; } = 1;
+
+    [Parameter]
+    public bool Fixed { get; set; } = true;
+
+    [Parameter]
+    public bool ClipMode { get; set; } = true;
+
+    [Parameter]
+    public string AriaLabel { get; set; } = "Navigation Drawer";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool IsCurrentOpen => Open ?? LayoutService.IsDrawerOpen;
+
+    protected override void OnInitialized()
+    {
+        LayoutService.OnLayoutChanged += HandleLayoutChanged;
+    }
+
+    private void HandleLayoutChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private async Task HandleBackdropClick()
+    {
+        if (Open.HasValue)
+        {
+            await OpenChanged.InvokeAsync(false);
+        }
+        else
+        {
+            LayoutService.SetDrawerOpen(false);
+        }
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-drawer")
+        .AddClass("zak-drawer-open", IsCurrentOpen)
+        .AddClass("zak-drawer-closed", !IsCurrentOpen)
+        .AddClass("zak-drawer-fixed", Fixed)
+        .AddClass("zak-drawer-clipped", ClipMode)
+        .AddClass(Elevation.ToCssClass())
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder()
+        .AddStyle("--zak-drawer-width", Width)
+        .Build();
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            LayoutService.OnLayoutChanged -= HandleLayoutChanged;
+        }
+        base.Dispose(disposing);
+    }
+}

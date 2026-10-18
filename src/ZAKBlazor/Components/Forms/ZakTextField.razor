@@ -1,0 +1,142 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakInputBase<string>
+
+<div class="zak-form-field">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <ZakLabel For="@ElementId" Required="@Required" Text="@Label" />
+    }
+
+    <div class="@CompiledWrapperClass" style="@CompiledStyle">
+        @if (!string.IsNullOrEmpty(StartIcon))
+        {
+            <span class="zak-input-adornment zak-input-adornment-start" aria-hidden="true">
+                <ZakIcon Icon="@StartIcon" Size="@ResolveIconSize(Size)" />
+            </span>
+        }
+        @if (!string.IsNullOrEmpty(Prefix))
+        {
+            <span class="zak-input-adornment zak-input-adornment-start">@Prefix</span>
+        }
+
+        <input id="@ElementId"
+               type="@Type"
+               class="zak-input"
+               value="@Value"
+               placeholder="@Placeholder"
+               disabled="@Disabled"
+               readonly="@ReadOnly"
+               required="@Required"
+               aria-invalid="@(HasError ? "true" : "false")"
+               aria-describedby="@GetAriaDescribedBy()"
+               @oninput="HandleInputAsync"
+               @onchange="HandleChangeAsync"
+               @attributes="AdditionalAttributes" />
+
+        @if (Clearable && !string.IsNullOrEmpty(Value) && !Disabled && !ReadOnly)
+        {
+            <button type="button"
+                    class="zak-input-action"
+                    aria-label="Clear input"
+                    @onclick="HandleClearAsync">
+                <ZakIcon Icon="@ZakIcons.Close" Size="ZakSize.ExtraSmall" />
+            </button>
+        }
+        @if (!string.IsNullOrEmpty(Suffix))
+        {
+            <span class="zak-input-adornment zak-input-adornment-end">@Suffix</span>
+        }
+        @if (!string.IsNullOrEmpty(EndIcon))
+        {
+            <span class="zak-input-adornment zak-input-adornment-end" aria-hidden="true">
+                <ZakIcon Icon="@EndIcon" Size="@ResolveIconSize(Size)" />
+            </span>
+        }
+    </div>
+
+    @if (HasError && !string.IsNullOrEmpty(ValidationErrorMessage))
+    {
+        <span id="@($"{ElementId}-error")" class="zak-error-text" role="alert">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            @ValidationErrorMessage
+        </span>
+    }
+    else if (!string.IsNullOrEmpty(HelperText))
+    {
+        <span id="@($"{ElementId}-helper")" class="zak-helper-text">@HelperText</span>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string Type { get; set; } = "text";
+
+    [Parameter]
+    public string? StartIcon { get; set; }
+
+    [Parameter]
+    public string? EndIcon { get; set; }
+
+    [Parameter]
+    public string? Prefix { get; set; }
+
+    [Parameter]
+    public string? Suffix { get; set; }
+
+    [Parameter]
+    public bool Clearable { get; set; }
+
+    [Parameter]
+    public bool Immediate { get; set; }
+
+    private string? CompiledWrapperClass => CreateClassBuilder("zak-input-wrapper")
+        .AddClass(Variant.ToCssClass())
+        .AddClass(Size.ToCssClass())
+        .AddClass(Color.ToCssClass())
+        .AddClass("zak-input-error", HasError)
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private string? GetAriaDescribedBy()
+    {
+        if (HasError && !string.IsNullOrEmpty(ValidationErrorMessage))
+            return $"{ElementId}-error";
+        if (!string.IsNullOrEmpty(HelperText))
+            return $"{ElementId}-helper";
+        return null;
+    }
+
+    private async Task HandleInputAsync(ChangeEventArgs e)
+    {
+        if (Immediate)
+        {
+            await SetCurrentValueAsync(e.Value?.ToString());
+        }
+    }
+
+    private async Task HandleChangeAsync(ChangeEventArgs e)
+    {
+        await SetCurrentValueAsync(e.Value?.ToString());
+    }
+
+    private async Task HandleClearAsync()
+    {
+        await SetCurrentValueAsync(string.Empty);
+    }
+
+    private static ZakSize ResolveIconSize(ZakSize size) => size switch
+    {
+        ZakSize.ExtraSmall => ZakSize.ExtraSmall,
+        ZakSize.Small => ZakSize.ExtraSmall,
+        ZakSize.Medium => ZakSize.Small,
+        ZakSize.Large => ZakSize.Medium,
+        ZakSize.ExtraLarge => ZakSize.Large,
+        _ => ZakSize.Small
+    };
+}

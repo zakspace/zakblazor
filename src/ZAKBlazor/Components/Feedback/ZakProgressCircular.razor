@@ -1,0 +1,88 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     role="progressbar"
+     aria-valuenow="@(Indeterminate ? null : (int)Math.Clamp(Value, 0, 100))"
+     aria-valuemin="0"
+     aria-valuemax="100"
+     @attributes="AdditionalAttributes">
+
+    <svg class="zak-progress-circular-svg" viewBox="22 22 44 44">
+        <circle class="zak-progress-circular-track"
+                cx="44"
+                cy="44"
+                r="20"
+                fill="none"
+                stroke-width="@Thickness" />
+        <circle class="zak-progress-circular-indicator"
+                cx="44"
+                cy="44"
+                r="20"
+                fill="none"
+                stroke-width="@Thickness"
+                stroke-dasharray="125.66"
+                stroke-dashoffset="@CalculateOffset()" />
+    </svg>
+
+    @if (ShowValue || ChildContent != null)
+    {
+        <div class="zak-progress-circular-content">
+            @if (ChildContent != null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                <span>@((int)Math.Clamp(Value, 0, 100))%</span>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public double Value { get; set; }
+
+    [Parameter]
+    public bool Indeterminate { get; set; }
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Primary;
+
+    [Parameter]
+    public ZakSize Size { get; set; } = ZakSize.Medium;
+
+    [Parameter]
+    public int? CustomSize { get; set; }
+
+    [Parameter]
+    public int Thickness { get; set; } = 4;
+
+    [Parameter]
+    public bool ShowValue { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private double CalculateOffset()
+    {
+        if (Indeterminate) return 30;
+        var clamped = Math.Clamp(Value, 0, 100);
+        const double circumference = 125.66; // 2 * pi * 20
+        return circumference - (clamped / 100.0 * circumference);
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-progress-circular")
+        .AddClass(Color.ToCssClass())
+        .AddClass(Size.ToCssClass())
+        .AddClass("zak-progress-indeterminate", Indeterminate)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder()
+        .AddStyle("width", $"{CustomSize}px", CustomSize.HasValue)
+        .AddStyle("height", $"{CustomSize}px", CustomSize.HasValue)
+        .Build();
+}

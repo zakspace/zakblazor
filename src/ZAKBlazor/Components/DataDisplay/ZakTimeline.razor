@@ -1,0 +1,27 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public ZakOrientation Orientation { get; set; } = ZakOrientation.Vertical;
+
+    [Parameter]
+    public bool Alternate { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-timeline")
+        .AddClass("zak-timeline-horizontal", Orientation == ZakOrientation.Horizontal)
+        .AddClass("zak-timeline-alternate", Alternate)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

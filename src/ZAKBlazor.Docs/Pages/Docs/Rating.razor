@@ -1,0 +1,45 @@
+@page "/docs/rating"
+
+<PageTitle>Rating — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Rating</h1>
+        <p class="docs-subtitle">Ratings provide star or custom icon feedback for customer reviews and scoring.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Interactive" Color="ZakColor.Warning" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Star Ratings</h2>
+        <p class="docs-section-desc">Supports hover previews, custom max scores, and custom icon scales.</p>
+        <ZakDocsExample Title="Rating Examples" Code="@RatingCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                <div>
+                    <ZakRating @bind-Value="_score" Color="ZakColor.Warning" Size="ZakSize.Large" />
+                    <div style="font-size: 0.875rem; color: var(--zak-text-secondary); margin-top: 0.5rem;">
+                        Current Rating: <strong>@_score / 5</strong>
+                    </div>
+                </div>
+
+                <div>
+                    <ZakRating Value="4" Disabled="true" Color="ZakColor.Primary" Size="ZakSize.Small" />
+                    <span style="font-size: 0.8rem; color: var(--zak-text-muted); margin-left: 0.5rem;">Read-only (4.0)</span>
+                </div>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakRating" />
+    </div>
+</div>
+
+@code {
+    private double _score = 4;
+
+    private const string RatingCode = @"<ZakRating @bind-Value=""_score"" Color=""ZakColor.Warning"" Size=""ZakSize.Large"" />
+<ZakRating Value=""4"" Disabled=""true"" Size=""ZakSize.Small"" />";
+}

@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Version>1.0.0-preview.1</Version>
+    <Authors>ZAKBlazor Team</Authors>
+    <Company>ZAKBlazor</Company>
+    <Product>ZAKBlazor Component Framework</Product>
+    <Description>Enterprise-ready, modern, accessible, and themeable Blazor UI component library.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+</Project>

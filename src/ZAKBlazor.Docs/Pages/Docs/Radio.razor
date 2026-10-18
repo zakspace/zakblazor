@@ -1,0 +1,43 @@
+@page "/docs/radio"
+
+<PageTitle>Radio Group — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Radio Group</h1>
+        <p class="docs-subtitle">Radio groups allow users to select exactly one option from a set of mutually exclusive choices.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Two-Way Binding" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Radio Selection</h2>
+        <p class="docs-section-desc">Wrap individual <code>ZakRadio</code> items inside a <code>ZakRadioGroup</code>.</p>
+        <ZakDocsExample Title="Radio Group Example" Code="@RadioCode">
+            <div style="max-width: 360px;">
+                <ZakRadioGroup TValue="string" Label="Billing Cycle" @bind-Value="_billingCycle">
+                    <ZakRadio TValue="string" Value="@("monthly")" Label="Monthly ($29/mo)" Color="ZakColor.Primary" />
+                    <ZakRadio TValue="string" Value="@("annual")" Label="Annual ($240/yr - Save 30%)" Color="ZakColor.Primary" />
+                </ZakRadioGroup>
+                <div style="margin-top: 0.75rem; font-size: 0.875rem; color: var(--zak-text-secondary);">
+                    Selected: <strong>@_billingCycle</strong>
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakRadioGroup" />
+    </div>
+</div>
+
+@code {
+    private string _billingCycle = "annual";
+
+    private const string RadioCode = @"<ZakRadioGroup TValue=""string"" Label=""Billing Cycle"" @bind-Value=""_billingCycle"">
+    <ZakRadio TValue=""string"" Value=""@(""monthly"")"" Label=""Monthly"" />
+    <ZakRadio TValue=""string"" Value=""@(""annual"")"" Label=""Annual"" />
+</ZakRadioGroup>";
+}

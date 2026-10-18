@@ -1,0 +1,38 @@
+@page "/docs/drawer"
+
+<PageTitle>Drawer — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Drawer</h1>
+        <p class="docs-subtitle">Navigation drawers provide ergonomic access to destinations in your app, supporting collapsible and responsive states.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Layout" Color="ZakColor.Primary" />
+            <ZakBadge Content="Responsive" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Drawer Controls</h2>
+        <p class="docs-section-desc">Manage drawer open/closed state through <code>IZakLayoutService</code> or component parameters.</p>
+        <ZakDocsExample Title="Toggle Drawer" Code="@DrawerToggleCode">
+            <ZakButton StartIcon="@ZakIcons.Menu" Color="ZakColor.Primary" OnClick="() => LayoutService.ToggleDrawer()">
+                Toggle Sidebar Navigation
+            </ZakButton>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakDrawer" />
+    </div>
+</div>
+
+@code {
+    @inject IZakLayoutService LayoutService
+
+    private const string DrawerToggleCode = @"@inject IZakLayoutService LayoutService
+
+<ZakButton StartIcon=""@ZakIcons.Menu"" OnClick=""() => LayoutService.ToggleDrawer()"">
+    Toggle Drawer
+</ZakButton>";
+}

@@ -1,0 +1,125 @@
+/**
+ * ZAKBlazor Typography System
+ */
+.zak-text {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  color: inherit;
+}
+
+.zak-text-inline {
+  display: inline;
+}
+
+.zak-gutter-bottom {
+  margin-bottom: var(--zak-spacing-3);
+}
+
+/* Typography scales */
+.zak-typo-h1 {
+  font-size: var(--zak-typo-h1-size);
+  font-weight: var(--zak-typo-h1-weight);
+  line-height: var(--zak-typo-h1-line-height);
+  letter-spacing: var(--zak-typo-h1-letter-spacing);
+}
+
+.zak-typo-h2 {
+  font-size: var(--zak-typo-h2-size);
+  font-weight: var(--zak-typo-h2-weight);
+  line-height: var(--zak-typo-h2-line-height);
+  letter-spacing: var(--zak-typo-h2-letter-spacing);
+}
+
+.zak-typo-h3 {
+  font-size: var(--zak-typo-h3-size);
+  font-weight: var(--zak-typo-h3-weight);
+  line-height: var(--zak-typo-h3-line-height);
+  letter-spacing: var(--zak-typo-h3-letter-spacing);
+}
+
+.zak-typo-h4 {
+  font-size: var(--zak-typo-h4-size);
+  font-weight: var(--zak-typo-h4-weight);
+  line-height: var(--zak-typo-h4-line-height);
+  letter-spacing: var(--zak-typo-h4-letter-spacing);
+}
+
+.zak-typo-h5 {
+  font-size: var(--zak-typo-h5-size);
+  font-weight: var(--zak-typo-h5-weight);
+  line-height: var(--zak-typo-h5-line-height);
+}
+
+.zak-typo-h6 {
+  font-size: var(--zak-typo-h6-size);
+  font-weight: var(--zak-typo-h6-weight);
+  line-height: var(--zak-typo-h6-line-height);
+}
+
+.zak-typo-subtitle1 {
+  font-size: var(--zak-typo-sub1-size);
+  font-weight: var(--zak-typo-sub1-weight);
+  line-height: var(--zak-typo-sub1-line-height);
+  color: var(--zak-text-secondary);
+}
+
+.zak-typo-subtitle2 {
+  font-size: var(--zak-typo-sub2-size);
+  font-weight: var(--zak-typo-sub2-weight);
+  line-height: var(--zak-typo-sub2-line-height);
+  color: var(--zak-text-secondary);
+}
+
+.zak-typo-body1 {
+  font-size: var(--zak-typo-body1-size);
+  font-weight: var(--zak-typo-body1-weight);
+  line-height: var(--zak-typo-body1-line-height);
+}
+
+.zak-typo-body2 {
+  font-size: var(--zak-typo-body2-size);
+  font-weight: var(--zak-typo-body2-weight);
+  line-height: var(--zak-typo-body2-line-height);
+  color: var(--zak-text-secondary);
+}
+
+.zak-typo-caption {
+  font-size: var(--zak-typo-caption-size);
+  font-weight: var(--zak-typo-caption-weight);
+  line-height: var(--zak-typo-caption-line-height);
+  color: var(--zak-text-muted);
+}
+
+.zak-typo-overline {
+  font-size: var(--zak-typo-overline-size);
+  font-weight: var(--zak-typo-overline-weight);
+  text-transform: var(--zak-typo-overline-transform);
+  letter-spacing: 0.08em;
+  color: var(--zak-text-secondary);
+}
+
+.zak-typo-button {
+  font-size: var(--zak-typo-button-size);
+  font-weight: var(--zak-typo-button-weight);
+  letter-spacing: 0.01em;
+}
+
+/* Color classes */
+.zak-color-default { color: inherit; }
+.zak-color-primary { color: var(--zak-primary); }
+.zak-color-secondary { color: var(--zak-secondary); }
+.zak-color-tertiary { color: var(--zak-tertiary); }
+.zak-color-success { color: var(--zak-success); }
+.zak-color-warning { color: var(--zak-warning); }
+.zak-color-danger { color: var(--zak-danger); }
+.zak-color-info { color: var(--zak-info); }
+.zak-color-dark { color: var(--zak-dark); }
+.zak-color-light { color: var(--zak-light); }
+.zak-color-inherit { color: inherit; }
+
+/* Alignment classes */
+.zak-align-start { text-align: left; }
+.zak-align-center { text-align: center; }
+.zak-align-end { text-align: right; }
+.zak-align-stretch { text-align: justify; }

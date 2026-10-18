@@ -1,0 +1,89 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\background.png",
+      "PackagePath": "staticwebassets\\background.png"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\button.css",
+      "PackagePath": "staticwebassets\\css\\button.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\datadisplay.css",
+      "PackagePath": "staticwebassets\\css\\datadisplay.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\feedback.css",
+      "PackagePath": "staticwebassets\\css\\feedback.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\forms.css",
+      "PackagePath": "staticwebassets\\css\\forms.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\icon.css",
+      "PackagePath": "staticwebassets\\css\\icon.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\layout.css",
+      "PackagePath": "staticwebassets\\css\\layout.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\navigation.css",
+      "PackagePath": "staticwebassets\\css\\navigation.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\surface.css",
+      "PackagePath": "staticwebassets\\css\\surface.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\table.css",
+      "PackagePath": "staticwebassets\\css\\table.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\tokens.css",
+      "PackagePath": "staticwebassets\\css\\tokens.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\typography.css",
+      "PackagePath": "staticwebassets\\css\\typography.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\css\\zakblazor.css",
+      "PackagePath": "staticwebassets\\css\\zakblazor.css"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\exampleJsInterop.js",
+      "PackagePath": "staticwebassets\\exampleJsInterop.js"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
+      "Id": "D:\\Source\\Experiment\\Zak\\ZakBlazor\\src\\ZAKBlazor\\wwwroot\\js\\zakblazor.js",
+      "PackagePath": "staticwebassets\\js\\zakblazor.js"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.ZAKBlazor.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.ZAKBlazor.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.ZAKBlazor.props",
+      "PackagePath": "build\\ZAKBlazor.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.ZAKBlazor.props",
+      "PackagePath": "buildMultiTargeting\\ZAKBlazor.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.ZAKBlazor.props",
+      "PackagePath": "buildTransitive\\ZAKBlazor.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

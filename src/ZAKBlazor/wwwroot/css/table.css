@@ -1,0 +1,266 @@
+/**
+ * ZAKBlazor Table & DataGrid System
+ * Copyright (c) ZAKBlazor. All rights reserved.
+ */
+
+/* ──────────────────────────────────────────────
+   RESPONSIVE TABLE CONTAINER
+────────────────────────────────────────────── */
+.zak-table-container {
+  width: 100%;
+  overflow-x: auto;
+  position: relative;
+  background-color: var(--zak-surface);
+  border-radius: var(--zak-radius-md);
+  border: 1px solid var(--zak-border);
+  box-sizing: border-box;
+}
+
+/* ──────────────────────────────────────────────
+   BASE TABLE
+────────────────────────────────────────────── */
+.zak-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-align: left;
+  font-size: 0.875rem;
+  color: var(--zak-text-primary);
+  line-height: 1.5;
+}
+
+.zak-table th,
+.zak-table td {
+  padding: var(--zak-spacing-3) var(--zak-spacing-4);
+  vertical-align: middle;
+  border-bottom: 1px solid var(--zak-border);
+}
+
+.zak-table th {
+  font-weight: 600;
+  color: var(--zak-text-secondary);
+  background-color: var(--zak-surface-variant);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Striped */
+.zak-table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] .zak-table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Hoverable */
+.zak-table-hoverable tbody tr:hover {
+  background-color: var(--zak-surface-hover);
+}
+
+/* Compact */
+.zak-table-compact th,
+.zak-table-compact td {
+  padding: var(--zak-spacing-2) var(--zak-spacing-3);
+  font-size: 0.8125rem;
+}
+
+/* Bordered */
+.zak-table-bordered th,
+.zak-table-bordered td {
+  border: 1px solid var(--zak-border);
+}
+
+/* Sticky Header */
+.zak-table-sticky-header {
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.zak-table-sticky-header thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  box-shadow: 0 1px 0 var(--zak-border);
+}
+
+/* Selection / Checkbox column */
+.zak-table-cell-checkbox {
+  width: 44px;
+  text-align: center;
+  padding-right: 0 !important;
+}
+
+/* Sortable Header */
+.zak-table-th-sortable {
+  cursor: pointer;
+  transition: color var(--zak-transition-fast), background-color var(--zak-transition-fast);
+}
+
+.zak-table-th-sortable:hover {
+  color: var(--zak-primary);
+  background-color: var(--zak-surface-hover);
+}
+
+.zak-table-th-content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zak-spacing-1);
+}
+
+.zak-table-sort-icon {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.4;
+  transition: opacity var(--zak-transition-fast), transform var(--zak-transition-fast);
+}
+
+.zak-table-sort-active .zak-table-sort-icon {
+  opacity: 1;
+  color: var(--zak-primary);
+}
+
+/* Selected row */
+.zak-table tr.zak-row-selected {
+  background-color: rgba(94, 67, 243, 0.08) !important;
+}
+
+/* Detail expandable row */
+.zak-table-detail-row td {
+  background-color: var(--zak-surface-variant);
+  padding: var(--zak-spacing-4) var(--zak-spacing-6);
+  border-bottom: 1px solid var(--zak-border);
+}
+
+/* Empty state */
+.zak-table-empty {
+  padding: var(--zak-spacing-8) !important;
+  text-align: center;
+  color: var(--zak-text-secondary);
+}
+
+/* ──────────────────────────────────────────────
+   DATA GRID & TOOLBAR
+────────────────────────────────────────────── */
+.zak-datagrid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--zak-radius-md);
+  border: 1px solid var(--zak-border);
+  background-color: var(--zak-surface);
+  overflow: hidden;
+}
+
+.zak-datagrid-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--zak-spacing-3) var(--zak-spacing-4);
+  background-color: var(--zak-surface);
+  border-bottom: 1px solid var(--zak-border);
+  gap: var(--zak-spacing-3);
+  flex-wrap: wrap;
+}
+
+.zak-datagrid-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--zak-text-primary);
+}
+
+.zak-datagrid-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--zak-spacing-2);
+}
+
+.zak-datagrid-search {
+  max-width: 260px;
+}
+
+.zak-datagrid-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--zak-spacing-2) var(--zak-spacing-4);
+  border-top: 1px solid var(--zak-border);
+  background-color: var(--zak-surface);
+  flex-wrap: wrap;
+  gap: var(--zak-spacing-2);
+}
+
+/* ──────────────────────────────────────────────
+   PAGINATION
+────────────────────────────────────────────── */
+.zak-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--zak-spacing-1);
+  user-select: none;
+}
+
+.zak-pagination-list {
+  display: flex;
+  align-items: center;
+  gap: var(--zak-spacing-1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.zak-pagination-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 var(--zak-spacing-2);
+  border-radius: var(--zak-radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--zak-text-primary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--zak-transition-fast);
+}
+
+.zak-pagination-btn:hover:not(:disabled):not(.active) {
+  background-color: var(--zak-surface-hover);
+}
+
+.zak-pagination-btn.active {
+  background-color: var(--zak-primary);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.zak-pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.zak-pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  color: var(--zak-text-secondary);
+}
+
+.zak-pagination-info {
+  font-size: 0.8125rem;
+  color: var(--zak-text-secondary);
+}
+
+.zak-pagination-size-select {
+  padding: 4px 8px;
+  border-radius: var(--zak-radius-sm);
+  border: 1px solid var(--zak-border);
+  background: var(--zak-surface);
+  color: var(--zak-text-primary);
+  font-size: 0.8125rem;
+  cursor: pointer;
+}

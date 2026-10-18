@@ -1,0 +1,58 @@
+@page "/docs/search-input"
+
+<PageTitle>Search Input — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Search Input</h1>
+        <p class="docs-subtitle">Search input field featuring an integrated search magnifying glass and a one-click clear button.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Query" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Interactive Search Field -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Interactive Search</h2>
+        <p class="docs-section-desc">Type in the box to see real-time updates and click the clear button (X) to reset.</p>
+        <ZakDocsExample Title="Search Input Field" Code="@SearchCode">
+            <div style="max-width: 380px;">
+                <ZakSearchInput Placeholder="Filter projects or components..."
+                                @bind-Value="_query" />
+
+                <div style="margin-top: 0.75rem; font-size: 0.875rem; color: var(--zak-text-secondary);">
+                    Current Query: <strong>@(_query ?? "(empty)")</strong>
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Sizes & Outlined -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Sizes & Outlined</h2>
+        <p class="docs-section-desc">Available in small, medium, and large sizing tiers.</p>
+        <ZakDocsExample Title="Sizes" Code="@SizesCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3" Style="max-width: 380px;">
+                <ZakSearchInput Size="ZakSize.Small" Variant="ZakVariant.Outlined" Placeholder="Small search..." />
+                <ZakSearchInput Size="ZakSize.Medium" Variant="ZakVariant.Outlined" Placeholder="Medium search..." />
+                <ZakSearchInput Size="ZakSize.Large" Variant="ZakVariant.Outlined" Placeholder="Large search..." />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakSearchInput" />
+    </div>
+</div>
+
+@code {
+    private string? _query = "Button";
+
+    private const string SearchCode = @"<ZakSearchInput Placeholder=""Filter projects or components...""
+                @bind-Value=""_query"" />";
+
+    private const string SizesCode = @"<ZakSearchInput Size=""ZakSize.Small"" Variant=""ZakVariant.Outlined"" Placeholder=""Small search..."" />
+<ZakSearchInput Size=""ZakSize.Medium"" Variant=""ZakVariant.Outlined"" Placeholder=""Medium search..."" />
+<ZakSearchInput Size=""ZakSize.Large"" Variant=""ZakVariant.Outlined"" Placeholder=""Large search..."" />";
+}

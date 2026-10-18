@@ -1,0 +1,60 @@
+@page "/docs/icon"
+
+<PageTitle>Icon Component — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Icon Component</h1>
+        <p class="docs-subtitle">Universal vector SVG icon component with automatic size scaling, stroke width configuration, accessibility titles, and semantic color mapping.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Icons" Color="ZakColor.Primary" />
+            <ZakBadge Content="Vector SVG" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Sizes & Colors -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Icon Sizing & Colors</h2>
+        <p class="docs-section-desc">Scale cleanly from ExtraSmall (16px) to ExtraLarge (40px) or set custom pixel dimensions.</p>
+        <ZakDocsExample Title="Sizes & Colors" Code="@IconCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="4">
+                <ZakIcon Icon="@ZakIcons.Sparkles" Size="ZakSize.ExtraSmall" Color="ZakColor.Primary" Title="Extra Small" />
+                <ZakIcon Icon="@ZakIcons.Sparkles" Size="ZakSize.Small" Color="ZakColor.Success" Title="Small" />
+                <ZakIcon Icon="@ZakIcons.Sparkles" Size="ZakSize.Medium" Color="ZakColor.Warning" Title="Medium" />
+                <ZakIcon Icon="@ZakIcons.Sparkles" Size="ZakSize.Large" Color="ZakColor.Danger" Title="Large" />
+                <ZakIcon Icon="@ZakIcons.Sparkles" Size="ZakSize.ExtraLarge" Color="ZakColor.Info" Title="Extra Large" />
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Icon Catalog Link -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Complete SVG Catalog</h2>
+        <p class="docs-section-desc">Browse over 60+ built-in icons with one-click code snippet copying.</p>
+        <div style="padding: 1.5rem; background: var(--zak-surface); border: 1px solid var(--zak-border); border-radius: 8px;">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3">
+                <ZakIcon Icon="@ZakIcons.Box" Size="ZakSize.Large" Color="ZakColor.Primary" />
+                <div>
+                    <ZakText Typo="Typo.h5">Interactive Icon Catalog</ZakText>
+                    <ZakText Typo="Typo.body2">View all available icons and SVG paths in the catalog.</ZakText>
+                </div>
+                <ZakSpacer />
+                <NavLink href="docs/icons">
+                    <ZakButton Color="ZakColor.Primary" EndIcon="@ZakIcons.ArrowRight">
+                        Open Catalog
+                    </ZakButton>
+                </NavLink>
+            </ZakStack>
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakIcon" />
+    </div>
+</div>
+
+@code {
+    private const string IconCode = @"<ZakIcon Icon=""@ZakIcons.Sparkles"" Size=""ZakSize.Small"" Color=""ZakColor.Success"" />
+<ZakIcon Icon=""@ZakIcons.Sparkles"" Size=""ZakSize.Medium"" Color=""ZakColor.Warning"" />
+<ZakIcon Icon=""@ZakIcons.Sparkles"" Size=""ZakSize.Large"" Color=""ZakColor.Danger"" />";
+}

@@ -1,0 +1,119 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @for (int i = 0; i < Length; i++)
+    {
+        var slotIndex = i;
+        var digit = GetDigit(slotIndex);
+
+        <input type="@(Masked ? "password" : "text")"
+               inputmode="numeric"
+               maxlength="1"
+               pattern="[0-9]*"
+               disabled="@Disabled"
+               class="zak-otp-slot @(digit != '\0' ? "zak-otp-filled" : "")"
+               value="@(digit == '\0' ? "" : digit.ToString())"
+               @oninput="(e) => HandleInput(slotIndex, e)"
+               @onkeydown="(e) => HandleKeyDown(slotIndex, e)" />
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string Value { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+    [Parameter]
+    public int Length { get; set; } = 6;
+
+    [Parameter]
+    public bool Masked { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public ZakSize Size { get; set; } = ZakSize.Medium;
+
+    [Parameter]
+    public ZakShape Shape { get; set; } = ZakShape.Rounded;
+
+    [Parameter]
+    public EventCallback<string> OnCompleted { get; set; }
+
+    private char GetDigit(int index)
+    {
+        if (string.IsNullOrEmpty(Value) || index >= Value.Length) return '\0';
+        return Value[index];
+    }
+
+    private async Task HandleInput(int index, ChangeEventArgs e)
+    {
+        var inputVal = e.Value?.ToString() ?? string.Empty;
+        if (string.IsNullOrEmpty(inputVal))
+        {
+            await UpdateSlot(index, '\0');
+            return;
+        }
+
+        // Handle paste or single char
+        if (inputVal.Length > 1)
+        {
+            var pastedDigits = new string(inputVal.Where(char.IsLetterOrDigit).Take(Length).ToArray());
+            Value = pastedDigits;
+            await ValueChanged.InvokeAsync(Value);
+            if (Value.Length == Length && OnCompleted.HasDelegate)
+            {
+                await OnCompleted.InvokeAsync(Value);
+            }
+            return;
+        }
+
+        var ch = inputVal.Last();
+        await UpdateSlot(index, ch);
+    }
+
+    private async Task UpdateSlot(int index, char ch)
+    {
+        var chars = (Value ?? string.Empty).PadRight(Length, ' ').ToCharArray();
+        if (ch == '\0')
+        {
+            chars[index] = ' ';
+        }
+        else
+        {
+            chars[index] = ch;
+        }
+
+        var newStr = new string(chars).TrimEnd();
+        Value = newStr;
+        await ValueChanged.InvokeAsync(Value);
+
+        if (Value.Length == Length && !Value.Contains(' ') && OnCompleted.HasDelegate)
+        {
+            await OnCompleted.InvokeAsync(Value);
+        }
+    }
+
+    private async Task HandleKeyDown(int index, KeyboardEventArgs e)
+    {
+        if (e.Key == "Backspace")
+        {
+            await UpdateSlot(index, '\0');
+        }
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-otp-input")
+        .AddClass(Size.ToCssClass("zak-otp"))
+        .AddClass(Shape.ToCssClass("zak-otp"))
+        .AddClass("zak-otp-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

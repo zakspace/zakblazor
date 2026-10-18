@@ -1,0 +1,64 @@
+@page "/docs/divider"
+
+<PageTitle>Divider — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Divider</h1>
+        <p class="docs-subtitle">A thin rule line separating content in lists, cards, page sections, and toolbars, with optional centered text labels.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Layout" Color="ZakColor.Primary" />
+            <ZakBadge Content="Separator" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Basic & Text Dividers -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Horizontal Divider with Text</h2>
+        <p class="docs-section-desc">Place child text within <code>ZakDivider</code> to render a centered rule label.</p>
+        <ZakDocsExample Title="Horizontal Dividers" Code="@HorizontalCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4" Style="max-width: 450px;">
+                <div>Section Content Top</div>
+                <ZakDivider />
+                <div>Section Content Middle</div>
+                <ZakDivider>OR SIGN IN WITH</ZakDivider>
+                <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.Center" Spacing="3">
+                    <ZakButton Variant="ZakVariant.Outlined" Size="ZakSize.Small">Google</ZakButton>
+                    <ZakButton Variant="ZakVariant.Outlined" Size="ZakSize.Small">GitHub</ZakButton>
+                </ZakStack>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Vertical Divider -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Vertical Divider</h2>
+        <p class="docs-section-desc">Set <code>Orientation="ZakOrientation.Vertical"</code> and <code>FlexItem="true"</code> between flex items.</p>
+        <ZakDocsExample Title="Vertical Divider in Flex" Code="@VerticalCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3" Style="height: 36px;">
+                <ZakButton Variant="ZakVariant.Text" Size="ZakSize.Small">Home</ZakButton>
+                <ZakDivider Orientation="ZakOrientation.Vertical" FlexItem="true" />
+                <ZakButton Variant="ZakVariant.Text" Size="ZakSize.Small">Components</ZakButton>
+                <ZakDivider Orientation="ZakOrientation.Vertical" FlexItem="true" />
+                <ZakButton Variant="ZakVariant.Text" Size="ZakSize.Small">Pricing</ZakButton>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakDivider" />
+    </div>
+</div>
+
+@code {
+    private const string HorizontalCode = @"<div>Section Content Top</div>
+<ZakDivider />
+<div>Section Content Middle</div>
+<ZakDivider>OR SIGN IN WITH</ZakDivider>";
+
+    private const string VerticalCode = @"<ZakStack Orientation=""ZakOrientation.Horizontal"" Align=""ZakAlignment.Center"" Style=""height: 36px;"">
+    <ZakButton Variant=""ZakVariant.Text"">Home</ZakButton>
+    <ZakDivider Orientation=""ZakOrientation.Vertical"" FlexItem=""true"" />
+    <ZakButton Variant=""ZakVariant.Text"">Components</ZakButton>
+</ZakStack>";
+}

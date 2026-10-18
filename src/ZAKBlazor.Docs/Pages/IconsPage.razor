@@ -1,0 +1,108 @@
+@page "/icons"
+@page "/docs/icons"
+@inject IJSRuntime JS
+
+<PageTitle>Icons Catalog — ZAKBlazor Documentation</PageTitle>
+
+<ZakContainer MaxWidth="ZakBreakpoint.Lg" Class="zak-docs-page">
+    <div class="zak-docs-header">
+        <ZakText Typo="Typo.h2" GutterBottom="true">Icon System</ZakText>
+        <ZakText Typo="Typo.subtitle1">Curated, scalable SVG icons crafted for clean rendering at any size. Click any icon to copy its usage code.</ZakText>
+    </div>
+
+    @if (!string.IsNullOrEmpty(_copiedSnippet))
+    {
+        <div style="position: fixed; bottom: 24px; right: 24px; z-index: 9999;">
+            <ZakBox Padding="4" Elevation="4" Shape="ZakShape.Rounded" Style="background: var(--zak-surface); border: 1px solid var(--zak-primary);">
+                <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="2" Align="ZakAlignment.Center">
+                    <ZakIcon Icon="@ZakIcons.CheckCircle" Color="ZakColor.Success" />
+                    <ZakText Typo="Typo.body2">Copied <code>@_copiedSnippet</code> to clipboard!</ZakText>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    }
+
+    <!-- Search / Filter Input -->
+    <div style="margin-bottom: var(--zak-spacing-6); max-width: 420px;">
+        <input type="text"
+               placeholder="Search icons by name..."
+               @bind="_searchQuery"
+               @bind:event="oninput"
+               style="width: 100%; padding: 10px 16px; border-radius: var(--zak-radius-md); border: 1px solid var(--zak-border); background: var(--zak-surface); color: var(--zak-text-primary); font-family: inherit; font-size: 0.9375rem; outline: none;" />
+    </div>
+
+    <!-- Icon Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--zak-spacing-4);">
+        @foreach (var icon in FilteredIcons)
+        {
+            <div class="zak-feature-card"
+                 style="cursor: pointer; padding: var(--zak-spacing-4); user-select: none;"
+                 @onclick="() => CopyIconSnippetAsync(icon.Key)">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="2" Align="ZakAlignment.Center">
+                    <ZakIcon Icon="@icon.Value" Size="ZakSize.Large" Color="ZakColor.Default" />
+                    <ZakText Typo="Typo.caption" Style="font-weight: 500; word-break: break-word;">@icon.Key</ZakText>
+                </ZakStack>
+            </div>
+        }
+    </div>
+</ZakContainer>
+
+@code {
+    private string _searchQuery = "";
+    private string? _copiedSnippet;
+
+    private readonly Dictionary<string, string> _allIcons = new()
+    {
+        ["Menu"] = ZakIcons.Menu,
+        ["Close"] = ZakIcons.Close,
+        ["Sun"] = ZakIcons.Sun,
+        ["Moon"] = ZakIcons.Moon,
+        ["ChevronDown"] = ZakIcons.ChevronDown,
+        ["ChevronUp"] = ZakIcons.ChevronUp,
+        ["ChevronLeft"] = ZakIcons.ChevronLeft,
+        ["ChevronRight"] = ZakIcons.ChevronRight,
+        ["Search"] = ZakIcons.Search,
+        ["Check"] = ZakIcons.Check,
+        ["Copy"] = ZakIcons.Copy,
+        ["Code"] = ZakIcons.Code,
+        ["Info"] = ZakIcons.Info,
+        ["CheckCircle"] = ZakIcons.CheckCircle,
+        ["AlertCircle"] = ZakIcons.AlertCircle,
+        ["AlertTriangle"] = ZakIcons.AlertTriangle,
+        ["LayoutDashboard"] = ZakIcons.LayoutDashboard,
+        ["Layers"] = ZakIcons.Layers,
+        ["FileText"] = ZakIcons.FileText,
+        ["Sparkles"] = ZakIcons.Sparkles,
+        ["Settings"] = ZakIcons.Settings,
+        ["ExternalLink"] = ZakIcons.ExternalLink,
+        ["Github"] = ZakIcons.Github,
+        ["Plus"] = ZakIcons.Plus,
+        ["Trash"] = ZakIcons.Trash,
+        ["Edit"] = ZakIcons.Edit,
+        ["ArrowRight"] = ZakIcons.ArrowRight,
+        ["ArrowLeft"] = ZakIcons.ArrowLeft,
+        ["User"] = ZakIcons.User,
+        ["Users"] = ZakIcons.Users,
+        ["Bell"] = ZakIcons.Bell,
+        ["Box"] = ZakIcons.Box
+    };
+
+    private IEnumerable<KeyValuePair<string, string>> FilteredIcons =>
+        string.IsNullOrWhiteSpace(_searchQuery)
+            ? _allIcons
+            : _allIcons.Where(i => i.Key.Contains(_searchQuery, StringComparison.OrdinalIgnoreCase));
+
+    private async Task CopyIconSnippetAsync(string iconName)
+    {
+        var snippet = $"<ZakIcon Icon=\"@ZakIcons.{iconName}\" />";
+        _copiedSnippet = $"ZakIcons.{iconName}";
+        try
+        {
+            await JS.InvokeVoidAsync("zakBlazor.copyToClipboard", snippet);
+        }
+        catch { }
+
+        await Task.Delay(2500);
+        _copiedSnippet = null;
+    }
+}

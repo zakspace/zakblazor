@@ -1,0 +1,84 @@
+@page "/docs/datagrid"
+
+<PageTitle>DataGrid — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">DataGrid</h1>
+        <p class="docs-subtitle">Feature-rich enterprise data grid with integrated toolbar, full-text search filtering, column sorting, row multi-selection, and pagination.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Data Display" Color="ZakColor.Primary" />
+            <ZakBadge Content="Enterprise" Color="ZakColor.Success" />
+            <ZakBadge Content="Toolbar & Search" Color="ZakColor.Info" />
+        </div>
+    </div>
+
+    <!-- Complete Enterprise DataGrid -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Full Featured Grid</h2>
+        <p class="docs-section-desc">Features instant search filtering, sortable columns, and row checkboxes right out of the box.</p>
+        <ZakDocsExample Title="Enterprise DataGrid" Code="@DataGridCode">
+            <ZakDataGrid TItem="ServerInstance"
+                         Title="Cloud Instances"
+                         Items="@_instances"
+                         Searchable="true"
+                         Selectable="true"
+                         PageSize="5"
+                         SearchFilter="@((item, query) => item.Name.Contains(query, StringComparison.OrdinalIgnoreCase) || item.Region.Contains(query, StringComparison.OrdinalIgnoreCase) || item.IpAddress.Contains(query, StringComparison.OrdinalIgnoreCase))">
+                <Columns>
+                    <ZakTableColumn TItem="ServerInstance" Field="Name" Title="Server Name" Sortable="true" Property="@(s => s.Name)" />
+                    <ZakTableColumn TItem="ServerInstance" Field="Region" Title="Region" Sortable="true" Property="@(s => s.Region)" />
+                    <ZakTableColumn TItem="ServerInstance" Field="IpAddress" Title="IP Address" Property="@(s => s.IpAddress)" />
+                    <ZakTableColumn TItem="ServerInstance" Field="CpuUsage" Title="CPU Load" Sortable="true" Property="@(s => s.CpuUsage)">
+                        <Template>
+                            <span style="font-family: monospace;">@context.CpuUsage%</span>
+                        </Template>
+                    </ZakTableColumn>
+                    <ZakTableColumn TItem="ServerInstance" Title="Health">
+                        <Template>
+                            <ZakBadge Content="@context.Status"
+                                      Color="@(context.Status == "Running" ? ZakColor.Success : context.Status == "Warning" ? ZakColor.Warning : ZakColor.Danger)" />
+                        </Template>
+                    </ZakTableColumn>
+                </Columns>
+            </ZakDataGrid>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakDataGrid" />
+    </div>
+</div>
+
+@code {
+    public record ServerInstance(string Name, string Region, string IpAddress, int CpuUsage, string Status);
+
+    private readonly List<ServerInstance> _instances = new()
+    {
+        new("us-east-prod-01", "us-east-1", "10.0.1.45", 28, "Running"),
+        new("us-east-prod-02", "us-east-1", "10.0.1.46", 89, "Warning"),
+        new("eu-central-api-01", "eu-central-1", "10.2.0.12", 15, "Running"),
+        new("eu-central-worker-01", "eu-central-1", "10.2.0.88", 98, "Critical"),
+        new("ap-northeast-db-01", "ap-northeast-1", "10.4.5.20", 42, "Running"),
+        new("sa-east-cache-01", "sa-east-1", "10.8.0.3", 22, "Running"),
+    };
+
+    private const string DataGridCode = @"<ZakDataGrid TItem=""ServerInstance""
+             Title=""Cloud Instances""
+             Items=""@_instances""
+             Searchable=""true""
+             Selectable=""true""
+             PageSize=""5""
+             SearchFilter=""@((item, query) => item.Name.Contains(query, StringComparison.OrdinalIgnoreCase))"">
+    <Columns>
+        <ZakTableColumn TItem=""ServerInstance"" Field=""Name"" Title=""Server Name"" Sortable=""true"" Property=""@(s => s.Name)"" />
+        <ZakTableColumn TItem=""ServerInstance"" Field=""Region"" Title=""Region"" Sortable=""true"" Property=""@(s => s.Region)"" />
+        <ZakTableColumn TItem=""ServerInstance"" Field=""IpAddress"" Title=""IP Address"" Property=""@(s => s.IpAddress)"" />
+        <ZakTableColumn TItem=""ServerInstance"" Title=""Health"">
+            <Template>
+                <ZakBadge Content=""@context.Status"" Color=""@(context.Status == ""Running"" ? ZakColor.Success : ZakColor.Warning)"" />
+            </Template>
+        </ZakTableColumn>
+    </Columns>
+</ZakDataGrid>";
+}

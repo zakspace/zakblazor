@@ -1,0 +1,203 @@
+@page "/docs/forms"
+
+<PageTitle>Forms — ZAKBlazor Documentation</PageTitle>
+
+<ZakContainer MaxWidth="ZakBreakpoint.Lg">
+    <div class="zak-section-header">
+        <ZakText Typo="Typo.h1">Forms & Inputs</ZakText>
+        <ZakText Typo="Typo.body1">Comprehensive form components including inputs, select, checkboxes, radio groups, and more.</ZakText>
+    </div>
+
+    <!-- Text Field -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Text Field</ZakText>
+        <ZakText Typo="Typo.body1">Standard single-line text input with label and validation support.</ZakText>
+
+        <ZakTextField Label="Email" Placeholder="Enter email" Icon="@ZakIcons.Email" />
+        <ZakTextField Label="Password" Placeholder="Enter password" Icon="@ZakIcons.Lock" Type="ZakInputType.Password" />
+    </div>
+
+    <!-- Text Area -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Text Area</ZakText>
+        <ZakText Typo="Typo.body1">Multi-line text input for longer content.</ZakText>
+
+        <ZakTextArea Label="Description" Rows="3" Placeholder="Enter description" />
+    </div>
+
+    <!-- Input Group -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Input Group</ZakText>
+        <ZakText Typo="Typo.body1">Text field with prefix/suffix icons or text.</ZakText>
+
+        <ZakInputGroup Placeholder="With prefix">
+            <span class="zak-input-group-text"><ZakIcon Icon="@ZakIcons.Search" Size="ZakSize.Small" /></span>
+            <ZakTextField />
+        </ZakInputGroup>
+
+        <ZakInputGroup Placeholder="With suffix">
+            <ZakTextField />
+            <span class="zak-input-group-text">.<ZakIcon Icon="@ZakIcons.Copy" Size="ZakSize.Small" /></span>
+        </ZakInputGroup>
+    </div>
+
+    <!-- Select -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Select</ZakText>
+        <ZakText Typo="Typo.body1">Dropdown select with searchable options.</ZakText>
+
+        <ZakSelect Label="Category" T="string">
+            <ZakOption Value="work">Work</ZakOption>
+            <ZakOption Value="personal">Personal</ZakOption>
+            <ZakOption Value="urgent">Urgent</ZakOption>
+            <ZakOption Value="important">Important</ZakOption>
+        </ZakSelect>
+
+        <ZakSelect Label="Status" T="string" ShowSearch="true">
+            <ZakOption Value="pending">Pending</ZakOption>
+            <ZakOption Value="approved">Approved</ZakOption>
+            <ZakOption Value="rejected">Rejected</ZakOption>
+        </ZakSelect>
+    </div>
+
+    <!-- Radio Group -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Radio Group</ZakText>
+        <ZakText Typo="Typo.body1">Option selector where only one can be chosen.</ZakText>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--zak-spacing-4); margin-top: var(--zak-spacing-6);">
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakRadioGroup T="string" Value="option1">
+                        <ZakRadio Value="option1">Option 1</ZakRadio>
+                        <ZakRadio Value="option2">Option 2</ZakRadio>
+                        <ZakRadio Value="option3">Option 3</ZakRadio>
+                    </ZakRadioGroup>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakRadioGroup T="string" Value="option2" Disabled="true">
+                        <ZakRadio Value="option1">Option 1</ZakRadio>
+                        <ZakRadio Value="option2">Option 2</ZakRadio>
+                        <ZakRadio Value="option3">Option 3</ZakRadio>
+                    </ZakRadioGroup>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    </div>
+
+    <!-- Checkbox -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Checkbox</ZakText>
+        <ZakText Typo="Typo.body1">Binary option selector for yes/no or toggle states.</ZakText>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--zak-spacing-4); margin-top: var(--zak-spacing-6);">
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakCheckbox Label="Remember me" Checked="true" />
+                    <ZakText Typo="Typo.caption">Checked</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakCheckbox Label="Terms & Conditions" Checked="false" />
+                    <ZakText Typo="Typo.caption">Unchecked</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakCheckbox Label="Notifications" Checked="true" Disabled="true" />
+                    <ZakText Typo="Typo.caption">Disabled</ZakText>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    </div>
+
+    <!-- Switch -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Switch</ZakText>
+        <ZakText Typo="Typo.body1">Toggle switch for enabling/disabling features.</ZakText>
+
+        <ZakSwitch Label="Dark Mode" Color="ZakColor.Primary" />
+        <ZakSwitch Label="Notifications" Color="ZakColor.Secondary" Disabled="true" />
+    </div>
+
+    <!-- Slider -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Slider</ZakText>
+        <ZakText Typo="Typo.body1">Range selector for numerical values.</ZakText>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--zak-spacing-4); margin-top: var(--zak-spacing-6);">
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakSlider Min="0" Max="100" Step="1" Value="50" />
+                    <ZakText Typo="Typo.caption">50</ZakText>
+                </ZakStack>
+            </ZakBox>
+
+            <ZakBox Padding="4" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface);">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <ZakSlider Min="0" Max="100" Step="1" Value="25" Color="ZakColor.Secondary" />
+                    <ZakText Typo="Typo.caption">25</ZakText>
+                </ZakStack>
+            </ZakBox>
+        </div>
+    </div>
+
+    <!-- Segmented Control -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Segmented Control</ZakText>
+        <ZakText Typo="Typo.body1">Group of related options where only one can be selected.</ZakText>
+
+        <ZakSegmentedControl>
+            <ZakSegmentedControlItem Label="Grid" Selected="true" />
+            <ZakSegmentedControlItem Label="List" />
+            <ZakSegmentedControlItem Label="Gallery" />
+        </ZakSegmentedControl>
+    </div>
+
+    <!-- Search Input -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Search Input</ZakText>
+        <ZakText Typo="Typo.body1">Input with built-in search functionality and clear button.</ZakText>
+
+        <ZakSearchInput Placeholder="Search items..." Icon="@ZakIcons.Search" />
+    </div>
+
+    <!-- Rating -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Rating</ZakText>
+        <ZakText Typo="Typo.body1">Star rating component for reviews and feedback.</ZakText>
+
+        <ZakRating Value="4" ReadOnly="true" />
+        <ZakRating Value="3.5" ReadOnly="false" />
+    </div>
+
+    <!-- File Upload -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">File Upload</ZakText>
+        <ZakText Typo="Typo.body1">Component for selecting and uploading files.</ZakText>
+
+        <ZakFileUpload Accept=".pdf,.jpg,.png" MaxSize="5" />
+    </div>
+
+    <!-- Date Picker -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Date Picker</ZakText>
+        <ZakText Typo="Typo.body1">Calendar component for selecting dates.</ZakText>
+
+        <ZakDatePicker Placeholder="Select date" />
+    </div>
+
+    <!-- Color Picker -->
+    <div style="margin-bottom: var(--zak-spacing-10);">
+        <ZakText Typo="Typo.h3" GutterBottom="true">Color Picker</ZakText>
+        <ZakText Typo="Typo.body1">Component for selecting colors.</ZakText>
+
+        <ZakColorPicker Value="#4A90E2" OnChange="() => { /* handle color change */ }" />
+    </div>
+</ZakContainer>

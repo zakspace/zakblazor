@@ -1,0 +1,53 @@
+@page "/docs/menu"
+
+<PageTitle>Menu — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Menu</h1>
+        <p class="docs-subtitle">Menus display a list of contextual actions, links, or commands anchored to a trigger element.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Navigation" Color="ZakColor.Primary" />
+            <ZakBadge Content="Contextual" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Dropdown Action Menu</h2>
+        <p class="docs-section-desc">Compose with <code>ZakMenu</code> and <code>ZakMenuItem</code>. Supports icons, shortcuts, disabled states, and dividers.</p>
+        <ZakDocsExample Title="Contextual Action Menu" Code="@MenuCode">
+            <ZakMenu>
+                <ActivatorContent>
+                    <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Default" EndIcon="@ZakIcons.ChevronDown">
+                        Actions
+                    </ZakButton>
+                </ActivatorContent>
+                <ChildContent>
+                <ZakMenuItem Icon="@ZakIcons.Edit" Text="Edit Record" Shortcut="⌘E" />
+                <ZakMenuItem Icon="@ZakIcons.Copy" Text="Duplicate" Shortcut="⌘D" />
+                <ZakMenuItem IsDivider="true" />
+                <ZakMenuItem Icon="@ZakIcons.Download" Text="Export to CSV" />
+                <ZakMenuItem Icon="@ZakIcons.Share" Text="Share Link" />
+                <ZakMenuItem IsDivider="true" />
+                <ZakMenuItem Icon="@ZakIcons.Trash" Text="Delete" Color="ZakColor.Danger" />
+                </ChildContent>
+            </ZakMenu>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakMenu" />
+    </div>
+</div>
+
+@code {
+    private const string MenuCode = @"<ZakMenu>
+    <ActivatorContent>
+        <ZakButton EndIcon=""@ZakIcons.ChevronDown"">Actions</ZakButton>
+    </ActivatorContent>
+    <ZakMenuItem Icon=""@ZakIcons.Edit"" Text=""Edit Record"" Shortcut=""⌘E"" />
+    <ZakMenuItem Icon=""@ZakIcons.Copy"" Text=""Duplicate"" />
+    <ZakMenuItem IsDivider=""true"" />
+    <ZakMenuItem Icon=""@ZakIcons.Trash"" Text=""Delete"" Color=""ZakColor.Danger"" />
+</ZakMenu>";
+}

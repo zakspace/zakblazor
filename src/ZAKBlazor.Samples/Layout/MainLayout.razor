@@ -1,0 +1,50 @@
+@inherits LayoutComponentBase
+@inject IZakThemeService ThemeService
+@inject IZakLayoutService LayoutService
+
+<ZakThemeProvider>
+    <ZakLayout>
+        <ZakAppBar Fixed="true" Elevation="ZakElevation.Elevation1">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3">
+                <ZakIconButton Icon="@ZakIcons.Menu"
+                               AriaLabel="Toggle navigation menu"
+                               Variant="ZakVariant.Text"
+                               Color="ZakColor.Default"
+                               OnClick="() => LayoutService.ToggleDrawer()" />
+
+                <a href="" class="zak-sample-brand">
+                    <img src="images/logo.png" alt="ZAKBlazor Logo" />
+                    <span>ZAK Enterprise</span>
+                </a>
+            </ZakStack>
+
+            <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="2">
+                <ZakIconButton Icon="@(ThemeService.IsDarkMode ? ZakIcons.Sun : ZakIcons.Moon)"
+                               AriaLabel="Toggle dark mode"
+                               Variant="ZakVariant.Text"
+                               Color="ZakColor.Default"
+                               OnClick="() => ThemeService.ToggleDarkModeAsync()" />
+
+                <ZakIconButton Icon="@ZakIcons.Bell"
+                               AriaLabel="Notifications"
+                               Variant="ZakVariant.Text"
+                               Color="ZakColor.Default" />
+
+                <ZakButton Variant="ZakVariant.Soft" Color="ZakColor.Primary" Size="ZakSize.Small" StartIcon="@ZakIcons.User">
+                    Admin
+                </ZakButton>
+            </ZakStack>
+        </ZakAppBar>
+
+        <ZakDrawer Width="260px" ClipMode="true">
+            <NavMenu />
+        </ZakDrawer>
+
+        <ZakMainContent>
+            @Body
+        </ZakMainContent>
+
+        <ZakDialogProvider />
+        <ZakSnackbarProvider />
+    </ZakLayout>
+</ZakThemeProvider>

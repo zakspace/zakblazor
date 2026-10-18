@@ -1,0 +1,126 @@
+@page "/"
+
+<PageTitle>Enterprise Dashboard — ZAKBlazor</PageTitle>
+
+<ZakContainer MaxWidth="ZakBreakpoint.Lg" Style="padding-top: var(--zak-spacing-6); padding-bottom: var(--zak-spacing-12);">
+    <!-- Page Header -->
+    <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true" Style="margin-bottom: var(--zak-spacing-6);">
+        <div>
+            <ZakText Typo="Typo.h4">Enterprise Overview</ZakText>
+            <ZakText Typo="Typo.body2">Platform health, live telemetry, and account performance metrics.</ZakText>
+        </div>
+
+        <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="2">
+            <ZakButton Variant="ZakVariant.Outlined" Color="ZakColor.Default" StartIcon="@ZakIcons.Download">
+                Export
+            </ZakButton>
+            <ZakButton Variant="ZakVariant.Filled" Color="ZakColor.Primary" StartIcon="@ZakIcons.Plus">
+                Create Project
+            </ZakButton>
+        </ZakStack>
+    </ZakStack>
+
+    <!-- Key Performance Indicator Cards -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--zak-spacing-4); margin-bottom: var(--zak-spacing-6);">
+        <div class="zak-metric-card">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center">
+                <ZakText Typo="Typo.caption">TOTAL REVENUE</ZakText>
+                <ZakIcon Icon="@ZakIcons.Sparkles" Color="ZakColor.Primary" Size="ZakSize.Small" />
+            </ZakStack>
+            <ZakText Typo="Typo.h3" Style="margin: 8px 0 4px;">$284,920</ZakText>
+            <ZakText Typo="Typo.caption" Color="ZakColor.Success">↑ 18.4% vs previous quarter</ZakText>
+        </div>
+
+        <div class="zak-metric-card">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center">
+                <ZakText Typo="Typo.caption">ACTIVE WORKSPACES</ZakText>
+                <ZakIcon Icon="@ZakIcons.Layers" Color="ZakColor.Secondary" Size="ZakSize.Small" />
+            </ZakStack>
+            <ZakText Typo="Typo.h3" Style="margin: 8px 0 4px;">1,429</ZakText>
+            <ZakText Typo="Typo.caption" Color="ZakColor.Success">↑ 9.2% weekly growth</ZakText>
+        </div>
+
+        <div class="zak-metric-card">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center">
+                <ZakText Typo="Typo.caption">SYSTEM AVAILABILITY</ZakText>
+                <ZakIcon Icon="@ZakIcons.CheckCircle" Color="ZakColor.Success" Size="ZakSize.Small" />
+            </ZakStack>
+            <ZakText Typo="Typo.h3" Style="margin: 8px 0 4px;">99.98%</ZakText>
+            <ZakText Typo="Typo.caption" Color="ZakColor.Default">All services nominal</ZakText>
+        </div>
+
+        <div class="zak-metric-card">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center">
+                <ZakText Typo="Typo.caption">ACTIVE SESSIONS</ZakText>
+                <ZakIcon Icon="@ZakIcons.Users" Color="ZakColor.Info" Size="ZakSize.Small" />
+            </ZakStack>
+            <ZakText Typo="Typo.h3" Style="margin: 8px 0 4px;">18,432</ZakText>
+            <ZakText Typo="Typo.caption" Color="ZakColor.Success">↑ 3.1% concurrent users</ZakText>
+        </div>
+    </div>
+
+    <!-- Active Deployments and Systems Table/Card -->
+    <ZakBox Padding="6" Elevation="ZakElevation.Elevation2" Shape="ZakShape.Rounded" Border="true" Style="background: var(--zak-surface); margin-bottom: var(--zak-spacing-6);">
+        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true">
+                <div>
+                    <ZakText Typo="Typo.h6">Active Production Clusters</ZakText>
+                    <ZakText Typo="Typo.body2">Status and latency monitoring across primary regions.</ZakText>
+                </div>
+                <ZakButton Variant="ZakVariant.Text" Color="ZakColor.Primary" Size="ZakSize.Small">View All Clusters</ZakButton>
+            </ZakStack>
+
+            <ZakDivider />
+
+            <div style="display: flex; flex-direction: column; gap: var(--zak-spacing-3);">
+                <ZakBox Padding="3" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface-variant);">
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true">
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Align="ZakAlignment.Center">
+                            <ZakIcon Icon="@ZakIcons.Layers" Color="ZakColor.Primary" />
+                            <div>
+                                <ZakText Typo="Typo.subtitle2">US-East Primary (N. Virginia)</ZakText>
+                                <ZakText Typo="Typo.caption">Cluster: prod-us-east-01 • 48 nodes active</ZakText>
+                            </div>
+                        </ZakStack>
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Align="ZakAlignment.Center">
+                            <span class="zak-status-badge zak-status-active">Healthy (18ms)</span>
+                            <ZakIconButton Icon="@ZakIcons.Settings" Variant="ZakVariant.Text" AriaLabel="Configure" />
+                        </ZakStack>
+                    </ZakStack>
+                </ZakBox>
+
+                <ZakBox Padding="3" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface-variant);">
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true">
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Align="ZakAlignment.Center">
+                            <ZakIcon Icon="@ZakIcons.Layers" Color="ZakColor.Secondary" />
+                            <div>
+                                <ZakText Typo="Typo.subtitle2">EU-Central Primary (Frankfurt)</ZakText>
+                                <ZakText Typo="Typo.caption">Cluster: prod-eu-central-02 • 36 nodes active</ZakText>
+                            </div>
+                        </ZakStack>
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Align="ZakAlignment.Center">
+                            <span class="zak-status-badge zak-status-active">Healthy (24ms)</span>
+                            <ZakIconButton Icon="@ZakIcons.Settings" Variant="ZakVariant.Text" AriaLabel="Configure" />
+                        </ZakStack>
+                    </ZakStack>
+                </ZakBox>
+
+                <ZakBox Padding="3" Border="true" Shape="ZakShape.Rounded" Style="background: var(--zak-surface-variant);">
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Justify="ZakJustify.SpaceBetween" Align="ZakAlignment.Center" FullWidth="true">
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Align="ZakAlignment.Center">
+                            <ZakIcon Icon="@ZakIcons.Layers" Color="ZakColor.Warning" />
+                            <div>
+                                <ZakText Typo="Typo.subtitle2">AP-Southeast (Singapore)</ZakText>
+                                <ZakText Typo="Typo.caption">Cluster: prod-ap-southeast-01 • Scaling +4 nodes</ZakText>
+                            </div>
+                        </ZakStack>
+                        <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Align="ZakAlignment.Center">
+                            <span class="zak-status-badge zak-status-pending">Rebalancing</span>
+                            <ZakIconButton Icon="@ZakIcons.Settings" Variant="ZakVariant.Text" AriaLabel="Configure" />
+                        </ZakStack>
+                    </ZakStack>
+                </ZakBox>
+            </div>
+        </ZakStack>
+    </ZakBox>
+</ZakContainer>

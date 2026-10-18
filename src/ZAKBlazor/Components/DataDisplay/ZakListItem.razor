@@ -1,0 +1,87 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<li id="@ElementId"
+    class="@CompiledClass"
+    style="@CompiledStyle"
+    @onclick="HandleClickAsync"
+    @attributes="AdditionalAttributes">
+
+    @if (Icon != null)
+    {
+        <div class="zak-list-item-icon">
+            <ZakIcon Icon="@Icon" Size="ZakSize.Small" />
+        </div>
+    }
+    @if (AvatarContent != null)
+    {
+        <div class="zak-list-item-icon">
+            @AvatarContent
+        </div>
+    }
+
+    <div class="zak-list-item-content">
+        @if (!string.IsNullOrEmpty(Primary))
+        {
+            <span class="zak-list-item-primary">@Primary</span>
+        }
+        @if (!string.IsNullOrEmpty(Secondary))
+        {
+            <span class="zak-list-item-secondary">@Secondary</span>
+        }
+        @ChildContent
+    </div>
+
+    @if (ActionContent != null)
+    {
+        <div class="zak-list-item-action">
+            @ActionContent
+        </div>
+    }
+</li>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? AvatarContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ActionContent { get; set; }
+
+    [Parameter]
+    public string? Primary { get; set; }
+
+    [Parameter]
+    public string? Secondary { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public bool Selected { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public bool Button { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-list-item")
+        .AddClass("zak-list-item-selected", Selected)
+        .AddClass("zak-list-item-disabled", Disabled)
+        .AddClass("zak-list-item-button", Button || OnClick.HasDelegate)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task HandleClickAsync(MouseEventArgs e)
+    {
+        if (!Disabled && OnClick.HasDelegate)
+            await OnClick.InvokeAsync(e);
+    }
+}

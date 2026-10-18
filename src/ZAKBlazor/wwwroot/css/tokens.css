@@ -1,0 +1,226 @@
+/**
+ * ZAKBlazor Design Tokens & CSS Variables
+ */
+:root {
+  /* Brand Palettes (defaults) */
+  --zak-primary: #5E43F3;
+  --zak-primary-rgb: 94, 67, 243;
+  --zak-primary-darken: #472FE0;
+  --zak-primary-lighten: #7C66F7;
+  --zak-primary-contrast: #FFFFFF;
+
+  --zak-secondary: #00D2B4;
+  --zak-secondary-rgb: 0, 210, 180;
+  --zak-secondary-darken: #00B89C;
+  --zak-secondary-lighten: #33DFC3;
+  --zak-secondary-contrast: #0B0F19;
+
+  --zak-tertiary: #8B5CF6;
+  --zak-tertiary-rgb: 139, 92, 246;
+  --zak-tertiary-darken: #7440F4;
+  --zak-tertiary-lighten: #A278F8;
+  --zak-tertiary-contrast: #FFFFFF;
+  --zak-tertiary-contrast: #FFFFFF;
+
+  --zak-success: #10B981;
+  --zak-success-rgb: 16, 185, 129;
+  --zak-success-darken: #0D9668;
+  --zak-success-lighten: #1FD89A;
+  --zak-success-contrast: #FFFFFF;
+
+  -zak-warning: #F59E0B;
+  --zak-warning-rgb: 245, 158, 11;
+  --zak-warning-darken: #C88008;
+  --zak-warning-lighten: #F7B33C;
+  --zak-warning-contrast: #0B0F19;
+
+  --zak-danger: #EF4444;
+  --zak-danger-rgb: 239, 68, 68;
+  --zak-danger-darken: #EA1919;
+  --zak-danger-lighten: #F36F6F;
+  --zak-danger-contrast: #FFFFFF;
+
+  --zak-info: #0EA5E9;
+  --zak-info-rgb: 14, 165, 233;
+  --zak-info-darken: #0B84BB;
+  --zak-info-lighten: #38BDF8;
+  --zak-info-contrast: #FFFFFF;
+
+  /* Soft / Light background tokens */
+  --zak-primary-light: rgba(var(--zak-primary-rgb), 0.12);
+  --zak-secondary-light: rgba(var(--zak-secondary-rgb), 0.14);
+  --zak-tertiary-light: rgba(var(--zak-tertiary-rgb), 0.12);
+  --zak-success-light: rgba(var(--zak-success-rgb), 0.14);
+  --zak-warning-light: rgba(var(--zak-warning-rgb), 0.14);
+  --zak-danger-light: rgba(var(--zak-danger-rgb), 0.14);
+  --zak-info-light: rgba(var(--zak-info-rgb), 0.14);
+
+  --zak-dark: #0F172A;
+  --zak-light: #F8FAFC;
+
+  --zak-background: #F8FAFC;
+  --zak-background-secondary: #F1F5F9;
+  --zak-surface: #FFFFFF;
+  --zak-surface-variant: #F8FAFC;
+  --zak-surface-hover: rgba(15, 23, 42, 0.04);
+  --zak-surface-active: rgba(15, 23, 42, 0.08);
+
+  --zak-text-primary: #0F172A;
+  --zak-text-secondary: #64748B;
+  --zak-text-muted: #94A3B8;
+
+  --zak-border: #E2E8F0;
+  --zak-border-subtle: #F1F5F9;
+  --zak-divider: #E2E8F0;
+
+  --zak-focus-ring: rgba(94, 67, 243, 0.35);
+  --zak-overlay: rgba(15, 23, 42, 0.55);
+
+  --zak-appbar-bg: #FFFFFF;
+  --zak-appbar-text: #0F172A;
+  --zak-appbar-height: 64px;
+
+  --zak-drawer-bg: #FFFFFF;
+  --zak-drawer-text: #0F172A;
+  --zak-drawer-border: #E2E8F0;
+  --zak-drawer-width: 280px;
+
+  --zak-card-bg: #FFFFFF;
+  --zak-card-border: #E2E8F0;
+
+  /* Aliases */
+  --zak-bg-surface: var(--zak-surface);
+  --zak-border-default: var(--zak-border);
+  --zak-border-color: var(--zak-border);
+  --zak-color-primary: var(--zak-primary);
+  --zak-color-secondary: var(--zak-secondary);
+  --zak-color-danger: var(--zak-danger);
+  --zak-color-success: var(--zak-success);
+  --zak-color-warning: var(--zak-warning);
+  --zak-color-info: var(--zak-info);
+
+  /* Typography */
+  --zak-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --zak-font-family-mono: 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+
+  --zak-typo-h1-size: 2.5rem;
+  --zak-typo-h1-weight: 700;
+  --zak-typo-h1-line-height: 1.2;
+  --zak-typo-h1-letter-spacing: -0.025em;
+
+  --zak-typo-h2-size: 2rem;
+  --zak-typo-h2-weight: 700;
+  --zak-typo-h2-line-height: 1.25;
+  --zak-typo-h2-letter-spacing: -0.02em;
+
+  --zak-typo-h3-size: 1.625rem;
+  --zak-typo-h3-weight: 600;
+  --zak-typo-h3-line-height: 1.3;
+  --zak-typo-h3-letter-spacing: -0.015em;
+
+  --zak-typo-h4-size: 1.375rem;
+  --zak-typo-h4-weight: 600;
+  --zak-typo-h4-line-height: 1.35;
+  --zak-typo-h4-letter-spacing: -0.01em;
+
+  --zak-typo-h5-size: 1.125rem;
+  --zak-typo-h5-weight: 600;
+  --zak-typo-h5-line-height: 1.4;
+
+  --zak-typo-h6-size: 1rem;
+  --zak-typo-h6-weight: 600;
+  --zak-typo-h6-line-height: 1.45;
+
+  --zak-typo-sub1-size: 1rem;
+  --zak-typo-sub1-weight: 500;
+  --zak-typo-sub1-line-height: 1.5;
+
+  --zak-typo-sub2-size: 0.875rem;
+  --zak-typo-sub2-weight: 500;
+  --zak-typo-sub2-line-height: 1.5;
+
+  --zak-typo-body1-size: 1rem;
+  --zak-typo-body1-weight: 400;
+  --zak-typo-body1-line-height: 1.5;
+
+  --zak-typo-body2-size: 0.875rem;
+  --zak-typo-body2-weight: 400;
+  --zak-typo-body2-line-height: 1.5;
+
+  --zak-typo-caption-size: 0.75rem;
+  --zak-typo-caption-weight: 400;
+  --zak-typo-caption-line-height: 1.4;
+
+  --zak-typo-overline-size: 0.75rem;
+  --zak-typo-overline-weight: 600;
+  --zak-typo-overline-transform: uppercase;
+
+  --zak-typo-button-size: 0.875rem;
+  --zak-typo-button-weight: 500;
+
+  /* Spacing Scale */
+  --zak-spacing-0: 0px;
+  --zak-spacing-1: 4px;
+  --zak-spacing-2: 8px;
+  --zak-spacing-3: 12px;
+  --zak-spacing-4: 16px;
+  --zak-spacing-5: 20px;
+  --zak-spacing-6: 24px;
+  --zak-spacing-8: 32px;
+  --zak-spacing-10: 40px;
+  --zak-spacing-12: 48px;
+  --zak-spacing-16: 64px;
+
+  /* Border Radii */
+  --zak-radius-none: 0px;
+  --zak-radius-sm: 6px;
+  --zak-radius-md: 10px;
+  --zak-radius-lg: 16px;
+  --zak-radius-xl: 24px;
+  --zak-radius-pill: 9999px;
+  --zak-radius-circle: 50%;
+
+  /* Elevations */
+  --zak-shadow-0: none;
+  --zak-shadow-1: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --zak-shadow-2: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08);
+  --zak-shadow-3: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --zak-shadow-4: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --zak-shadow-6: 0 12px 20px -4px rgba(0, 0, 0, 0.10), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --zak-shadow-8: 0 16px 24px -4px rgba(0, 0, 0, 0.10), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --zak-shadow-12: 0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+  --zak-shadow-16: 0 25px 30px -5px rgba(0, 0, 0, 0.15), 0 10px 12px -6px rgba(0, 0, 0, 0.08);
+  --zak-shadow-24: 0 25px 50px -12px rgba(0, 0, 0, 0.22);
+
+  /* Transitions */
+  --zak-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --zak-transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --zak-transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-Indices */
+  --zak-z-drawer: 1100;
+  --zak-z-appbar: 1200;
+  --zak-z-backdrop: 1300;
+  --zak-z-modal: 1400;
+  --zak-z-popover: 1500;
+  --zak-z-tooltip: 1600;
+  --zak-z-snackbar: 1700;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--zak-font-family);
+  background-color: var(--zak-background);
+  color: var(--zak-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

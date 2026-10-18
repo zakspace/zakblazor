@@ -1,0 +1,135 @@
+@page "/docs/form"
+
+<PageTitle>Form & Form Field — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Form &amp; Form Field</h1>
+        <p class="docs-subtitle">Form layout container and field wrapper integrating with Blazor EditContext, validation state, labels, and helper text.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="EditContext" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Complete Form Example -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Form with Fields</h2>
+        <p class="docs-section-desc">Wrap inputs inside <code>ZakFormField</code> to manage consistent label headers, required markers, and validation messages.</p>
+        <ZakDocsExample Title="User Profile Form" Code="@FormCode">
+            <div style="max-width: 480px;">
+                <ZakForm Model="@_formModel" OnValidSubmit="@HandleSubmit">
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                        <ZakFormField Label="Full Name" Required="true" HelperText="Your public profile name.">
+                            <ZakTextField @bind-Value="_formModel.FullName" Placeholder="e.g. Alex Morgan" />
+                        </ZakFormField>
+
+                        <ZakFormField Label="Work Email" Required="true">
+                            <ZakTextField @bind-Value="_formModel.Email" Placeholder="alex@company.com" />
+                        </ZakFormField>
+
+                        <ZakFormField Label="Department">
+                            <ZakSelect TValue="string" @bind-Value="_formModel.Department" Placeholder="Select department...">
+                                <ZakOption TValue="string" Value="@("Engineering")" Text="Engineering" />
+                                <ZakOption TValue="string" Value="@("Design")" Text="Design" />
+                                <ZakOption TValue="string" Value="@("Product")" Text="Product" />
+                            </ZakSelect>
+                        </ZakFormField>
+
+                        <ZakButton Type="submit" Color="ZakColor.Primary">
+                            Save Profile
+                        </ZakButton>
+
+                        @if (_isSaved)
+                        {
+                            <ZakAlert Color="ZakColor.Success">
+                                Profile for @_formModel.FullName saved successfully!
+                            </ZakAlert>
+                        }
+                    </ZakStack>
+                </ZakForm>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Field Variants Section -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Field Variants</h2>
+        <p class="docs-section-desc">
+            <code>ZakFormField</code> supports four visual variants: <code>Outlined</code> (default), <code>Filled</code>, <code>Underline</code>, and <code>Ghost</code>.
+            Child inputs automatically inherit the variant from their parent <code>ZakFormField</code> through cascading parameters.
+        </p>
+        <ZakDocsExample Title="Field Variants Comparison" Code="@VariantsCode">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; width: 100%;">
+                <ZakFormField Label="Outlined (Default)" Variant="ZakFormFieldVariant.Outlined" HelperText="Standard bordered surface">
+                    <ZakTextField Placeholder="Enter text..." />
+                </ZakFormField>
+
+                <ZakFormField Label="Filled" Variant="ZakFormFieldVariant.Filled" HelperText="Solid background with bottom stroke">
+                    <ZakTextField Placeholder="Enter text..." />
+                </ZakFormField>
+
+                <ZakFormField Label="Underline" Variant="ZakFormFieldVariant.Underline" HelperText="Minimalist bottom line only">
+                    <ZakTextField Placeholder="Enter text..." />
+                </ZakFormField>
+
+                <ZakFormField Label="Ghost" Variant="ZakFormFieldVariant.Ghost" HelperText="Frameless until hovered or focused">
+                    <ZakTextField Placeholder="Enter text..." />
+                </ZakFormField>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakFormField" />
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakForm" />
+    </div>
+</div>
+
+@code {
+    public class UserProfile
+    {
+        public string? FullName { get; set; } = "Jordan Lee";
+        public string? Email { get; set; } = "jordan@example.com";
+        public string? Department { get; set; } = "Engineering";
+    }
+
+    private UserProfile _formModel = new();
+    private bool _isSaved;
+
+    private void HandleSubmit()
+    {
+        _isSaved = true;
+    }
+
+    private const string FormCode = @"<ZakForm Model=""@_formModel"" OnValidSubmit=""@HandleSubmit"">
+    <ZakFormField Label=""Full Name"" Required=""true"" HelperText=""Your public profile name."">
+        <ZakTextField @bind-Value=""_formModel.FullName"" />
+    </ZakFormField>
+
+    <ZakFormField Label=""Work Email"" Required=""true"">
+        <ZakTextField @bind-Value=""_formModel.Email"" />
+    </ZakFormField>
+
+    <ZakButton Type=""submit"" Color=""ZakColor.Primary"">Save Profile</ZakButton>
+</ZakForm>";
+
+    private const string VariantsCode = @"<ZakFormField Label=""Outlined"" Variant=""ZakFormFieldVariant.Outlined"">
+    <ZakTextField Placeholder=""Enter text..."" />
+</ZakFormField>
+
+<ZakFormField Label=""Filled"" Variant=""ZakFormFieldVariant.Filled"">
+    <ZakTextField Placeholder=""Enter text..."" />
+</ZakFormField>
+
+<ZakFormField Label=""Underline"" Variant=""ZakFormFieldVariant.Underline"">
+    <ZakTextField Placeholder=""Enter text..."" />
+</ZakFormField>
+
+<ZakFormField Label=""Ghost"" Variant=""ZakFormFieldVariant.Ghost"">
+    <ZakTextField Placeholder=""Enter text..."" />
+</ZakFormField>";
+}

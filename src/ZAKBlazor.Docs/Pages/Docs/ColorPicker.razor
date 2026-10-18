@@ -1,0 +1,38 @@
+@page "/docs/color-picker"
+
+<PageTitle>Color Picker — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Color Picker</h1>
+        <p class="docs-subtitle">Color picker allows users to choose hex colors from curated swatch presets or direct hex input.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Form Control" Color="ZakColor.Primary" />
+            <ZakBadge Content="Hex Swatches" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Color Selection</h2>
+        <p class="docs-section-desc">Click the field to open the swatch popover.</p>
+        <ZakDocsExample Title="Color Picker" Code="@ColorPickerCode">
+            <div style="max-width: 360px;">
+                <ZakColorPicker Label="Theme Primary Color" @bind-Value="_chosenColor" />
+                <div style="margin-top: 1rem; display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 24px; height: 24px; border-radius: 4px; background: @(_chosenColor ?? "#8642d9");"></div>
+                    <span style="font-size: 0.875rem;">Selected Color: <strong>@(_chosenColor ?? "#8642d9")</strong></span>
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakColorPicker" />
+    </div>
+</div>
+
+@code {
+    private string _chosenColor = "#8642d9";
+
+    private const string ColorPickerCode = @"<ZakColorPicker Label=""Theme Primary Color"" @bind-Value=""_chosenColor"" />";
+}

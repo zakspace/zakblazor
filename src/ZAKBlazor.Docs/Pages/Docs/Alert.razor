@@ -1,0 +1,157 @@
+@page "/docs/alert"
+
+<PageTitle>Alert — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Alert</h1>
+        <p class="docs-subtitle">Alerts display brief, contextual messages about system events, feedback, validations, and warnings.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Feedback" Color="ZakColor.Primary" />
+            <ZakBadge Content="Accessible" Color="ZakColor.Success" />
+            <ZakBadge Content="Dismissible" Color="ZakColor.Info" />
+        </div>
+    </div>
+
+    <!-- Semantic Colors -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Semantic Colors</h2>
+        <p class="docs-section-desc">Color tints convey severity and intention with automatic matching icons.</p>
+        <ZakDocsExample Title="Semantic Status Alerts" Code="@ColorsCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                <ZakAlert Color="ZakColor.Success">Your profile changes have been saved successfully.</ZakAlert>
+                <ZakAlert Color="ZakColor.Info">A new software update is ready for download.</ZakAlert>
+                <ZakAlert Color="ZakColor.Warning">Storage capacity reached 85%. Consider cleaning up unused files.</ZakAlert>
+                <ZakAlert Color="ZakColor.Danger">Failed to authenticate server credentials. Please re-login.</ZakAlert>
+                <ZakAlert Color="ZakColor.Primary">Welcome to your new workspace dashboard!</ZakAlert>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Visual Variants -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Visual Variants</h2>
+        <p class="docs-section-desc">Alerts support three visual variants: <code>Soft</code> (subtle background, default), <code>Outlined</code> (transparent with colored border), and <code>Filled</code> (high-emphasis solid color).</p>
+        <ZakDocsExample Title="Visual Variants" Code="@VariantsCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                <ZakAlert Variant="ZakVariant.Soft" Color="ZakColor.Primary" Title="Soft Variant (Default)">
+                    Subtle background designed for inline and in-card messages.
+                </ZakAlert>
+                <ZakAlert Variant="ZakVariant.Outlined" Color="ZakColor.Success" Title="Outlined Variant">
+                    Clean transparent background with crisp colored border and icon.
+                </ZakAlert>
+                <ZakAlert Variant="ZakVariant.Filled" Color="ZakColor.Danger" Title="Filled Variant">
+                    High contrast solid alert for critical disruptions requiring immediate attention.
+                </ZakAlert>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- With Titles and Custom Actions -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Titles &amp; Actions</h2>
+        <p class="docs-section-desc">Combine titles, descriptions, and interactive call-to-action buttons.</p>
+        <ZakDocsExample Title="Alert with Action and Title" Code="@ActionsCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                <ZakAlert Color="ZakColor.Warning" Title="Subscription Expiring Soon">
+                    <ChildContent>
+                        Your annual enterprise subscription will expire in 3 days. Renew now to prevent service interruption.
+                    </ChildContent>
+                    <Action>
+                        <ZakButton Size="ZakSize.Small" Color="ZakColor.Warning" Variant="ZakVariant.Outlined">
+                            Upgrade
+                        </ZakButton>
+                    </Action>
+                </ZakAlert>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Dismissible Alerts -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Dismissible Alerts</h2>
+        <p class="docs-section-desc">Enable <code>Closeable="true"</code> to provide a close button and trigger <code>OnClose</code> callbacks.</p>
+        <ZakDocsExample Title="Dismissible Alert" Code="@DismissCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                @if (_alertVisible)
+                {
+                    <ZakAlert Color="ZakColor.Info" Title="Dismissible Notification" Closeable="true" OnClose="HandleDismiss">
+                        Click the close icon on the right to dismiss this notification.
+                    </ZakAlert>
+                }
+                else
+                {
+                    <ZakButton Size="ZakSize.Small" Variant="ZakVariant.Outlined" Color="ZakColor.Primary" OnClick="ResetAlert">
+                        Show Alert Again
+                    </ZakButton>
+                }
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakAlert" />
+    </div>
+</div>
+
+@code {
+    private bool _alertVisible = true;
+
+    private void HandleDismiss()
+    {
+        _alertVisible = false;
+    }
+
+    private void ResetAlert()
+    {
+        _alertVisible = true;
+    }
+
+    private const string ColorsCode = @"<ZakAlert Color=""ZakColor.Success"">Your profile changes have been saved successfully.</ZakAlert>
+<ZakAlert Color=""ZakColor.Info"">A new software update is ready for download.</ZakAlert>
+<ZakAlert Color=""ZakColor.Warning"">Storage capacity reached 85%. Consider cleaning up unused files.</ZakAlert>
+<ZakAlert Color=""ZakColor.Danger"">Failed to authenticate server credentials. Please re-login.</ZakAlert>
+<ZakAlert Color=""ZakColor.Primary"">Welcome to your new workspace dashboard!</ZakAlert>";
+
+    private const string VariantsCode = @"<ZakAlert Variant=""ZakVariant.Soft"" Color=""ZakColor.Primary"" Title=""Soft Variant"">
+    Subtle background designed for inline and in-card messages.
+</ZakAlert>
+
+<ZakAlert Variant=""ZakVariant.Outlined"" Color=""ZakColor.Success"" Title=""Outlined Variant"">
+    Clean transparent background with crisp colored border and icon.
+</ZakAlert>
+
+<ZakAlert Variant=""ZakVariant.Filled"" Color=""ZakColor.Danger"" Title=""Filled Variant"">
+    High contrast solid alert for critical disruptions requiring immediate attention.
+</ZakAlert>";
+
+    private const string ActionsCode = @"<ZakAlert Color=""ZakColor.Warning"" Title=""Subscription Expiring Soon"">
+    <ChildContent>
+        Your annual enterprise subscription will expire in 3 days.
+    </ChildContent>
+    <Action>
+        <ZakButton Size=""ZakSize.Small"" Color=""ZakColor.Warning"" Variant=""ZakVariant.Outlined"">
+            Upgrade
+        </ZakButton>
+    </Action>
+</ZakAlert>";
+
+    private const string DismissCode = @"@if (_alertVisible)
+{
+    <ZakAlert Color=""ZakColor.Info"" Title=""Dismissible Notification"" Closeable=""true"" OnClose=""HandleDismiss"">
+        Click the close icon on the right to dismiss this notification.
+    </ZakAlert>
+}
+else
+{
+    <ZakButton Size=""ZakSize.Small"" Variant=""ZakVariant.Outlined"" Color=""ZakColor.Primary"" OnClick=""ResetAlert"">
+        Show Alert Again
+    </ZakButton>
+}
+
+@code {
+    private bool _alertVisible = true;
+    private void HandleDismiss() => _alertVisible = false;
+    private void ResetAlert() => _alertVisible = true;
+}";
+}

@@ -1,0 +1,106 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     role="@(OnClick.HasDelegate ? "button" : "status")"
+     tabindex="@(OnClick.HasDelegate && !Disabled ? 0 : -1)"
+     @onclick="HandleClickAsync"
+     @attributes="AdditionalAttributes">
+    @if (Avatar != null)
+    {
+        <span class="zak-chip-avatar">@Avatar</span>
+    }
+    else if (!string.IsNullOrEmpty(Icon))
+    {
+        <ZakIcon Icon="@Icon" Size="ZakSize.ExtraSmall" Class="zak-chip-icon" />
+    }
+
+    <span class="zak-chip-label">
+        @if (ChildContent != null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            @Text
+        }
+    </span>
+
+    @if (Closable && !Disabled)
+    {
+        <button type="button"
+                class="zak-chip-close"
+                aria-label="Remove"
+                @onclick="HandleCloseAsync"
+                @onclick:stopPropagation="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+        </button>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Text { get; set; }
+
+    [Parameter]
+    public ZakVariant Variant { get; set; } = ZakVariant.Filled;
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Default;
+
+    [Parameter]
+    public ZakSize Size { get; set; } = ZakSize.Medium;
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public RenderFragment? Avatar { get; set; }
+
+    [Parameter]
+    public bool Closable { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClose { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-chip")
+        .AddClass(Variant.ToCssClass())
+        .AddClass(Color.ToCssClass())
+        .AddClass(Size.ToCssClass())
+        .AddClass("zak-chip-clickable", OnClick.HasDelegate && !Disabled)
+        .AddClass("zak-disabled", Disabled)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+
+    private async Task HandleClickAsync(MouseEventArgs args)
+    {
+        if (Disabled) return;
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(args);
+        }
+    }
+
+    private async Task HandleCloseAsync(MouseEventArgs args)
+    {
+        if (Disabled) return;
+        if (OnClose.HasDelegate)
+        {
+            await OnClose.InvokeAsync(args);
+        }
+    }
+}

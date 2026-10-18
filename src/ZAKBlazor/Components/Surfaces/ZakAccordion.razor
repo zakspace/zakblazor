@@ -1,0 +1,61 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+    [Parameter]
+    public bool Multiple { get; set; }
+
+    [Parameter]
+    public ZakVariant Variant { get; set; } = ZakVariant.Outlined;
+
+    [Parameter]
+    public ZakShape Shape { get; set; } = ZakShape.Rounded;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private readonly List<ZakAccordionItem> _items = new();
+
+    internal void RegisterItem(ZakAccordionItem item)
+    {
+        if (!_items.Contains(item))
+        {
+            _items.Add(item);
+        }
+    }
+
+    internal void UnregisterItem(ZakAccordionItem item)
+    {
+        _items.Remove(item);
+    }
+
+    internal void NotifyExpanded(ZakAccordionItem expandedItem)
+    {
+        if (!Multiple)
+        {
+            foreach (var item in _items)
+            {
+                if (item != expandedItem && item.Expanded)
+                {
+                    item.Collapse();
+                }
+            }
+        }
+    }
+
+    private string? CompiledClass => CreateClassBuilder("zak-accordion")
+        .AddClass(Variant.ToCssClass("zak-accordion"))
+        .AddClass(Shape.ToCssClass("zak-accordion"))
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

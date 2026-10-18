@@ -1,0 +1,49 @@
+@page "/docs/skeleton"
+
+<PageTitle>Skeleton — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Skeleton</h1>
+        <p class="docs-subtitle">Skeleton screens display placeholder shimmer animations while content is loading, providing a better perceived performance.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Feedback" Color="ZakColor.Primary" />
+            <ZakBadge Content="Loading State" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Card Skeleton Placeholder</h2>
+        <p class="docs-section-desc">Combine text, circular, and rectangular variants to build complete content placeholders.</p>
+        <ZakDocsExample Title="Card Skeleton" Code="@SkeletonCode">
+            <div style="max-width: 380px;">
+                <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                    <!-- Profile row -->
+                    <ZakStack Orientation="ZakOrientation.Horizontal" Align="ZakAlignment.Center" Spacing="3">
+                        <ZakSkeleton Variant="ZakSkeletonVariant.Circle" Width="48px" Height="48px" />
+                        <ZakStack Orientation="ZakOrientation.Vertical" Spacing="1" Style="flex: 1;">
+                            <ZakSkeleton Variant="ZakSkeletonVariant.Text" Width="60%" />
+                            <ZakSkeleton Variant="ZakSkeletonVariant.Text" Width="40%" />
+                        </ZakStack>
+                    </ZakStack>
+                    <!-- Body lines -->
+                    <ZakSkeleton Variant="ZakSkeletonVariant.Text" Width="100%" />
+                    <ZakSkeleton Variant="ZakSkeletonVariant.Text" Width="90%" />
+                    <ZakSkeleton Variant="ZakSkeletonVariant.Text" Width="75%" />
+                    <!-- Image placeholder -->
+                    <ZakSkeleton Variant="ZakSkeletonVariant.Rectangle" Width="100%" Height="120px" />
+                </ZakStack>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakSkeleton" />
+    </div>
+</div>
+
+@code {
+    private const string SkeletonCode = @"<ZakSkeleton Variant=""ZakSkeletonVariant.Circle"" Width=""48px"" Height=""48px"" />
+<ZakSkeleton Variant=""ZakSkeletonVariant.Text"" Width=""60%"" />
+<ZakSkeleton Variant=""ZakSkeletonVariant.Rectangular"" Width=""100%"" Height=""120px"" />";
+}

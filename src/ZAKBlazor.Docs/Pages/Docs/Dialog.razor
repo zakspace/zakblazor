@@ -1,0 +1,278 @@
+@page "/docs/dialog"
+@inject IZakDialogService DialogService
+
+<PageTitle>Dialog & Modal — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Dialog &amp; Modal</h1>
+        <p class="docs-subtitle">Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Feedback" Color="ZakColor.Primary" />
+            <ZakBadge Content="Accessible" Color="ZakColor.Success" />
+            <ZakBadge Content="Focus Trap" Color="ZakColor.Info" />
+        </div>
+    </div>
+
+    <!-- Declarative Dialog -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Declarative Modal Dialog</h2>
+        <p class="docs-section-desc">Use the <code>&lt;ZakDialog&gt;</code> component directly in your markup with <code>@@bind-IsVisible</code> for full template control.</p>
+        <ZakDocsExample Title="Standard Modal Dialog" Code="@BasicDialogCode">
+            <ZakButton Color="ZakColor.Primary" Variant="ZakVariant.Filled" OnClick="() => _showBasicDialog = true">
+                Open Confirmation Dialog
+            </ZakButton>
+
+            <ZakDialog @bind-IsVisible="_showBasicDialog" Title="Terms of Service" MaxWidth="520px">
+                <ChildContent>
+                    <p style="margin: 0; line-height: 1.6; color: var(--zak-text-secondary);">
+                        Please review and agree to our updated Terms of Service and Privacy Policy before continuing.
+                        Your privacy and security are paramount to our team.
+                    </p>
+                </ChildContent>
+                <Actions>
+                    <ZakButton Variant="ZakVariant.Text" Color="ZakColor.Default" OnClick="() => _showBasicDialog = false">
+                        Decline
+                    </ZakButton>
+                    <ZakButton Color="ZakColor.Primary" OnClick="HandleAcceptTerms">
+                        I Agree
+                    </ZakButton>
+                </Actions>
+            </ZakDialog>
+
+            @if (_termsAccepted)
+            {
+                <ZakAlert Color="ZakColor.Success" Style="margin-top: 1rem;">
+                    Terms of service accepted successfully!
+                </ZakAlert>
+            }
+        </ZakDocsExample>
+    </div>
+
+    <!-- Form in Dialog -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Form in Dialog</h2>
+        <p class="docs-section-desc">Host interactive form fields and inputs inside a dialog for lightweight creation and edit workflows.</p>
+        <ZakDocsExample Title="User Edit Dialog" Code="@FormDialogCode">
+            <ZakButton Color="ZakColor.Secondary" Variant="ZakVariant.Outlined" OnClick="() => _showFormDialog = true">
+                Edit User Information
+            </ZakButton>
+
+            <ZakDialog @bind-IsVisible="_showFormDialog" Title="Edit Profile" MaxWidth="480px">
+                <ChildContent>
+                    <ZakStack Orientation="ZakOrientation.Vertical" Spacing="3">
+                        <ZakFormField Label="Full Name" Required="true">
+                            <ZakTextField @bind-Value="_profileName" Placeholder="Enter full name" />
+                        </ZakFormField>
+                        <ZakFormField Label="Email Address" Required="true">
+                            <ZakTextField @bind-Value="_profileEmail" Placeholder="Enter email address" />
+                        </ZakFormField>
+                    </ZakStack>
+                </ChildContent>
+                <Actions>
+                    <ZakButton Variant="ZakVariant.Text" Color="ZakColor.Default" OnClick="() => _showFormDialog = false">
+                        Cancel
+                    </ZakButton>
+                    <ZakButton Color="ZakColor.Primary" OnClick="HandleSaveProfile">
+                        Save Changes
+                    </ZakButton>
+                </Actions>
+            </ZakDialog>
+
+            @if (!string.IsNullOrEmpty(_savedNotification))
+            {
+                <ZakAlert Color="ZakColor.Success" Style="margin-top: 1rem;">
+                    @_savedNotification
+                </ZakAlert>
+            }
+        </ZakDocsExample>
+    </div>
+
+    <!-- Service-Based Confirm Dialog -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Confirmation Dialog (Service)</h2>
+        <p class="docs-section-desc">Invoke <code>DialogService.ConfirmAsync()</code> programmatically for quick Yes/No confirmations without declaring markup.</p>
+        <ZakDocsExample Title="Programmatic Confirm" Code="@ConfirmCode">
+            <ZakStack Orientation="ZakOrientation.Horizontal" Spacing="3" Align="ZakAlignment.Center">
+                <ZakButton Color="ZakColor.Danger" Variant="ZakVariant.Outlined" OnClick="ConfirmDeleteAsync">
+                    Delete Project
+                </ZakButton>
+
+                @if (_confirmResult.HasValue)
+                {
+                    <ZakAlert Color="@(_confirmResult.Value ? ZakColor.Danger : ZakColor.Default)">
+                        User clicked: @(_confirmResult.Value ? "Confirmed Delete ✓" : "Cancelled ✕")
+                    </ZakAlert>
+                }
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- Service-Based Alert Dialog -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Alert Dialog (Service)</h2>
+        <p class="docs-section-desc">Invoke <code>DialogService.AlertAsync()</code> for simple acknowledgments and announcements.</p>
+        <ZakDocsExample Title="Programmatic Alert" Code="@AlertDialogCode">
+            <ZakButton Color="ZakColor.Info" Variant="ZakVariant.Soft" OnClick="ShowAlertAsync">
+                Show Scheduled Maintenance Notice
+            </ZakButton>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakDialog" />
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakDialogProvider" />
+    </div>
+</div>
+
+@code {
+    private bool _showBasicDialog;
+    private bool _termsAccepted;
+
+    private bool _showFormDialog;
+    private string _profileName = "Alex Morgan";
+    private string _profileEmail = "alex.morgan@company.com";
+    private string? _savedNotification;
+
+    private bool? _confirmResult;
+
+    private void HandleAcceptTerms()
+    {
+        _showBasicDialog = false;
+        _termsAccepted = true;
+    }
+
+    private void HandleSaveProfile()
+    {
+        _showFormDialog = false;
+        _savedNotification = $"Updated profile: {_profileName} ({_profileEmail})";
+    }
+
+    private async Task ConfirmDeleteAsync()
+    {
+        _confirmResult = null;
+        _confirmResult = await DialogService.ConfirmAsync(
+            "Are you sure you want to delete this project? All associated resources will be permanently removed.",
+            title: "Delete Project",
+            confirmText: "Delete Project",
+            cancelText: "Keep Project",
+            confirmColor: ZakColor.Danger);
+    }
+
+    private async Task ShowAlertAsync()
+    {
+        await DialogService.AlertAsync(
+            "The cluster will undergo maintenance on Saturday from 02:00 to 03:00 UTC.",
+            title: "Scheduled Maintenance");
+    }
+
+    private const string BasicDialogCode = @"<ZakButton Color=""ZakColor.Primary"" OnClick=""() => _showDialog = true"">
+    Open Confirmation Dialog
+</ZakButton>
+
+<ZakDialog @bind-IsVisible=""_showDialog"" Title=""Terms of Service"" MaxWidth=""520px"">
+    <ChildContent>
+        <p>Please review and agree to our updated Terms of Service and Privacy Policy.</p>
+    </ChildContent>
+    <Actions>
+        <ZakButton Variant=""ZakVariant.Text"" Color=""ZakColor.Default"" OnClick=""() => _showDialog = false"">
+            Decline
+        </ZakButton>
+        <ZakButton Color=""ZakColor.Primary"" OnClick=""AcceptTerms"">
+            I Agree
+        </ZakButton>
+    </Actions>
+</ZakDialog>
+
+@code {
+    private bool _showDialog;
+
+    private void AcceptTerms()
+    {
+        _showDialog = false;
+        // Process acceptance
+    }
+}";
+
+    private const string FormDialogCode = @"<ZakButton Color=""ZakColor.Secondary"" Variant=""ZakVariant.Outlined"" OnClick=""() => _showDialog = true"">
+    Edit User Information
+</ZakButton>
+
+<ZakDialog @bind-IsVisible=""_showDialog"" Title=""Edit Profile"" MaxWidth=""480px"">
+    <ChildContent>
+        <ZakStack Orientation=""ZakOrientation.Vertical"" Spacing=""3"">
+            <ZakFormField Label=""Full Name"" Required=""true"">
+                <ZakTextField @bind-Value=""_profileName"" Placeholder=""Enter full name"" />
+            </ZakFormField>
+            <ZakFormField Label=""Email Address"" Required=""true"">
+                <ZakTextField @bind-Value=""_profileEmail"" Placeholder=""Enter email address"" />
+            </ZakFormField>
+        </ZakStack>
+    </ChildContent>
+    <Actions>
+        <ZakButton Variant=""ZakVariant.Text"" Color=""ZakColor.Default"" OnClick=""() => _showDialog = false"">
+            Cancel
+        </ZakButton>
+        <ZakButton Color=""ZakColor.Primary"" OnClick=""SaveProfile"">
+            Save Changes
+        </ZakButton>
+    </Actions>
+</ZakDialog>
+
+@code {
+    private bool _showDialog;
+    private string _profileName = ""Alex Morgan"";
+    private string _profileEmail = ""alex.morgan@company.com"";
+
+    private void SaveProfile()
+    {
+        _showDialog = false;
+        // Persist profile changes
+    }
+}";
+
+    private const string ConfirmCode = @"@inject IZakDialogService DialogService
+
+<ZakButton Color=""ZakColor.Danger"" Variant=""ZakVariant.Outlined"" OnClick=""ConfirmDeleteAsync"">
+    Delete Project
+</ZakButton>
+
+@if (_confirmResult.HasValue)
+{
+    <ZakAlert Color=""@(_confirmResult.Value ? ZakColor.Danger : ZakColor.Default)"">
+        User clicked: @(_confirmResult.Value ? ""Confirmed Delete ✓"" : ""Cancelled ✕"")
+    </ZakAlert>
+}
+
+@code {
+    private bool? _confirmResult;
+
+    private async Task ConfirmDeleteAsync()
+    {
+        _confirmResult = await DialogService.ConfirmAsync(
+            ""Are you sure you want to delete this project?"",
+            title: ""Delete Project"",
+            confirmText: ""Delete Project"",
+            cancelText: ""Cancel"",
+            confirmColor: ZakColor.Danger);
+    }
+}";
+
+    private const string AlertDialogCode = @"@inject IZakDialogService DialogService
+
+<ZakButton Color=""ZakColor.Info"" Variant=""ZakVariant.Soft"" OnClick=""ShowAlertAsync"">
+    Show Maintenance Notice
+</ZakButton>
+
+@code {
+    private async Task ShowAlertAsync()
+    {
+        await DialogService.AlertAsync(
+            ""The cluster will undergo maintenance on Saturday from 02:00 to 03:00 UTC."",
+            title: ""Scheduled Maintenance"");
+    }
+}";
+}

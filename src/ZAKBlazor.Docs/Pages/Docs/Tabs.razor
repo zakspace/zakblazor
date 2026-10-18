@@ -1,0 +1,56 @@
+@page "/docs/tabs"
+
+<PageTitle>Tabs — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Tabs</h1>
+        <p class="docs-subtitle">Tabs organize content across different screens, data sets, and other interactions into separate views.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Navigation" Color="ZakColor.Primary" />
+            <ZakBadge Content="Two-Way Binding" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <h2 class="docs-section-title">Horizontal Tabs</h2>
+        <p class="docs-section-desc">Supports two-way binding on <code>ActiveIndex</code>, icons, and pill styles.</p>
+        <ZakDocsExample Title="Tabs Example" Code="@TabsCode">
+            <div>
+                <ZakTabs @bind-ActiveIndex="_activeTab" Color="ZakColor.Primary">
+                    <ZakTab Label="Overview" Icon="@ZakIcons.Layers" />
+                    <ZakTab Label="Team Members" Icon="@ZakIcons.User" />
+                    <ZakTab Label="Settings" Icon="@ZakIcons.Settings" />
+                </ZakTabs>
+                <div style="padding: 1.5rem; background: var(--zak-surface); border: 1px solid var(--zak-border); border-top: none; border-radius: 0 0 8px 8px;">
+                    @if (_activeTab == 0)
+                    {
+                        <ZakText Typo="Typo.body1">Overview panel content: High-level system statistics and activity feed.</ZakText>
+                    }
+                    else if (_activeTab == 1)
+                    {
+                        <ZakText Typo="Typo.body1">Team panel content: Manage members, roles, and invite links.</ZakText>
+                    }
+                    else
+                    {
+                        <ZakText Typo="Typo.body1">Settings panel content: Configure domain aliases and API credentials.</ZakText>
+                    }
+                </div>
+            </div>
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakTabs" />
+    </div>
+</div>
+
+@code {
+    private int _activeTab = 0;
+
+    private const string TabsCode = @"<ZakTabs @bind-ActiveIndex=""_activeTab"" Color=""ZakColor.Primary"">
+    <ZakTab Label=""Overview"" Icon=""@ZakIcons.Layers"" />
+    <ZakTab Label=""Team"" Icon=""@ZakIcons.User"" />
+    <ZakTab Label=""Settings"" Icon=""@ZakIcons.Settings"" />
+</ZakTabs>";
+}

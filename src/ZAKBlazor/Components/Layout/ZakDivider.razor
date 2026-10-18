@@ -1,0 +1,37 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<div id="@ElementId"
+     role="separator"
+     aria-orientation="@(Orientation == ZakOrientation.Vertical ? "vertical" : "horizontal")"
+     class="@CompiledClass"
+     style="@CompiledStyle"
+     @attributes="AdditionalAttributes">
+    @if (ChildContent != null && Orientation == ZakOrientation.Horizontal)
+    {
+        <span class="zak-divider-content">@ChildContent</span>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public ZakOrientation Orientation { get; set; } = ZakOrientation.Horizontal;
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Default;
+
+    [Parameter]
+    public bool FlexItem { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string? CompiledClass => CreateClassBuilder("zak-divider")
+        .AddClass(Orientation == ZakOrientation.Vertical ? "zak-divider-vertical" : "zak-divider-horizontal")
+        .AddClass(Color.ToCssClass("zak-divider-"))
+        .AddClass("zak-divider-flex", FlexItem)
+        .AddClass("zak-divider-with-text", ChildContent != null && Orientation == ZakOrientation.Horizontal)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

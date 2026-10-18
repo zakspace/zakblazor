@@ -1,0 +1,47 @@
+@namespace ZAKBlazor
+@inherits ZAKBlazor.Primitives.ZakComponentBase
+
+<ZakElement TagName="@ResolvedTag"
+            Id="@ElementId"
+            Class="@CompiledClass"
+            Style="@CompiledStyle"
+            @attributes="AdditionalAttributes">
+    @ChildContent
+</ZakElement>
+
+@code {
+    [Parameter]
+    public Typo Typo { get; set; } = Typo.body1;
+
+    [Parameter]
+    public ZakColor Color { get; set; } = ZakColor.Inherit;
+
+    [Parameter]
+    public ZakAlignment Align { get; set; } = ZakAlignment.Start;
+
+    [Parameter]
+    public bool Inline { get; set; }
+
+    [Parameter]
+    public bool GutterBottom { get; set; }
+
+    [Parameter]
+    public string? CustomTag { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string ResolvedTag => !string.IsNullOrEmpty(CustomTag) 
+        ? CustomTag 
+        : (Inline ? "span" : Typo.ToHtmlTag());
+
+    private string? CompiledClass => CreateClassBuilder("zak-text")
+        .AddClass(Typo.ToCssClass())
+        .AddClass(Color.ToCssClass())
+        .AddClass(Align.ToCssClass())
+        .AddClass("zak-text-inline", Inline)
+        .AddClass("zak-gutter-bottom", GutterBottom)
+        .Build();
+
+    private string? CompiledStyle => CreateStyleBuilder().Build();
+}

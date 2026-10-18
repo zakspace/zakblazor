@@ -1,0 +1,66 @@
+@page "/docs/pagination"
+
+<PageTitle>Pagination — ZAKBlazor Documentation</PageTitle>
+
+<div class="docs-page">
+    <div class="docs-header">
+        <h1 class="docs-title">Pagination</h1>
+        <p class="docs-subtitle">Pagination enables users to navigate across large datasets divided into discrete pages with jump buttons and page size selection.</p>
+        <div class="docs-badges">
+            <ZakBadge Content="Navigation" Color="ZakColor.Primary" />
+            <ZakBadge Content="Data Navigation" Color="ZakColor.Success" />
+        </div>
+    </div>
+
+    <!-- Basic Pagination -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Standard Pagination</h2>
+        <p class="docs-section-desc">Supports two-way binding on <code>@@bind-CurrentPage</code> with automatic start/end entry indicators.</p>
+        <ZakDocsExample Title="Page Navigation" Code="@PaginationCode">
+            <ZakStack Orientation="ZakOrientation.Vertical" Spacing="4">
+                <ZakPagination TotalItems="120"
+                               PageSize="10"
+                               @bind-CurrentPage="_currentPage"
+                               ShowInfo="true" />
+
+                <div style="font-size: 0.875rem; color: var(--zak-text-secondary);">
+                    Current Selected Page: <strong>@_currentPage</strong>
+                </div>
+            </ZakStack>
+        </ZakDocsExample>
+    </div>
+
+    <!-- With Page Size Selector -->
+    <div class="docs-section">
+        <h2 class="docs-section-title">Page Size Options</h2>
+        <p class="docs-section-desc">Enable <code>ShowPageSize="true"</code> to allow users to select how many records they wish to see per page.</p>
+        <ZakDocsExample Title="With Page Sizing" Code="@PageSizeCode">
+            <ZakPagination TotalItems="250"
+                           @bind-PageSize="_pageSize"
+                           @bind-CurrentPage="_currentPage2"
+                           ShowPageSize="true"
+                           ShowInfo="true" />
+        </ZakDocsExample>
+    </div>
+
+    <div class="docs-section">
+        <ZakApiTable ComponentName="ZakPagination" />
+    </div>
+</div>
+
+@code {
+    private int _currentPage = 1;
+    private int _currentPage2 = 1;
+    private int _pageSize = 10;
+
+    private const string PaginationCode = @"<ZakPagination TotalItems=""120""
+               PageSize=""10""
+               @bind-CurrentPage=""_currentPage""
+               ShowInfo=""true"" />";
+
+    private const string PageSizeCode = @"<ZakPagination TotalItems=""250""
+               @bind-PageSize=""_pageSize""
+               @bind-CurrentPage=""_currentPage""
+               ShowPageSize=""true""
+               ShowInfo=""true"" />";
+}

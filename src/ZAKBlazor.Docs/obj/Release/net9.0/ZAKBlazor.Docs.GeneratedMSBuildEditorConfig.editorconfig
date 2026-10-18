@@ -1,0 +1,300 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net9.0
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v9.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EntryPointFilePath = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = ZAKBlazor.Docs
+build_property.RootNamespace = ZAKBlazor.Docs
+build_property.ProjectDir = D:\Source\Experiment\Zak\ZakBlazor\src\ZAKBlazor.Docs\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = false
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Source\Experiment\Zak\ZakBlazor\src\ZAKBlazor.Docs
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Components/ZakApiTable.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xaYWtBcGlUYWJsZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Components/ZakDocsExample.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xaYWtEb2NzRXhhbXBsZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/AccordionDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xBY2NvcmRpb25Eb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/AlertDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xBbGVydERvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/AspectRatioDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xBc3BlY3RSYXRpb0RvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/AutocompleteDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xBdXRvY29tcGxldGVEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/AvatarDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xBdmF0YXJEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/BadgeDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xCYWRnZURvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/BoxDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xCb3hEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/BreadcrumbsDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xCcmVhZGNydW1ic0RvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/ButtonDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xCdXR0b25Eb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/CardDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xDYXJkRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/CheckboxDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xDaGVja2JveERvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/ChipDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xDaGlwRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/ColorPickerDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xDb2xvclBpY2tlckRvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/ColorsDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xDb2xvcnNEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/ContainerDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xDb250YWluZXJEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/CustomPaletteDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xDdXN0b21QYWxldHRlRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/DataGridDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xEYXRhR3JpZERvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/DataTableDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xEYXRhVGFibGVEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/DatePickerDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xEYXRlUGlja2VyRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/DefaultThemeDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xEZWZhdWx0VGhlbWVEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/DialogDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xEaWFsb2dEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/DrawerDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xEcmF3ZXJEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/EmptyStateDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xFbXB0eVN0YXRlRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/FileUploadDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xGaWxlVXBsb2FkRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/FormValidationDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xGb3JtVmFsaWRhdGlvbkRvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/GridDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xHcmlkRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/IconButtonDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xJY29uQnV0dG9uRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/InstallationDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xJbnN0YWxsYXRpb25Eb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/KbdDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xLYmREb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/LayoutDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xMYXlvdXREb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/ListDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xMaXN0RG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/MenuDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xNZW51RG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/NavLinkDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xOYXZMaW5rRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/OtpInputDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xPdHBJbnB1dERvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/OverviewDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xPdmVydmlld0RvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/PaginationDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xQYWdpbmF0aW9uRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/ProgressDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xQcm9ncmVzc0RvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/RadioDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xSYWRpb0RvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/RatingDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xSYXRpbmdEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/SectionDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xTZWN0aW9uRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/SegmentedControlDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xTZWdtZW50ZWRDb250cm9sRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/SelectDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xTZWxlY3REb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/SkeletonDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xTa2VsZXRvbkRvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/SliderDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xTbGlkZXJEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/SnackbarDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xTbmFja2JhckRvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/StackDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xTdGFja0RvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/StatisticsDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xTdGF0aXN0aWNzRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/StepperDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xTdGVwcGVyRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/SwitchDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xTd2l0Y2hEb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/TableDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xUYWJsZURvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/TabsDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xUYWJzRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/TextDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xUZXh0RG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/TextFieldDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xUZXh0RmllbGREb2NzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/ThemeTokensDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xUaGVtZVRva2Vuc0RvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/ThemingDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xUaGVtaW5nRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/TimelineDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xUaW1lbGluZURvY3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/TooltipDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xUb29sdGlwRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/TreeDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xUcmVlRG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Docs/TypographyDocs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xUeXBvZ3JhcGh5RG9jcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/IconsPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSWNvbnNQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/Pages/TemplatesPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVtcGxhdGVzUGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Source/Experiment/Zak/ZakBlazor/src/ZAKBlazor.Docs/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
