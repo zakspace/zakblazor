@@ -3,7 +3,7 @@ name: Deploy Blazor to Vercel
 on:
   push:
     branches:
-      - main  # Adjust if your default branch is 'master'
+      - main  # Adjust if your default branch is named 'master'
 
 jobs:
   build-and-deploy:
@@ -16,16 +16,16 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'  # Match your .NET version
+          dotnet-version: '8.0.x'  # Match your .NET version (8.0.x or 9.0.x)
 
       - name: Publish Blazor App
         run: dotnet publish src/ZAKBlazor.Docs/ZAKBlazor.Docs.csproj -c Release -o release-output
-
-      - name: Copy vercel.json into publish folder
-        run: cp vercel.json release-output/wwwroot/ 2>/dev/null || true
 
       - name: Install Vercel CLI
         run: npm install -g vercel@latest
 
       - name: Deploy Output to Vercel
-        run: vercel deploy ./release-output/wwwroot --prod --yes --token=${{ secrets.VERCEL_TOKEN }} --project=${{ secrets.VERCEL_PROJECT_ID }} --scope=${{ secrets.VERCEL_ORG_ID }}
+        run: vercel deploy ./release-output/wwwroot --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
