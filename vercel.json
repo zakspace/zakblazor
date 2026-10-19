@@ -1,8 +1,5 @@
 {
-  "buildCommand": "dotnet publish src/ZAKBlazor.Docs/ZAKBlazor.Docs.csproj -c Release -o output",
-  "outputDirectory": "src/ZAKBlazor.Docs/output/wwwroot",
-  "framework": null,
-  "git": {
-    "deploymentEnabled": true
-  }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
