@@ -3,12 +3,11 @@ name: Deploy Blazor to Vercel
 on:
   push:
     branches:
-      - main  # Change this if your default branch is 'master'
+      - main  # Make sure this matches your default branch
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -16,7 +15,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'  # Change to '9.0.x' if your project uses .NET 9
+          dotnet-version: '8.0.x'
 
       - name: Publish Blazor App
         run: dotnet publish src/ZAKBlazor.Docs/ZAKBlazor.Docs.csproj -c Release -o release-output
